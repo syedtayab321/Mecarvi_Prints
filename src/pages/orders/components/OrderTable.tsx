@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomTable from '@/pages/orders/components/customTable';
+import CustomTable from '@/pages/common/customTable';
 import { Order, OrderStatus } from '@/pages/orders/types/OrderTypes';
 import { tableConfigurations } from '@/pages/orders/configs/TableConfigs';
 

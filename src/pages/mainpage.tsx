@@ -5,6 +5,7 @@ import Sidebar from '@/pages/sidebar/components/sidebar';
 import Dashboard from "@/pages/dashboard/pages/dashboard";
 import { SectionType } from '@/pages/sidebar/types/sidebar';
 import OrdersPage from "@/pages/orders/pages/mainorderspage";
+import CustomersPage from "./customers/pages/customerpage";
 
 const SidebarPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SectionType>("dashboard");
@@ -34,6 +35,7 @@ const SidebarPage: React.FC = () => {
           {/* Render the selected section */}
           {selectedSection === "dashboard" && <Dashboard />}
           {selectedSection === "all-orders" && <OrdersPage />}
+          {selectedSection === "all-customers" && <CustomersPage />}
           {/* Add other sections as needed */}
         </div>
       </div>

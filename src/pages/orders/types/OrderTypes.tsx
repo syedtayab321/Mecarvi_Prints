@@ -42,5 +42,5 @@ export type TableColumnConfig = {
 export type TableColumn = {
   header: string;
   field: string;
-  type?: 'text' | 'badge' | 'progress' | 'date' | 'avatar';
+  type?: 'text' | 'badge' | 'progress' | 'date' | 'avatar' | 'currency';
 };

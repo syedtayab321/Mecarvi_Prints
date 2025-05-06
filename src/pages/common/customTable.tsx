@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { FaEye, FaTrash, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaEye, FaTrash, FaEdit, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
+// Centralized type definitions to prevent conflicts
 export type TableColumn = {
   header: string;
   field: string;
-  type?: 'text' | 'badge' | 'progress' | 'date' | 'avatar';
+  type?: 'text' | 'badge' | 'progress' | 'date' | 'avatar' | 'currency';
   filterable?: boolean;
 };
 
@@ -17,6 +18,7 @@ type Props = {
   data: TableRow[];
   showActions?: boolean;
   onView?: (row: TableRow) => void;
+  onEdit?: (row: TableRow) => void; // Added edit handler
   onDelete?: (row: TableRow) => void;
   itemsPerPage?: number;
   filters?: { label: string; value: string }[];
@@ -24,10 +26,10 @@ type Props = {
   activeFilter?: string;
 };
 
-
 const badgeColor: Record<string, string> = {
   Active: 'bg-green-100 text-green-700',
-  Block: 'bg-red-100 text-red-700',
+  Inactive: 'bg-gray-100 text-gray-700',
+  Blocked: 'bg-red-100 text-red-700',
   Pending: 'bg-yellow-100 text-yellow-700',
   Processing: 'bg-blue-100 text-blue-700',
   Completed: 'bg-green-100 text-green-700',
@@ -35,6 +37,8 @@ const badgeColor: Record<string, string> = {
   Declined: 'bg-red-100 text-red-700',
   Refund: 'bg-purple-100 text-purple-700',
   Returned: 'bg-indigo-100 text-indigo-700',
+  Verified: 'bg-teal-100 text-teal-700',
+  Unverified: 'bg-orange-100 text-orange-700',
 };
 
 export default function CustomTable({
@@ -42,6 +46,7 @@ export default function CustomTable({
   data,
   showActions = true,
   onView,
+  onEdit,
   onDelete,
   itemsPerPage = 10,
   filters = [],
@@ -68,6 +73,14 @@ export default function CustomTable({
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
+  };
+
+  // Format currency values
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(value);
   };
 
   return (
@@ -131,7 +144,7 @@ export default function CustomTable({
                   {col.header}
                 </th>
               ))}
-              {showActions && <th className="px-6 py-3 text-sm font-medium text-gray-700">Action</th>}
+              {showActions && <th className="px-6 py-3 text-sm font-medium text-gray-700">Actions</th>}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -152,12 +165,14 @@ export default function CustomTable({
                             <div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: value + '%' }}></div>
                           </div>
                         ) : col.type === 'date' ? (
-                          <span>{new Date(value).toDateString()}</span>
+                          <span>{new Date(value).toLocaleDateString()}</span>
                         ) : col.type === 'avatar' ? (
                           <div className="flex items-center space-x-3">
                             <img src={row.avatar} alt="avatar" className="w-8 h-8 rounded-full" />
                             <span>{row.name}</span>
                           </div>
+                        ) : col.type === 'currency' ? (
+                          <span>{formatCurrency(Number(value))}</span>
                         ) : (
                           value
                         )}
@@ -166,12 +181,33 @@ export default function CustomTable({
                   })}
                   {showActions && (
                     <td className="px-6 py-4 flex space-x-2">
-                      <button onClick={() => onView?.(row)} className="p-1 bg-gray-100 hover:bg-gray-200 rounded">
-                        <FaEye className="w-4 h-4 text-gray-600" />
-                      </button>
-                      <button onClick={() => onDelete?.(row)} className="p-1 bg-red-100 hover:bg-red-200 rounded">
-                        <FaTrash className="w-4 h-4 text-red-600" />
-                      </button>
+                      {onView && (
+                        <button 
+                          onClick={() => onView(row)} 
+                          className="p-1 bg-gray-100 hover:bg-gray-200 rounded"
+                          title="View"
+                        >
+                          <FaEye className="w-4 h-4 text-gray-600" />
+                        </button>
+                      )}
+                      {onEdit && (
+                        <button 
+                          onClick={() => onEdit(row)} 
+                          className="p-1 bg-blue-100 hover:bg-blue-200 rounded"
+                          title="Edit"
+                        >
+                          <FaEdit className="w-4 h-4 text-blue-600" />
+                        </button>
+                      )}
+                      {onDelete && (
+                        <button 
+                          onClick={() => onDelete(row)} 
+                          className="p-1 bg-red-100 hover:bg-red-200 rounded"
+                          title="Delete"
+                        >
+                          <FaTrash className="w-4 h-4 text-red-600" />
+                        </button>
+                      )}
                     </td>
                   )}
                 </tr>
