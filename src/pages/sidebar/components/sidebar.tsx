@@ -4,25 +4,21 @@ import React, { useState } from "react";
 import { SectionType } from '@/pages/sidebar/types/sidebar';
 import {
   FaHome,
-  FaUtensils,
   FaBars,
   FaTimes,
   FaStar,
   FaShoppingBasket,
-  FaCalendarAlt,
   FaUsers,
   FaUserTie,
   FaBoxes,
   FaChartBar,
-  FaPersonBooth,
   FaChevronDown,
   FaChevronRight,
   FaSignOutAlt,
-  FaEnvelope,
-  FaSms,
   FaHandHoldingHeart,
   FaBook,
-  FaListAlt
+  FaListAlt,
+  FaGift, FaCog,
 } from "react-icons/fa";
 
 interface NavItem {
@@ -47,8 +43,12 @@ const navItems: NavItem[] = [
     link: "all-orders",
     subItems: [
       { text: "All Orders", icon: FaListAlt, link: "all-orders" },
+      { text: "Order Verification", icon: FaListAlt, link: "order-verification" },
+      { text: "Order Replacement", icon: FaListAlt, link: "order-replacement" },
+      { text: "Return Requests", icon: FaListAlt, link: "return-requests" },
     ]
   },
+  { text: "Quotation", icon: FaHome, link: "quotation" },
   { 
     text: "Customers", 
     icon: FaUsers, 
@@ -60,39 +60,93 @@ const navItems: NavItem[] = [
     ]
   },
   { 
-    text: "Marketing", 
+    text: "Financing", 
     icon: FaChartBar, 
-    link: "email-marketing",
+    link: "financing",
     subItems: [
-      { text: "Email Marketing", icon: FaEnvelope, link: "email-marketing" },
-      { text: "SMS Marketing", icon: FaSms, link: "sms-marketing" },
+      { text: "Financing Options", icon: FaChartBar, link: "financing" },
     ]
   },
   { 
-    text: "Donation", 
-    icon: FaHandHoldingHeart, 
-    link: "charity",
+    text: "Products", 
+    icon: FaBoxes, 
+    link: "products",
     subItems: [
-      { text: "Charity", icon: FaHandHoldingHeart, link: "charity" },
+      { text: "Product Management", icon: FaBoxes, link: "products" },
+    ]
+  },
+  { 
+    text: "Loyalty", 
+    icon: FaStar, 
+    link: "loyality",
+    subItems: [
+      { text: "Loyalty Program", icon: FaStar, link: "loyality" },
+    ]
+  },
+  { 
+    text: "Gift Cards", 
+    icon: FaGift, 
+    link: "gift-cards",
+    subItems: [
+      { text: "Gift Cards", icon: FaGift, link: "gift-cards" },
+    ]
+  },
+  { 
+    text: "Support", 
+    icon: FaHandHoldingHeart, 
+    link: "support",
+    subItems: [
+      { text: "Customer Support", icon: FaHandHoldingHeart, link: "support" },
+    ]
+  },
+  { 
+    text: "Marketing", 
+    icon: FaChartBar, 
+    link: "marketing",
+    subItems: [
+      { text: "Marketing Campaigns", icon: FaChartBar, link: "marketing" },
+    ]
+  },
+  { 
+    text: "Donations", 
+    icon: FaHandHoldingHeart, 
+    link: "donations",
+    subItems: [
+      { text: "Donation Management", icon: FaHandHoldingHeart, link: "donations" },
     ]
   },
   { 
     text: "Blog", 
     icon: FaBook, 
-    link: "categories",
+    link: "blog",
     subItems: [
-      { text: "Categories", icon: FaListAlt, link: "categories" },
+      { text: "Blog Management", icon: FaBook, link: "blog" },
     ]
   },
   { 
-    text: "Report", 
+    text: "Reports", 
     icon: FaChartBar, 
-    link: "referral-report",
+    link: "reports",
     subItems: [
-      { text: "Referral Report", icon: FaChartBar, link: "referral-report" },
+      { text: "Analytics Reports", icon: FaChartBar, link: "reports" },
     ]
   },
-  { text: "Profile", icon: FaPersonBooth, link: "profile" },
+  { 
+    text: "Settings", 
+    icon: FaCog, 
+    link: "settings",
+    subItems: [
+      { text: "System Settings", icon: FaCog, link: "settings" },
+    ]
+  },
+  { 
+    text: "Users", 
+    icon: FaUsers, 
+    link: "users",
+    subItems: [
+      { text: "User Management", icon: FaUsers, link: "users" },
+    ]
+  },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ 
@@ -104,10 +158,17 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
     "orders": true,
     "customers": true,
+    "financing": true,
+    "products": true,
+    "loyalty": true,
+    "gift cards": true,
+    "support": true,
     "marketing": true,
-    "donation": true,
+    "donations": true,
     "blog": true,
-    "report": true
+    "reports": true,
+    "settings": true,
+    "users": true
   });
 
   const handleClick = (link: SectionType) => {
