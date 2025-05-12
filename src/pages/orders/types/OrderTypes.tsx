@@ -5,9 +5,9 @@ export type OrderStatus =
   | 'completed' 
   | 'cancelled' 
   | 'refund' 
-  | 'return' 
-  | 'replacement' 
-  | 'verification';
+  // | 'return' 
+  // | 'replacement' 
+  // | 'verification';
 
 export type Order = {
   id: number;

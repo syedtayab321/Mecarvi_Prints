@@ -7,7 +7,7 @@ export const filters: FilterOption[] = [
   { label: 'Completed', value: 'completed' },
   { label: 'Cancelled', value: 'cancelled' },
   { label: 'Refund', value: 'refund' },
-  { label: 'Return Requests', value: 'return' },
-  { label: 'Order Replacement', value: 'replacement' },
-  { label: 'Order Verification', value: 'verification' },
+  // { label: 'Return Requests', value: 'return' },
+  // { label: 'Order Replacement', value: 'replacement' },
+  // { label: 'Order Verification', value: 'verification' },
 ];

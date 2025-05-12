@@ -9,6 +9,9 @@ import ShipmentDetailsCard from "@/pages/dashboard/components/shipmentdetailscar
 import TimelineCard from "@/pages/dashboard/components/timelinecard";
 import Topbar from "@/pages/dashboard/components/topbar";
 import React from "react";
+import CustomerCard from "../components/customerCard";
+import OrderProgress from "../components/orderProgress";
+import RecentActivity from "../components/recentActivity";
 
 const Dashboard = () => {
   return (
@@ -41,6 +44,11 @@ const Dashboard = () => {
           <PurchaseSummary />
         </div>
       </div>
+       <div className="p-6 space-y-6 bg-gray-100 min-h-screen">
+      <CustomerCard/>
+      <OrderProgress />
+      <RecentActivity />
+    </div>
     </div>
   );
 };
