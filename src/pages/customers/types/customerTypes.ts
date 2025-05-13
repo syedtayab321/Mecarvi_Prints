@@ -1,10 +1,6 @@
 export type CustomerStatus = 
   | 'all' 
   | 'banned' 
-  | 'subscription' 
-  | 'affiliate_withdrawal' 
-  | 'transaction' 
-  | 'verification';
 
 export type Customer = {
   id: number;

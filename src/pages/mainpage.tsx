@@ -3,16 +3,28 @@
 import React, { useState } from "react";
 import Sidebar from '@/pages/sidebar/components/sidebar';
 import Dashboard from "@/pages/dashboard/pages/dashboard";
-import { SectionType } from '@/pages/sidebar/types/sidebar';
+import { SidebarType } from '@/pages/sidebar/types/sidebar';
 import OrdersPage from "@/pages/orders/pages/mainorderspage";
 import CustomersPage from "./customers/pages/customerpage";
 import QuotationsPage from "./quotation/pages/quotation";
+import BusinessAdvantagePage from "./Financing/pages/business-advantage-page";
+import BusinessAdvantageVerificationPage from "./Financing/pages/business-advantage-verification-page";
+import BusinessPreferredPage from "./Financing/pages/business-preferred-page";
+import BusinessPreferredVerificationPage from "./Financing/pages/business-preferred-verification";
+import BusinessStorePage from "./Financing/pages/business-store-page";
+import BusinessStoreVerificationPage from "./Financing/pages/business-store-verification";
+import PointsManagementPage from "./loyalitypoints/pages/points-management";
+import GiftCardsPage from "./gift_cards/pages/gift-cards-page";
+import GiftCardTransactionsPage from "./gift_cards/pages/gift-card-transactions";
+import BulkEmailForm from "./marketing/pages/bulk-email-page";
+import SmsForm from "./marketing/pages/sms-form-page";
+import CouponsPage from "./marketing/pages/coupons-page";
 
 const SidebarPage: React.FC = () => {
-  const [selectedSection, setSelectedSection] = useState<SectionType>("dashboard");
+  const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
 
-  const handleSelect = (section: SectionType) => {
+  const handleSelect = (section: SidebarType) => {
     setSelectedSection(section);
   };
 
@@ -38,6 +50,18 @@ const SidebarPage: React.FC = () => {
           {selectedSection === "all-orders" && <OrdersPage />}
           {selectedSection === "all-customers" && <CustomersPage />}
           {selectedSection === "quotation" && <QuotationsPage />}
+          {selectedSection === "business-advantage" && <BusinessAdvantagePage />}
+          {selectedSection === "business-advantage-verification" && <BusinessAdvantageVerificationPage />}
+          {selectedSection === "business-preferred" && <BusinessPreferredPage />}
+          {selectedSection === "business-preferred-verification" && <BusinessPreferredVerificationPage />}
+          {selectedSection === "business-store" && <BusinessStorePage />}
+          {selectedSection === "business-store-verification" && <BusinessStoreVerificationPage />}
+          {selectedSection === "loyality" && <PointsManagementPage />}
+          {selectedSection === "gift-cards" && <GiftCardsPage />}
+          {selectedSection === "gift-card-transactions" && <GiftCardTransactionsPage />}
+          {selectedSection === "email" && <BulkEmailForm />}
+          {selectedSection === "sms" && <SmsForm />}
+          {selectedSection === "coupons" && <CouponsPage />}
           {/* Add other sections as needed */}
         </div>
       </div>

@@ -37,7 +37,7 @@ export const tableConfigurations: TableColumnConfig = {
     { header: 'Reason', field: 'reason' },
     { header: 'Refund Status', field: 'refundStatus', type: 'badge' },
   ],
-  refund: [
+  declined: [
     { header: 'Refund ID', field: 'refundId' },
     { header: 'Order ID', field: 'id' },
     { header: 'Customer', field: 'customer' },

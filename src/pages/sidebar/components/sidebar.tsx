@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from "react";
-import { SectionType } from '@/pages/sidebar/types/sidebar';
+import { SidebarType } from '@/pages/sidebar/types/sidebar';
 import {
   FaHome,
   FaBars,
@@ -24,15 +24,15 @@ import {
 interface NavItem {
   text: string;
   icon: React.ComponentType<{ className?: string }>;
-  link: SectionType;
+  link: SidebarType;
   subItems?: Omit<NavItem, 'subItems'>[];
 }
 
 interface SidebarProps {
-  onSelect: (link: SectionType) => void;
+  onSelect: (link: SidebarType) => void;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  activeSection?: SectionType;
+  activeSection?: SidebarType;
 }
 
 const navItems: NavItem[] = [
@@ -46,6 +46,9 @@ const navItems: NavItem[] = [
       { text: "Order Verification", icon: FaListAlt, link: "order-verification" },
       { text: "Order Replacement", icon: FaListAlt, link: "order-replacement" },
       { text: "Return Requests", icon: FaListAlt, link: "return-requests" },
+      { text: "Refund Order", icon: FaListAlt, link: "refund-order" },
+      { text: "Order Dispute", icon: FaListAlt, link: "order-dispute" },
+      { text: "Order Proof", icon: FaListAlt, link: "order-proof" },
     ]
   },
   { text: "Quotation", icon: FaHome, link: "quotation" },
@@ -55,8 +58,10 @@ const navItems: NavItem[] = [
     link: "all-customers",
     subItems: [
       { text: "All Customers", icon: FaUsers, link: "all-customers" },
-      { text: "Permanent Customers", icon: FaUserTie, link: "permanent-customers" },
-      { text: "Temporary Customers", icon: FaUsers, link: "temporary-customers" },
+      { text: "Customer Verification", icon: FaUserTie, link: "customer-verification" },
+      { text: "Subscription Plan", icon: FaUsers, link: "subscription-plan" },
+      { text: "Affilate Withdral", icon: FaUserTie, link: "affilate-withdrawl" },
+      { text: "Customer Transaction", icon: FaUsers, link: "subscription-plan" },
     ]
   },
   { 
@@ -64,7 +69,12 @@ const navItems: NavItem[] = [
     icon: FaChartBar, 
     link: "financing",
     subItems: [
-      { text: "Financing Options", icon: FaChartBar, link: "financing" },
+      { text: "Business Advantage", icon: FaChartBar, link: "business-advantage" },
+      { text: 'Business Advantage Verification', icon : FaChartBar, link: "business-advantage-verification"},
+      { text: "Business Preferred", icon: FaChartBar, link: "business-preferred" },
+      { text: 'Business Preferred Verification', icon : FaChartBar, link: "business-preferred-verification"},
+      { text: "Business Store", icon: FaChartBar, link: "business-store" },
+      { text: 'Business Store Verification', icon : FaChartBar, link: "business-store-verification"}
     ]
   },
   { 
@@ -80,7 +90,7 @@ const navItems: NavItem[] = [
     icon: FaStar, 
     link: "loyality",
     subItems: [
-      { text: "Loyalty Program", icon: FaStar, link: "loyality" },
+      { text: "Loyalty Points", icon: FaStar, link: "loyality" },
     ]
   },
   { 
@@ -89,6 +99,7 @@ const navItems: NavItem[] = [
     link: "gift-cards",
     subItems: [
       { text: "Gift Cards", icon: FaGift, link: "gift-cards" },
+      { text: "Gift Cards Transactions", icon: FaGift, link: "gift-card-transactions" },
     ]
   },
   { 
@@ -104,7 +115,9 @@ const navItems: NavItem[] = [
     icon: FaChartBar, 
     link: "marketing",
     subItems: [
-      { text: "Marketing Campaigns", icon: FaChartBar, link: "marketing" },
+      { text: "Bulk Email", icon: FaChartBar, link: "email" },
+      { text: "Sms", icon: FaChartBar, link: "sms" },
+      { text: "Coupons", icon: FaChartBar, link: "coupons" },
     ]
   },
   { 
@@ -171,7 +184,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     "users": true
   });
 
-  const handleClick = (link: SectionType) => {
+  const handleClick = (link: SidebarType) => {
     onSelect(link);
   };
 

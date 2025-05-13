@@ -8,25 +8,13 @@ const CustomersPage = () => {
   const [activeFilter, setActiveFilter] = useState<CustomerStatus>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const customerColumns: TableColumn[] = [
-    { header: 'ID', field: 'id' },
-    { header: 'Name', field: 'name', type: 'avatar' },
-    { header: 'Email', field: 'email' },
-    { header: 'Status', field: 'status', type: 'badge' },
-    { header: 'Total Orders', field: 'totalOrders' },
-    { header: 'Total Spent', field: 'totalSpent', type: 'currency' },
-    { header: 'Subscription', field: 'subscriptionPlan' },
-    { header: 'Tier', field: 'tier' },
-    { header: 'Location', field: 'location' },
-  ];
-
   const allCustomers: Customer[] = [
     { 
       id: 1, 
       name: 'John Doe',
       email: 'john@example.com',
       joinDate: '2023-01-15',
-      status: 'subscription',
+      status: 'banned',
       totalOrders: 5,
       totalSpent: 1200,
       subscriptionPlan: 'Premium',
@@ -69,11 +57,7 @@ const CustomersPage = () => {
 
   const filteredData = allCustomers.filter(customer => {
     const statusMatch = activeFilter === 'all' || 
-      (activeFilter === 'banned' && customer.status === 'banned') ||
-      (activeFilter === 'subscription' && customer.subscriptionPlan) ||
-      (activeFilter === 'affiliate_withdrawal' && (customer.affiliateBalance ?? 0) > 0) ||
-      (activeFilter === 'transaction' && customer.lastTransaction) ||
-      (activeFilter === 'verification' && customer.verificationStatus !== 'verified');
+      (activeFilter === 'banned' && customer.status === 'banned');
     
     const searchMatch = searchTerm === '' || 
       Object.values(customer).some(

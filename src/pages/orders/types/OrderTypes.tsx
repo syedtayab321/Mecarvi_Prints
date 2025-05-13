@@ -4,7 +4,7 @@ export type OrderStatus =
   | 'processing' 
   | 'completed' 
   | 'cancelled' 
-  | 'refund' 
+  | 'declined' 
   // | 'return' 
   // | 'replacement' 
   // | 'verification';
