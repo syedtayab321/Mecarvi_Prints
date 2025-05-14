@@ -19,6 +19,10 @@ import GiftCardTransactionsPage from "./gift_cards/pages/gift-card-transactions"
 import BulkEmailForm from "./marketing/pages/bulk-email-page";
 import SmsForm from "./marketing/pages/sms-form-page";
 import CouponsPage from "./marketing/pages/coupons-page";
+import CharitiesPage from "./donations/pages/charity-page";
+import DonationsTable from "./donations/pages/donation-page";
+import StaffTable from "./users/pages/staff-page";
+import RolesTable from "./users/pages/manage-role-page";
 
 const SidebarPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
@@ -62,6 +66,10 @@ const SidebarPage: React.FC = () => {
           {selectedSection === "email" && <BulkEmailForm />}
           {selectedSection === "sms" && <SmsForm />}
           {selectedSection === "coupons" && <CouponsPage />}
+          {selectedSection === "charity" && <CharitiesPage />}\
+          {selectedSection === "donations" && <DonationsTable />}
+          {selectedSection === "staff" && <StaffTable />}
+          {selectedSection === "roles" && <RolesTable />}
           {/* Add other sections as needed */}
         </div>
       </div>

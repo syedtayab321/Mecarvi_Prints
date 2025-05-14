@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import GenericTable from "@/pages/common/components/commonCustomTable";
+import CommonCustomTable from "@/pages/common/components/commonCustomTable";
 import { useTableData } from "@/pages/common/components/useTableData";
 import { Coupon } from "../types/couponsTypes";
 
@@ -184,7 +184,7 @@ const CouponsPage = () => {
           Create Coupon
         </button>
       </div>
-      <GenericTable<Coupon>
+      <CommonCustomTable<Coupon>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}

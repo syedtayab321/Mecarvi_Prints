@@ -30,7 +30,10 @@ export type SidebarType =
   | "sms"
   | "coupons"
   | "donations"
+  | "charity"
   | "blog"
   | "reports"
   | "settings"
   | "users"
+  | "staff"
+  | 'roles'

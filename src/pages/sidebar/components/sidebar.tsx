@@ -67,7 +67,7 @@ const navItems: NavItem[] = [
   { 
     text: "Financing", 
     icon: FaChartBar, 
-    link: "financing",
+    link: "business-advantage",
     subItems: [
       { text: "Business Advantage", icon: FaChartBar, link: "business-advantage" },
       { text: 'Business Advantage Verification', icon : FaChartBar, link: "business-advantage-verification"},
@@ -113,7 +113,7 @@ const navItems: NavItem[] = [
   { 
     text: "Marketing", 
     icon: FaChartBar, 
-    link: "marketing",
+    link: "email",
     subItems: [
       { text: "Bulk Email", icon: FaChartBar, link: "email" },
       { text: "Sms", icon: FaChartBar, link: "sms" },
@@ -123,9 +123,10 @@ const navItems: NavItem[] = [
   { 
     text: "Donations", 
     icon: FaHandHoldingHeart, 
-    link: "donations",
+    link: "charity",
     subItems: [
-      { text: "Donation Management", icon: FaHandHoldingHeart, link: "donations" },
+      { text: "Charity", icon: FaHandHoldingHeart, link: "charity" },
+      { text: "Donation", icon: FaHandHoldingHeart, link: "donations" },
     ]
   },
   { 
@@ -155,9 +156,10 @@ const navItems: NavItem[] = [
   { 
     text: "Users", 
     icon: FaUsers, 
-    link: "users",
+    link: "roles",
     subItems: [
-      { text: "User Management", icon: FaUsers, link: "users" },
+      { text: "Staff", icon: FaUsers, link: "staff" },
+       { text: "Manage Roles", icon: FaUsers, link: "roles" },
     ]
   },
 ];
@@ -169,19 +171,19 @@ const Sidebar: React.FC<SidebarProps> = ({
   activeSection = "dashboard" 
 }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
-    "orders": true,
-    "customers": true,
-    "financing": true,
-    "products": true,
-    "loyalty": true,
-    "gift cards": true,
-    "support": true,
-    "marketing": true,
-    "donations": true,
-    "blog": true,
-    "reports": true,
-    "settings": true,
-    "users": true
+    "orders": false,
+    "customers": false,
+    "financing": false,
+    "products": false,
+    "loyalty": false,
+    "gift cards": false,
+    "support": false,
+    "marketing": false,
+    "donations": false,
+    "blog": false,
+    "reports": false,
+    "settings": false,
+    "users":false,
   });
 
   const handleClick = (link: SidebarType) => {

@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import GenericTable from "@/pages/common/components/commonCustomTable";
+import CommonCustomTable from "@/pages/common/components/commonCustomTable";
 import { useTableData } from "@/pages/common/components/useTableData";
 import { LoyalityPointsManagement } from "../types/loyalityTypes";
 
@@ -143,7 +143,7 @@ const PointsManagementPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Points Management</h1>
-      <GenericTable<LoyalityPointsManagement>
+      <CommonCustomTable<LoyalityPointsManagement>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}

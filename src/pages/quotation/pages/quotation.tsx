@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import GenericTable from "@/pages/common/components/commonCustomTable";
+import CommonCustomTable from "@/pages/common/components/commonCustomTable";
 import { useTableData } from "@/pages/common/components/useTableData";
 import { Quotation } from "../types/quotationType";
 
@@ -155,7 +155,7 @@ const QuotationsPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Quotation Management</h1>
-      <GenericTable<Quotation>
+      <CommonCustomTable<Quotation>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
