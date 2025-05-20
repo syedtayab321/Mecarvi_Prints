@@ -1,9 +1,9 @@
-// app/roles/page.tsx
 "use client";
 
-import React from "react";
-import CommonCustomTable from "@/pages/common/components/commonCustomTable";
-import { useTableData } from "@/pages/common/components/useTableData";
+import React, { useState, useCallback } from "react";
+import CommonCustomTable from "@/pages/common/commonCustomTable";
+import { useTableData } from "@/pages/common/useTableData";
+import AddRoleModal from "./../components/addRoleModal";
 
 interface Role {
   id: number;
@@ -13,38 +13,26 @@ interface Role {
 }
 
 const RolesTable = () => {
-  const mockData: Role[] = [
-    {
-      id: 1,
-      name: "Admin",
-      permissions: ["All Permissions"],
-      createdAt: "2023-01-15",
-    },
-    {
-      id: 2,
-      name: "Manager",
-      permissions: ["View Dashboard", "Manage Users", "Create Content"],
-      createdAt: "2023-02-20",
-    },
-    {
-      id: 3,
-      name: "Editor",
-      permissions: ["Create Content", "Edit Content", "Publish Content"],
-      createdAt: "2023-03-10",
-    },
-    {
-      id: 4,
-      name: "Viewer",
-      permissions: ["View Dashboard", "View Content"],
-      createdAt: "2023-04-05",
-    },
-    {
-      id: 5,
-      name: "Moderator",
-      permissions: ["Manage Content", "Approve Comments", "Flag Users"],
-      createdAt: "2023-05-12",
-    },
-  ];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Mock data fetching function that matches the expected signature
+  const fetchRoles = useCallback(async (): Promise<Role[]> => {
+    return [
+      {
+        id: 1,
+        name: "Admin",
+        permissions: ["All Permissions"],
+        createdAt: "2023-01-15",
+      },
+      {
+        id: 2,
+        name: "Manager",
+        permissions: ["View Dashboard", "Manage Users", "Create Content"],
+        createdAt: "2023-02-20",
+      },
+      // ... other mock data
+    ];
+  }, []);
 
   const {
     paginatedData,
@@ -52,9 +40,12 @@ const RolesTable = () => {
     totalPages,
     setCurrentPage,
     setSearchQuery,
+    isLoading,
+    error,
+    reload,
   } = useTableData<Role>(
-    () => mockData,
-    ["name", "permissions"]
+    fetchRoles,
+    ["name", "permissions"] // Searchable fields
   );
 
   const formatPermissions = (permissions: string[]) => {
@@ -90,15 +81,32 @@ const RolesTable = () => {
       header: "Created At",
       render: (item: Role) => new Date(item.createdAt).toLocaleDateString(),
     },
-    
   ];
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-red-500">Error loading roles: {error.message}</div>
+        <button 
+          onClick={reload}
+          className="mt-4 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Role Management</h1>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-          Create New Role
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg"
+          disabled={isLoading}
+        >
+          {isLoading ? "Loading..." : "Create New Role"}
         </button>
       </div>
       
@@ -110,6 +118,17 @@ const RolesTable = () => {
         onPageChange={setCurrentPage}
         onSearch={setSearchQuery}
         title="System Roles"
+        // isLoading={isLoading}
+      />
+
+      <AddRoleModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={(newRole) => {
+          console.log("New role:", newRole);
+          // You might want to call reload() here to refresh the data
+          reload();
+        }}
       />
     </div>
   );

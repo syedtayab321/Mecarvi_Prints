@@ -29,7 +29,7 @@ const CustomersPage = () => {
       phone: '+1 555-123-4567',
       notes: 'VIP customer',
       tags: ['frequent-buyer', 'high-value'],
-      avatar: '/avatars/john-doe.jpg'
+      avatar: '/images/chair1.jpg'
     },
     { 
       id: 2, 
@@ -51,7 +51,7 @@ const CustomersPage = () => {
       phone: '+1 555-987-6543',
       notes: 'Account suspended for policy violation',
       tags: ['inactive'],
-      avatar: '/avatars/jane-smith.jpg'
+      avatar: '/images/chair1.jpg'
     },
   ];
 

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Sidebar from '@/pages/sidebar/components/sidebar';
 import Dashboard from "@/pages/dashboard/pages/dashboard";
 import { SidebarType } from '@/pages/sidebar/types/sidebar';
-import OrdersPage from "@/pages/orders/pages/mainorderspage";
 import CustomersPage from "./customers/pages/customerpage";
 import QuotationsPage from "./quotation/pages/quotation";
 import BusinessAdvantagePage from "./Financing/pages/business-advantage-page";
@@ -23,6 +22,12 @@ import CharitiesPage from "./donations/pages/charity-page";
 import DonationsTable from "./donations/pages/donation-page";
 import StaffTable from "./users/pages/staff-page";
 import RolesTable from "./users/pages/manage-role-page";
+import RefundOrdersPage from "./orders/pages/refundorderspage";
+import OrderProofsPage from "./orders/pages/orderproof";
+import GeneralSettingsPage from "./settings/generalsettings/pages/main-general-settings-tab";
+import AllOrdersPage from "@/pages/orders/pages/allorderspage";
+import PaymentSettingsPage from "./settings/paymentsettings/pages/main-payment-page";
+import MainHomeSettingsPage from "./settings/homepagesettings/pages/main-home-setting-page";
 
 const SidebarPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
@@ -51,7 +56,9 @@ const SidebarPage: React.FC = () => {
         <div className="p-6">
           {/* Render the selected section */}
           {selectedSection === "dashboard" && <Dashboard />}
-          {selectedSection === "all-orders" && <OrdersPage />}
+          {selectedSection === "all-orders" && <AllOrdersPage/>}
+          {selectedSection === "refund-order" && <RefundOrdersPage />}
+          {selectedSection === "order-proof" && <OrderProofsPage />}
           {selectedSection === "all-customers" && <CustomersPage />}
           {selectedSection === "quotation" && <QuotationsPage />}
           {selectedSection === "business-advantage" && <BusinessAdvantagePage />}
@@ -70,6 +77,9 @@ const SidebarPage: React.FC = () => {
           {selectedSection === "donations" && <DonationsTable />}
           {selectedSection === "staff" && <StaffTable />}
           {selectedSection === "roles" && <RolesTable />}
+          {selectedSection === "general-settings" && <GeneralSettingsPage />}
+          {selectedSection === "payment-settings" && <PaymentSettingsPage />}
+          { selectedSection === "home-page-settings" && <MainHomeSettingsPage/>}
           {/* Add other sections as needed */}
         </div>
       </div>

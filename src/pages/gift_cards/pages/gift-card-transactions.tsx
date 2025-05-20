@@ -2,8 +2,8 @@
 "use client";
 
 import React from "react";
-import CommonCustomTable from "@/pages/common/components/commonCustomTable";
-import { useTableData } from "@/pages/common/components/useTableData";
+import CommonCustomTable from "@/pages/common/commonCustomTable";
+import { useTableData } from "@/pages/common/useTableData";
 import { GiftCardTransaction } from "../types/giftCardTypes";
 
 const GiftCardTransactionsPage = () => {

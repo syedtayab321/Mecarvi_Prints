@@ -5,8 +5,8 @@ export type OrderStatus =
   | 'completed' 
   | 'cancelled' 
   | 'declined' 
-  // | 'return' 
-  // | 'replacement' 
+  | 'return' 
+  | 'replacement' 
   // | 'verification';
 
 export type Order = {

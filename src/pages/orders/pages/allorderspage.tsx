@@ -4,7 +4,7 @@ import OrderFilters from '@/pages/orders/components/OrderFilters';
 import { filters } from '@/pages/orders/configs/FilterConfigs';
 import { Order, OrderStatus } from '@/pages/orders/types/OrderTypes';
 
-const OrdersPage = () => {
+const AllOrdersPage = () => {
   const [activeFilter, setActiveFilter] = useState<OrderStatus>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -112,4 +112,4 @@ const OrdersPage = () => {
   );
 };
 
-export default OrdersPage;
+export default AllOrdersPage;

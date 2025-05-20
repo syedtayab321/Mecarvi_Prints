@@ -2,8 +2,8 @@
 "use client";
 
 import React from "react";
-import GenericTable from "../../common/components/commonCustomTable";
-import { useTableData } from "../../common/components/useTableData";
+import GenericTable from "../../common/commonCustomTable";
+import { useTableData } from "../../common/useTableData";
 import { BusinessVerification } from "../types/businessType";
 
 
