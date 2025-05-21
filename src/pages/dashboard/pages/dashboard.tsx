@@ -13,7 +13,7 @@ import CustomerCard from "../components/customerCard";
 import OrderProgress from "../components/orderProgress";
 import RecentActivity from "../components/recentActivity";
 
-const Dashboard = () => {
+const OrderDetailsPage = () => {
   return (
     <div className="bg-white">
       <Topbar />
@@ -53,4 +53,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default OrderDetailsPage;

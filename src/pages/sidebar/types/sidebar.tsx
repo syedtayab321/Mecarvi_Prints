@@ -55,3 +55,5 @@ export type SidebarType =
   | "main"
   | "payment-gateway"
   | "home-page-settings"
+  | "orders"
+  | "order-details"

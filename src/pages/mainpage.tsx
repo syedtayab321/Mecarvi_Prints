@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Sidebar from '@/pages/sidebar/components/sidebar';
-import Dashboard from "@/pages/dashboard/pages/dashboard";
 import { SidebarType } from '@/pages/sidebar/types/sidebar';
 import CustomersPage from "./customers/pages/customerpage";
 import QuotationsPage from "./quotation/pages/quotation";
@@ -28,6 +27,7 @@ import GeneralSettingsPage from "./settings/generalsettings/pages/main-general-s
 import AllOrdersPage from "@/pages/orders/pages/allorderspage";
 import PaymentSettingsPage from "./settings/paymentsettings/pages/main-payment-page";
 import MainHomeSettingsPage from "./settings/homepagesettings/pages/main-home-setting-page";
+import OrderDetailsPage from "@/pages/dashboard/pages/dashboard";
 
 const SidebarPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
@@ -55,7 +55,7 @@ const SidebarPage: React.FC = () => {
       >
         <div className="p-6">
           {/* Render the selected section */}
-          {selectedSection === "dashboard" && <Dashboard />}
+          {selectedSection === "order-details" && <OrderDetailsPage />}
           {selectedSection === "all-orders" && <AllOrdersPage/>}
           {selectedSection === "refund-order" && <RefundOrdersPage />}
           {selectedSection === "order-proof" && <OrderProofsPage />}

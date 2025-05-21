@@ -45,8 +45,9 @@ const navItems: NavItem[] = [
   { 
     text: "Orders", 
     icon: FaShoppingBasket, 
-    link: "order-dispute",
+    link: "orders",
     subItems: [
+       { text: "Order Details", icon: FaListAlt, link: "order-details" },
       { text: "All Orders", icon: FaListAlt, link: "all-orders" },
       { text: "Order Verification", icon: FaListAlt, link: "order-verification" },
       // { text: "Order Replacement", icon: FaListAlt, link: "order-replacement" },

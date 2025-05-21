@@ -11,38 +11,42 @@ import {
   FiSettings
 } from "react-icons/fi";
 import PrintPageOrder from "../components/print-order";
+import HomePageCustomization from "../components/homepage-customization";
+import PrintSlidersPage from "../components/print-slider-page";
+import PrintBannersPage from "../components/print-banner-page";
+import OurProductsPage from "../components/our-products-page";
 
 export const HomepageSettings = () => {
   const tabs = [
-    {
-      id: "home-customization",
-      label: "Homepage Customization",
-      icon: <FiHome size={18} />,
-      content: <PrintPageOrder />,
-    },
     {
       id: "print-order",
       label: "Print Order Settings",
       icon: <FiPrinter size={18} />,
       content: <PrintPageOrder />,
     },
+     {
+      id: "home-customization",
+      label: "Homepage Customization",
+      icon: <FiHome size={18} />,
+      content: <HomePageCustomization />,
+    },
     {
       id: "print-slider",
       label: "Print Slider",
       icon: <FiSliders size={18} />,
-      content: <PrintPageOrder />,
+      content: <PrintSlidersPage />,
     },
     {
       id: "print-banners",
       label: "Print Banners",
       icon: <FiImage size={18} />,
-      content: <PrintPageOrder />,
+      content: <PrintBannersPage />,
     },
     {
       id: "our-products",
       label: "Our Products Display",
       icon: <FiBox size={18} />,
-      content: <PrintPageOrder />,
+      content: <OurProductsPage />,
     },
     {
       id: "advanced",
