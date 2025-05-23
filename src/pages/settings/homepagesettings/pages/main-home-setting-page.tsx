@@ -15,6 +15,7 @@ import HomePageCustomization from "../components/homepage-customization";
 import PrintSlidersPage from "../components/print-slider-page";
 import PrintBannersPage from "../components/print-banner-page";
 import OurProductsPage from "../components/our-products-page";
+import PrintTitlesFormPage from "../components/main-print-title-page";
 
 export const HomepageSettings = () => {
   const tabs = [
@@ -49,10 +50,10 @@ export const HomepageSettings = () => {
       content: <OurProductsPage />,
     },
     {
-      id: "advanced",
-      label: "Advanced Settings",
+      id: "print-title-form",
+      label: "Print Title Form",
       icon: <FiSettings size={18} />,
-      content: <div>Advanced configuration options</div>,
+      content: <PrintTitlesFormPage/>
     },
   ];
 

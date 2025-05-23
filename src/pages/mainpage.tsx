@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Sidebar from '@/pages/sidebar/components/sidebar';
 import { SidebarType } from '@/pages/sidebar/types/sidebar';
-import CustomersPage from "./customers/pages/customerpage";
 import QuotationsPage from "./quotation/pages/quotation";
 import BusinessAdvantagePage from "./Financing/pages/business-advantage-page";
 import BusinessAdvantageVerificationPage from "./Financing/pages/business-advantage-verification-page";
@@ -28,6 +27,8 @@ import AllOrdersPage from "@/pages/orders/pages/allorderspage";
 import PaymentSettingsPage from "./settings/paymentsettings/pages/main-payment-page";
 import MainHomeSettingsPage from "./settings/homepagesettings/pages/main-home-setting-page";
 import OrderDetailsPage from "@/pages/dashboard/pages/dashboard";
+import CustomerSettingsPage from "./customers/pages/customer-main-page";
+import MainProductPage from "./products/pages/main-product-page";
 
 const SidebarPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
@@ -59,7 +60,7 @@ const SidebarPage: React.FC = () => {
           {selectedSection === "all-orders" && <AllOrdersPage/>}
           {selectedSection === "refund-order" && <RefundOrdersPage />}
           {selectedSection === "order-proof" && <OrderProofsPage />}
-          {selectedSection === "all-customers" && <CustomersPage />}
+          {selectedSection === "customers" && <CustomerSettingsPage />}
           {selectedSection === "quotation" && <QuotationsPage />}
           {selectedSection === "business-advantage" && <BusinessAdvantagePage />}
           {selectedSection === "business-advantage-verification" && <BusinessAdvantageVerificationPage />}
@@ -80,7 +81,7 @@ const SidebarPage: React.FC = () => {
           {selectedSection === "general-settings" && <GeneralSettingsPage />}
           {selectedSection === "payment-settings" && <PaymentSettingsPage />}
           { selectedSection === "home-page-settings" && <MainHomeSettingsPage/>}
-          {/* Add other sections as needed */}
+          { selectedSection === "product-management" && <MainProductPage/>}
         </div>
       </div>
     </div>

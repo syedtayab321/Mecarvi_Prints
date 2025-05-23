@@ -1,40 +1,66 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import { Coupon } from "../types/couponsTypes";
-import AddCouponModal from "./../components/addCouponModal"; // Import the modal component
 
-const mockData: Coupon[] = [
+interface DigitalProduct {
+  id: number;
+  product: {
+    image: string;
+    title: string;
+  };
+  category: string;
+  stock: number;
+  price: number;
+  sales: number;
+  rating: number;
+  status: "Active" | "Draft" | "Archived";
+}
+
+const mockData: DigitalProduct[] = [
   {
     id: 1,
-    code: "SUMMER25",
-    type: "Percentage",
-    amount: "25%",
-    used: "45/100",
+    product: {
+      image: "https://via.placeholder.com/40",
+      title: "Premium WordPress Theme"
+    },
+    category: "Themes",
+    stock: 45,
+    price: 59.99,
+    sales: 124,
+    rating: 4.8,
     status: "Active",
   },
   {
     id: 2,
-    code: "FREESHIP",
-    type: "Fixed",
-    amount: "$10.00",
-    used: "82/200",
-    status: "Active",
+    product: {
+      image: "https://via.placeholder.com/40",
+      title: "Mobile UI Kit"
+    },
+    category: "UI Kits",
+    stock: 0,
+    price: 39.99,
+    sales: 89,
+    rating: 4.5,
+    status: "Draft",
   },
   {
     id: 3,
-    code: "WELCOME10",
-    type: "Percentage",
-    amount: "10%",
-    used: "120/500",
+    product: {
+      image: "https://via.placeholder.com/40",
+      title: "eBook - React Guide"
+    },
+    category: "eBooks",
+    stock: 120,
+    price: 19.99,
+    sales: 256,
+    rating: 4.9,
     status: "Active",
   },
 ];
 
-const CouponsPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const DigitalProductsPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -47,20 +73,11 @@ const CouponsPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<Coupon>(
+  } = useTableData<DigitalProduct>(
     fetchData,
-    ["code", "type", "amount", "status"],
+    ["product.title", "category", "status"],
     "status"
   );
-
-  const handleCreateCoupon = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCouponCreated = () => {
-    setIsModalOpen(false);
-    reload(); // Refresh the table data after creating a coupon
-  };
 
   const columns = [
     {
@@ -69,65 +86,85 @@ const CouponsPage = () => {
       width: "80px",
     },
     {
-      key: "code",
-      header: "Code",
-      width: "200px",
-      render: (item: Coupon) => (
-        <span className="font-mono font-medium bg-gray-100 px-2 py-1 rounded">
-          {item.code}
-        </span>
-      ),
-    },
-    {
-      key: "type",
-      header: "Type",
-      width: "160px",
-    },
-    {
-      key: "amount",
-      header: "Amount",
-      width: "160px",
-      render: (item: Coupon) => (
-        <span className="font-semibold">
-          {item.type === "Percentage" ? item.amount : `$${parseFloat(item.amount.replace('$', '')).toFixed(2)}`}
-        </span>
-      ),
-    },
-    {
-      key: "used",
-      header: "Used",
+      key: "product",
+      header: "Product",
       width: "250px",
-      render: (item: Coupon) => {
-        const [used, total] = item.used.split('/');
-        const percentage = (parseInt(used) / parseInt(total)) * 100;
-        return (
-          <div className="flex flex-col">
-            <span className="text-sm">{item.used}</span>
-            <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
-              <div 
-                className={`h-1.5 rounded-full ${
-                  percentage >= 80 ? 'bg-red-500' : 
-                  percentage >= 50 ? 'bg-yellow-500' : 'bg-green-500'
-                }`} 
-                style={{ width: `${percentage}%` }}
-              ></div>
-            </div>
-          </div>
-        );
-      },
+      render: (item: DigitalProduct) => (
+        <div className="flex items-center">
+          <img 
+            src={item.product.image} 
+            alt={item.product.title}
+            className="w-10 h-10 rounded-md object-cover mr-3"
+          />
+          <span className="font-medium">{item.product.title}</span>
+        </div>
+      ),
+    },
+    {
+      key: "category",
+      header: "Category",
+      width: "120px",
+    },
+    {
+      key: "stock",
+      header: "Stock",
+      width: "100px",
+      render: (item: DigitalProduct) => (
+        <span className={item.stock === 0 ? "text-red-500 font-medium" : ""}>
+          {item.stock}
+        </span>
+      ),
+    },
+    {
+      key: "price",
+      header: "Price",
+      width: "100px",
+      render: (item: DigitalProduct) => (
+        <span className="font-mono font-medium">
+          ${item.price.toFixed(2)}
+        </span>
+      ),
+    },
+    {
+      key: "sales",
+      header: "Sales",
+      width: "100px",
+      render: (item: DigitalProduct) => (
+        <span className="font-mono font-medium">
+          {item.sales}
+        </span>
+      ),
+    },
+    {
+      key: "rating",
+      header: "Rating",
+      width: "120px",
+      render: (item: DigitalProduct) => (
+        <div className="flex items-center">
+          <svg 
+            className="w-4 h-4 text-yellow-400 mr-1" 
+            fill="currentColor" 
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <span className="font-medium">{item.rating}</span>
+          <span className="text-gray-500 text-xs ml-1">({Math.floor(item.rating * 20)}%)</span>
+        </div>
+      ),
     },
     {
       key: "status",
       header: "Status",
-      width: "220px",
-      render: (item: Coupon) => (
+      width: "120px",
+      render: (item: DigitalProduct) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
             item.status === "Active"
               ? "bg-green-100 text-green-600"
-              : item.status === "Expired"
-              ? "bg-red-100 text-red-600"
-              : "bg-gray-100 text-gray-600"
+              : item.status === "Archived"
+              ? "bg-gray-100 text-gray-600"
+              : "bg-yellow-100 text-yellow-600"
           }`}
         >
           {item.status}
@@ -138,8 +175,8 @@ const CouponsPage = () => {
 
   const filterOptions = [
     { value: "Active", label: "Active" },
-    { value: "Inactive", label: "Inactive" },
-    { value: "Expired", label: "Expired" },
+    { value: "Draft", label: "Draft" },
+    { value: "Archived", label: "Archived" },
   ];
 
   if (error) {
@@ -163,15 +200,8 @@ const CouponsPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Add Coupon Modal */}
-      <AddCouponModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSuccess={handleCouponCreated}
-      />
-      
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Coupon Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Digital Products</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -185,17 +215,16 @@ const CouponsPage = () => {
           </button>
           <button 
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
-            onClick={handleCreateCoupon}
             disabled={isLoading}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
             </svg>
-            Create Coupon
+            Add Product
           </button>
         </div>
       </div>
-      <CommonCustomTable<Coupon>
+      <CommonCustomTable<DigitalProduct>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
@@ -204,10 +233,10 @@ const CouponsPage = () => {
         onSearch={setSearchQuery}
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
-        title="Coupons List"
+        title="Digital Products List"
       />
     </div>
   );
 };
 
-export default CouponsPage;
+export default DigitalProductsPage;

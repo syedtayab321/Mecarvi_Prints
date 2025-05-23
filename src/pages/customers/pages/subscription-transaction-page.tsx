@@ -1,60 +1,68 @@
-// app/giftCards/page.tsx
+// app/subscriptionTransaction/page.tsx
 "use client";
 
 import React from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
 
-interface GiftCard {
+interface SubscriptionTransaction {
   id: number;
   customer: {
     name: string;
     avatar: string;
     email: string;
   };
-  receiverName: string;
-  orderDate: string;
-  orderTotal: string;
-  status: "Pending" | "Processed" | "Shipped" | "Delivered" | "Cancelled";
+  subscriptionDate: Date;
+  plan: string;
+  planDuration: string;
+  planPricing: number;
+  paymentMethod: "Credit Card" | "PayPal" | "Bank Transfer" | "Crypto";
+  status: "Completed" | "Pending" | "Failed" | "Refunded";
 }
 
-const GiftCardsPage = () => {
-  const mockData: GiftCard[] = [
+const SubscriptionTransactionPage = () => {
+  const mockData: SubscriptionTransaction[] = [
     {
       id: 1,
       customer: {
-        name: "Alex Johnson",
+        name: "John Doe",
         avatar: "/images/avatars/1.jpg",
-        email: "alex@example.com"
+        email: "john@example.com"
       },
-      receiverName: "Taylor Smith",
-      orderDate: "May 15, 2023",
-      orderTotal: "$100.00",
-      status: "Processed",
+      subscriptionDate: new Date("2023-05-15"),
+      plan: "Premium Plan",
+      planDuration: "1 year",
+      planPricing: 89.99,
+      paymentMethod: "Credit Card",
+      status: "Completed"
     },
     {
       id: 2,
       customer: {
-        name: "Maria Garcia",
+        name: "Jane Smith",
         avatar: "/images/avatars/2.jpg",
-        email: "maria@example.com"
+        email: "jane@example.com"
       },
-      receiverName: "Jamie Wilson",
-      orderDate: "May 18, 2023",
-      orderTotal: "$250.00",
-      status: "Shipped",
+      subscriptionDate: new Date("2023-06-20"),
+      plan: "Standard Plan",
+      planDuration: "3 months",
+      planPricing: 24.99,
+      paymentMethod: "PayPal",
+      status: "Completed"
     },
     {
       id: 3,
       customer: {
-        name: "David Kim",
+        name: "Robert Johnson",
         avatar: "/images/avatars/3.jpg",
-        email: "david@example.com"
+        email: "robert@example.com"
       },
-      receiverName: "Casey Brown",
-      orderDate: "May 20, 2023",
-      orderTotal: "$50.00",
-      status: "Pending",
+      subscriptionDate: new Date("2023-07-10"),
+      plan: "Basic Plan",
+      planDuration: "1 month",
+      planPricing: 9.99,
+      paymentMethod: "Credit Card",
+      status: "Pending"
     },
   ];
 
@@ -70,23 +78,31 @@ const GiftCardsPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<GiftCard>(
+  } = useTableData<SubscriptionTransaction>(
     fetchData,
-    ["customer.name", "customer.email", "receiverName", "orderTotal", "status"],
+    ["customer.name", "customer.email", "plan", "paymentMethod", "status"],
     "status"
   );
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
 
   const columns = [
     {
       key: "id",
       header: "ID",
-      width: "80px",
+      width: "100px",
     },
     {
       key: "customer",
       header: "Customer",
       width: "250px",
-      render: (item: GiftCard) => (
+      render: (item: SubscriptionTransaction) => (
         <div className="flex items-center gap-3">
           <img 
             src={item.customer.avatar} 
@@ -95,49 +111,95 @@ const GiftCardsPage = () => {
           />
           <div>
             <div className="font-medium">{item.customer.name}</div>
-            <div className="text-xs text-gray-500">
-              <a href={`mailto:${item.customer.email}`} className="hover:underline">
-                {item.customer.email}
-              </a>
-            </div>
+            <div className="text-xs text-gray-500">{item.customer.email}</div>
           </div>
         </div>
       ),
     },
     {
-      key: "receiverName",
-      header: "Receiver",
-      width: "200px",
+      key: "subscriptionDate",
+      header: "Subscription Date",
+      width: "150px",
+      render: (item: SubscriptionTransaction) => (
+        <span className="text-gray-600">
+          {formatDate(item.subscriptionDate)}
+        </span>
+      ),
     },
     {
-      key: "orderDate",
-      header: "Order Date",
-      width: "170px",
+      key: "plan",
+      header: "Plan",
+      width: "150px",
+      render: (item: SubscriptionTransaction) => (
+        <span className="font-medium">
+          {item.plan}
+        </span>
+      ),
     },
     {
-      key: "orderTotal",
-      header: "Order Total",
-      width: "180px",
-      render: (item: GiftCard) => (
-        <span className="font-semibold">{item.orderTotal}</span>
+      key: "planDuration",
+      header: "Plan Duration",
+      width: "150px",
+      render: (item: SubscriptionTransaction) => (
+        <span className="text-gray-600">
+          {item.planDuration}
+        </span>
+      ),
+    },
+    {
+      key: "planPricing",
+      header: "Plan Pricing",
+      width: "150px",
+      render: (item: SubscriptionTransaction) => (
+        <span className="font-semibold">
+          ${item.planPricing.toFixed(2)}
+        </span>
+      ),
+    },
+    {
+      key: "paymentMethod",
+      header: "Payment Method",
+      width: "150px",
+      render: (item: SubscriptionTransaction) => (
+        <span className="flex items-center gap-2">
+          {item.paymentMethod === "Credit Card" && (
+            <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+            </svg>
+          )}
+          {item.paymentMethod === "PayPal" && (
+            <svg className="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.5 6.5h9c.21 0 .39.09.53.22.14.13.22.31.22.53v9c0 .21-.08.39-.22.53-.14.14-.32.22-.53.22h-9c-.21 0-.39-.08-.53-.22-.14-.14-.22-.32-.22-.53v-9c0-.22.08-.4.22-.53.14-.13.32-.22.53-.22z" />
+            </svg>
+          )}
+          {item.paymentMethod === "Bank Transfer" && (
+            <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+            </svg>
+          )}
+          {item.paymentMethod === "Crypto" && (
+            <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 1.5v21m8-11.5l-8 8-8-8" />
+            </svg>
+          )}
+          {item.paymentMethod}
+        </span>
       ),
     },
     {
       key: "status",
       header: "Status",
-      width: "180px",
-      render: (item: GiftCard) => (
+      width: "150px",
+      render: (item: SubscriptionTransaction) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            item.status === "Pending"
-              ? "bg-yellow-100 text-yellow-600"
-              : item.status === "Processed"
-              ? "bg-blue-100 text-blue-600"
-              : item.status === "Shipped"
-              ? "bg-purple-100 text-purple-600"
-              : item.status === "Delivered"
+            item.status === "Completed"
               ? "bg-green-100 text-green-600"
-              : "bg-red-100 text-red-600"
+              : item.status === "Pending"
+              ? "bg-yellow-100 text-yellow-600"
+              : item.status === "Failed"
+              ? "bg-red-100 text-red-600"
+              : "bg-purple-100 text-purple-600"
           }`}
         >
           {item.status}
@@ -148,7 +210,7 @@ const GiftCardsPage = () => {
     //   key: "actions",
     //   header: "Actions",
     //   width: "120px",
-    //   render: (item: GiftCard) => (
+    //   render: (item: SubscriptionTransaction) => (
     //     <div className="flex gap-2">
     //       <button 
     //         className="text-blue-600 hover:text-blue-800"
@@ -162,28 +224,7 @@ const GiftCardsPage = () => {
     //       {item.status === "Pending" && (
     //         <button 
     //           className="text-green-600 hover:text-green-800"
-    //           title="Process Order"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //       {item.status === "Processed" && (
-    //         <button 
-    //           className="text-purple-600 hover:text-purple-800"
-    //           title="Mark as Shipped"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-    //             <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-2a1 1 0 00-.293-.707l-3-3A1 1 0 0016 7h-1V5a1 1 0 00-1-1H3z" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //       {item.status === "Shipped" && (
-    //         <button 
-    //           className="text-green-600 hover:text-green-800"
-    //           title="Mark as Delivered"
+    //           title="Approve"
     //         >
     //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
     //             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -196,11 +237,10 @@ const GiftCardsPage = () => {
   ];
 
   const filterOptions = [
+    { value: "Completed", label: "Completed" },
     { value: "Pending", label: "Pending" },
-    { value: "Processed", label: "Processed" },
-    { value: "Shipped", label: "Shipped" },
-    { value: "Delivered", label: "Delivered" },
-    { value: "Cancelled", label: "Cancelled" },
+    { value: "Failed", label: "Failed" },
+    { value: "Refunded", label: "Refunded" },
   ];
 
   if (error) {
@@ -225,7 +265,7 @@ const GiftCardsPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Gift Card Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Subscription Transactions</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -248,7 +288,7 @@ const GiftCardsPage = () => {
           </button>
         </div>
       </div>
-      <CommonCustomTable<GiftCard>
+      <CommonCustomTable<SubscriptionTransaction>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
@@ -257,10 +297,10 @@ const GiftCardsPage = () => {
         onSearch={setSearchQuery}
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
-        title="Gift Card Orders"
+        title="Transaction History"
       />
     </div>
   );
 };
 
-export default GiftCardsPage;
+export default SubscriptionTransactionPage;

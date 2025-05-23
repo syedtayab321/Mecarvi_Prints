@@ -78,7 +78,7 @@ const CommonCustomTable = <T,>({
       <table className="min-w-full text-sm text-left border-collapse">
         <thead className="bg-gray-50 text-gray-500 uppercase text-xs border-b">
           <tr>
-            <th className="p-3"><input type="checkbox" /></th>
+            {/* <th className="p-3"><input type="checkbox" /></th> */}
             {columns.map((column) => (
               <th key={column.key} className="p-3" style={{ width: column.width }}>
                 {column.header}
@@ -90,9 +90,9 @@ const CommonCustomTable = <T,>({
         <tbody>
           {data.map((item, index) => (
             <tr key={index} className="border-b hover:bg-gray-50">
-              <td className="p-3">
+              {/* <td className="p-3">
                 <input type="checkbox" />
-              </td>
+              </td> */}
               {columns.map((column) => (
                 <td key={column.key} className="p-3 text-black">
                   {column.render ? column.render(item) : (item as any)[column.key]}

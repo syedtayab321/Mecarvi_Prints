@@ -57,3 +57,6 @@ export type SidebarType =
   | "home-page-settings"
   | "orders"
   | "order-details"
+  | "customers"
+  | "loyality-points"
+  | "product-management"

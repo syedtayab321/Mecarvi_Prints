@@ -1,51 +1,47 @@
-// app/quotations/page.tsx
+// app/settings/products/components/affiliate-products-page.tsx
 "use client";
 
 import React from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import { Quotation } from "../types/quotationType";
 
-const mockData: Quotation[] = [
+interface AffiliateProduct {
+  id: number;
+  name: string;
+  type: string;
+  stock: number;
+  price: number;
+  status: "Active" | "Paused" | "Out of Stock" | "Pending Approval";
+}
+
+const mockData: AffiliateProduct[] = [
   {
     id: 1,
-    name: "Harriett E. Penix",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-103452",
-    date: "Apr 19, 2025",
-    price: "$532.75",
-    status: "Active",
+    name: "Affiliate Marketing Course",
+    type: "Digital Product",
+    stock: 9999,
+    price: 97.00,
+    status: "Active"
   },
   {
     id: 2,
-    name: "Carol L. Simon",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-984321",
-    date: "Nov 30, 2024",
-    price: "$689.50",
-    status: "Block",
+    name: "Affiliate Link Tracker",
+    type: "Software",
+    stock: 500,
+    price: 29.99,
+    status: "Active"
   },
   {
     id: 3,
-    name: "John D. Smith",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-456789",
-    date: "Mar 15, 2025",
-    price: "$1,250.00",
-    status: "Pending",
-  },
-  {
-    id: 4,
-    name: "Emily R. Johnson",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-789123",
-    date: "Jan 5, 2025",
-    price: "$845.25",
-    status: "Completed",
+    name: "Affiliate Starter Kit",
+    type: "Physical Product",
+    stock: 0,
+    price: 49.99,
+    status: "Out of Stock"
   },
 ];
 
-const QuotationsPage = () => {
+const AffiliateProductsPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -58,11 +54,20 @@ const QuotationsPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<Quotation>(
+  } = useTableData<AffiliateProduct>(
     fetchData,
-    ["name", "quoteNo", "date", "price"],
+    ["name", "type", "status"],
     "status"
   );
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount);
+  };
 
   const columns = [
     {
@@ -72,53 +77,50 @@ const QuotationsPage = () => {
     },
     {
       key: "name",
-      header: "Customer",
-      width: "270px",
-      render: (item: Quotation) => (
-        <div className="flex items-center gap-3">
-          <img 
-            src={item.avatar} 
-            alt={item.name}
-            className="w-8 h-8 rounded-full object-cover"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/images/default-avatar.jpg';
-            }}
-          />
-          <span>{item.name}</span>
-        </div>
+      header: "Name",
+      width: "250px",
+      render: (item: AffiliateProduct) => (
+        <span className="font-medium">{item.name}</span>
       ),
     },
     {
-      key: "quoteNo",
-      header: "Quote No",
-      width: "180px",
+      key: "type",
+      header: "Type",
+      width: "150px",
     },
     {
-      key: "date",
-      header: "Date",
-      width: "190px",
+      key: "stock",
+      header: "Stock",
+      width: "120px",
+      render: (item: AffiliateProduct) => (
+        <span className={item.stock === 0 ? "text-red-500" : "text-gray-700"}>
+          {item.stock === 9999 ? "∞" : item.stock}
+        </span>
+      ),
     },
     {
       key: "price",
       header: "Price",
-      width: "190px",
-      render: (item: Quotation) => (
-        <span className="font-semibold">{item.price}</span>
+      width: "120px",
+      render: (item: AffiliateProduct) => (
+        <span className="font-semibold">
+          {formatCurrency(item.price)}
+        </span>
       ),
     },
     {
       key: "status",
       header: "Status",
-      width: "190px",
-      render: (item: Quotation) => (
+      width: "150px",
+      render: (item: AffiliateProduct) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
             item.status === "Active"
               ? "bg-green-100 text-green-600"
-              : item.status === "Block"
-              ? "bg-red-100 text-red-600"
-              : item.status === "Pending"
+              : item.status === "Paused"
               ? "bg-yellow-100 text-yellow-600"
+              : item.status === "Out of Stock"
+              ? "bg-red-100 text-red-600"
               : "bg-blue-100 text-blue-600"
           }`}
         >
@@ -130,7 +132,7 @@ const QuotationsPage = () => {
     //   key: "actions",
     //   header: "Actions",
     //   width: "120px",
-    //   render: (item: Quotation) => (
+    //   render: (item: AffiliateProduct) => (
     //     <div className="flex gap-2">
     //       <button 
     //         className="text-blue-600 hover:text-blue-800"
@@ -142,19 +144,11 @@ const QuotationsPage = () => {
     //         </svg>
     //       </button>
     //       <button 
-    //         className="text-green-600 hover:text-green-800"
+    //         className="text-gray-600 hover:text-gray-800"
     //         title="Edit"
     //       >
     //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
     //           <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-    //         </svg>
-    //       </button>
-    //       <button 
-    //         className="text-red-600 hover:text-red-800"
-    //         title="Delete"
-    //       >
-    //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //           <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
     //         </svg>
     //       </button>
     //     </div>
@@ -164,9 +158,9 @@ const QuotationsPage = () => {
 
   const filterOptions = [
     { value: "Active", label: "Active" },
-    { value: "Block", label: "Block" },
-    { value: "Pending", label: "Pending" },
-    { value: "Completed", label: "Completed" },
+    { value: "Paused", label: "Paused" },
+    { value: "Out of Stock", label: "Out of Stock" },
+    { value: "Pending Approval", label: "Pending Approval" },
   ];
 
   if (error) {
@@ -191,7 +185,7 @@ const QuotationsPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Quotation Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Affiliate Products</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -204,17 +198,16 @@ const QuotationsPage = () => {
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
           <button 
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
-            disabled={isLoading}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
             </svg>
-            Export
+            Add Affiliate Product
           </button>
         </div>
       </div>
-      <CommonCustomTable<Quotation>
+      <CommonCustomTable<AffiliateProduct>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
@@ -223,11 +216,10 @@ const QuotationsPage = () => {
         onSearch={setSearchQuery}
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
-        title="Quotations"
-        // isLoading={isLoading}
+        title="Affiliate Products List"
       />
     </div>
   );
 };
 
-export default QuotationsPage;
+export default AffiliateProductsPage;

@@ -1,63 +1,83 @@
-// app/giftCards/page.tsx
+// app/settings/products/components/product-reviews-page.tsx
 "use client";
 
 import React from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
 
-interface GiftCard {
+interface ProductReview {
   id: number;
+  product: {
+    name: string;
+    image: string;
+  };
   customer: {
     name: string;
     avatar: string;
-    email: string;
   };
-  receiverName: string;
-  orderDate: string;
-  orderTotal: string;
-  status: "Pending" | "Processed" | "Shipped" | "Delivered" | "Cancelled";
+  review: {
+    rating: number;
+    comment: string;
+  };
+  date: string;
+  status: "Published" | "Pending" | "Flagged" | "Deleted";
 }
 
-const GiftCardsPage = () => {
-  const mockData: GiftCard[] = [
-    {
-      id: 1,
-      customer: {
-        name: "Alex Johnson",
-        avatar: "/images/avatars/1.jpg",
-        email: "alex@example.com"
-      },
-      receiverName: "Taylor Smith",
-      orderDate: "May 15, 2023",
-      orderTotal: "$100.00",
-      status: "Processed",
+const mockData: ProductReview[] = [
+  {
+    id: 1,
+    product: {
+      name: "Wireless Headphones",
+      image: "/images/products/headphones.jpg"
     },
-    {
-      id: 2,
-      customer: {
-        name: "Maria Garcia",
-        avatar: "/images/avatars/2.jpg",
-        email: "maria@example.com"
-      },
-      receiverName: "Jamie Wilson",
-      orderDate: "May 18, 2023",
-      orderTotal: "$250.00",
-      status: "Shipped",
+    customer: {
+      name: "John Smith",
+      avatar: "/images/avatars/1.jpg"
     },
-    {
-      id: 3,
-      customer: {
-        name: "David Kim",
-        avatar: "/images/avatars/3.jpg",
-        email: "david@example.com"
-      },
-      receiverName: "Casey Brown",
-      orderDate: "May 20, 2023",
-      orderTotal: "$50.00",
-      status: "Pending",
+    review: {
+      rating: 5,
+      comment: "Excellent sound quality and comfortable to wear for long periods."
     },
-  ];
+    date: "2023-05-15",
+    status: "Published"
+  },
+  {
+    id: 2,
+    product: {
+      name: "Smart Watch",
+      image: "/images/products/watch.jpg"
+    },
+    customer: {
+      name: "Emma Johnson",
+      avatar: "/images/avatars/2.jpg"
+    },
+    review: {
+      rating: 4,
+      comment: "Great features but battery life could be better."
+    },
+    date: "2023-06-20",
+    status: "Published"
+  },
+  {
+    id: 3,
+    product: {
+      name: "Bluetooth Speaker",
+      image: "/images/products/speaker.jpg"
+    },
+    customer: {
+      name: "Michael Brown",
+      avatar: "/images/avatars/3.jpg"
+    },
+    review: {
+      rating: 3,
+      comment: "Average sound quality, not worth the price."
+    },
+    date: "2023-07-10",
+    status: "Flagged"
+  },
+];
 
+const ProductReviewsPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -70,11 +90,37 @@ const GiftCardsPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<GiftCard>(
+  } = useTableData<ProductReview>(
     fetchData,
-    ["customer.name", "customer.email", "receiverName", "orderTotal", "status"],
+    ["product.name", "customer.name", "review.comment", "status"],
     "status"
   );
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  const renderRating = (rating: number) => {
+    return (
+      <div className="flex items-center">
+        {[...Array(5)].map((_, i) => (
+          <svg
+            key={i}
+            className={`w-4 h-4 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        ))}
+      </div>
+    );
+  };
 
   const columns = [
     {
@@ -83,61 +129,68 @@ const GiftCardsPage = () => {
       width: "80px",
     },
     {
+      key: "product",
+      header: "Product",
+      width: "200px",
+      render: (item: ProductReview) => (
+        <div className="flex items-center gap-3">
+          <img 
+            src={item.product.image} 
+            alt={item.product.name}
+            className="w-10 h-10 rounded-md object-cover"
+          />
+          <span className="font-medium">{item.product.name}</span>
+        </div>
+      ),
+    },
+    {
       key: "customer",
       header: "Customer",
-      width: "250px",
-      render: (item: GiftCard) => (
-        <div className="flex items-center gap-3">
+      width: "150px",
+      render: (item: ProductReview) => (
+        <div className="flex items-center gap-2">
           <img 
             src={item.customer.avatar} 
             alt={item.customer.name}
             className="w-8 h-8 rounded-full object-cover"
           />
-          <div>
-            <div className="font-medium">{item.customer.name}</div>
-            <div className="text-xs text-gray-500">
-              <a href={`mailto:${item.customer.email}`} className="hover:underline">
-                {item.customer.email}
-              </a>
-            </div>
-          </div>
+          <span>{item.customer.name}</span>
         </div>
       ),
     },
     {
-      key: "receiverName",
-      header: "Receiver",
-      width: "200px",
+      key: "review",
+      header: "Review",
+      width: "300px",
+      render: (item: ProductReview) => (
+        <div>
+          <div className="mb-1">{renderRating(item.review.rating)}</div>
+          <div className="text-sm text-gray-600 line-clamp-2">{item.review.comment}</div>
+        </div>
+      ),
     },
     {
-      key: "orderDate",
-      header: "Order Date",
-      width: "170px",
-    },
-    {
-      key: "orderTotal",
-      header: "Order Total",
-      width: "180px",
-      render: (item: GiftCard) => (
-        <span className="font-semibold">{item.orderTotal}</span>
+      key: "date",
+      header: "Date",
+      width: "160px",
+      render: (item: ProductReview) => (
+        <span className="text-gray-600">{formatDate(item.date)}</span>
       ),
     },
     {
       key: "status",
       header: "Status",
-      width: "180px",
-      render: (item: GiftCard) => (
+      width: "160px",
+      render: (item: ProductReview) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            item.status === "Pending"
-              ? "bg-yellow-100 text-yellow-600"
-              : item.status === "Processed"
-              ? "bg-blue-100 text-blue-600"
-              : item.status === "Shipped"
-              ? "bg-purple-100 text-purple-600"
-              : item.status === "Delivered"
+            item.status === "Published"
               ? "bg-green-100 text-green-600"
-              : "bg-red-100 text-red-600"
+              : item.status === "Pending"
+              ? "bg-yellow-100 text-yellow-600"
+              : item.status === "Flagged"
+              ? "bg-red-100 text-red-600"
+              : "bg-gray-100 text-gray-600"
           }`}
         >
           {item.status}
@@ -148,7 +201,7 @@ const GiftCardsPage = () => {
     //   key: "actions",
     //   header: "Actions",
     //   width: "120px",
-    //   render: (item: GiftCard) => (
+    //   render: (item: ProductReview) => (
     //     <div className="flex gap-2">
     //       <button 
     //         className="text-blue-600 hover:text-blue-800"
@@ -159,34 +212,23 @@ const GiftCardsPage = () => {
     //           <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
     //         </svg>
     //       </button>
-    //       {item.status === "Pending" && (
+    //       {item.status === "Flagged" && (
     //         <button 
     //           className="text-green-600 hover:text-green-800"
-    //           title="Process Order"
+    //           title="Approve"
     //         >
     //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
     //             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
     //           </svg>
     //         </button>
     //       )}
-    //       {item.status === "Processed" && (
+    //       {item.status !== "Deleted" && (
     //         <button 
-    //           className="text-purple-600 hover:text-purple-800"
-    //           title="Mark as Shipped"
+    //           className="text-red-600 hover:text-red-800"
+    //           title="Delete"
     //         >
     //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-    //             <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-2a1 1 0 00-.293-.707l-3-3A1 1 0 0016 7h-1V5a1 1 0 00-1-1H3z" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //       {item.status === "Shipped" && (
-    //         <button 
-    //           className="text-green-600 hover:text-green-800"
-    //           title="Mark as Delivered"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+    //             <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
     //           </svg>
     //         </button>
     //       )}
@@ -196,11 +238,10 @@ const GiftCardsPage = () => {
   ];
 
   const filterOptions = [
+    { value: "Published", label: "Published" },
     { value: "Pending", label: "Pending" },
-    { value: "Processed", label: "Processed" },
-    { value: "Shipped", label: "Shipped" },
-    { value: "Delivered", label: "Delivered" },
-    { value: "Cancelled", label: "Cancelled" },
+    { value: "Flagged", label: "Flagged" },
+    { value: "Deleted", label: "Deleted" },
   ];
 
   if (error) {
@@ -225,7 +266,7 @@ const GiftCardsPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Gift Card Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Product Reviews</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -237,18 +278,9 @@ const GiftCardsPage = () => {
             </svg>
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
-          <button 
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
-            disabled={isLoading}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-            Export
-          </button>
         </div>
       </div>
-      <CommonCustomTable<GiftCard>
+      <CommonCustomTable<ProductReview>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
@@ -257,10 +289,10 @@ const GiftCardsPage = () => {
         onSearch={setSearchQuery}
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
-        title="Gift Card Orders"
+        title="Product Reviews"
       />
     </div>
   );
 };
 
-export default GiftCardsPage;
+export default ProductReviewsPage;

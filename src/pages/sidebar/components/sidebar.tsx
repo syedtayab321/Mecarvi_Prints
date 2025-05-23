@@ -67,11 +67,11 @@ const navItems: NavItem[] = [
     icon: FaUsers, 
     link: "all-customers",
     subItems: [
-      { text: "All Customers", icon: FaUsers, link: "all-customers" },
-      { text: "Customer Verification", icon: FaUserTie, link: "customer-verification" },
-      { text: "Subscription Plan", icon: FaUsers, link: "subscription-plan" },
-      { text: "Affilate Withdral", icon: FaUserTie, link: "affilate-withdrawl" },
-      { text: "Customer Transaction", icon: FaUsers, link: "customer-transaction" },
+      { text: "Customers", icon: FaUsers, link: "customers" },
+      // { text: "Customer Verification", icon: FaUserTie, link: "customer-verification" },
+      // { text: "Subscription Plan", icon: FaUsers, link: "subscription-plan" },
+      // { text: "Affilate Withdral", icon: FaUserTie, link: "affilate-withdrawl" },
+      // { text: "Customer Transaction", icon: FaUsers, link: "customer-transaction" },
     ]
   },
 
@@ -96,7 +96,7 @@ const navItems: NavItem[] = [
     icon: FaBoxes, 
     link: "products",
     subItems: [
-      { text: "Product Management", icon: FaBoxes, link: "products" },
+      { text: "Product Management", icon: FaBoxes, link: "product-management" },
     ]
   },
 
@@ -104,7 +104,7 @@ const navItems: NavItem[] = [
   { 
     text: "Loyalty", 
     icon: FaStar, 
-    link: "loyality",
+    link: "loyality-points",
     subItems: [
       { text: "Loyalty Points", icon: FaStar, link: "loyality" },
     ]
@@ -114,7 +114,7 @@ const navItems: NavItem[] = [
   { 
     text: "Gift Cards", 
     icon: FaGift, 
-    link: "gift-cards",
+    link: "gift-card-transactions",
     subItems: [
       { text: "Gift Cards", icon: FaGift, link: "gift-cards" },
       { text: "Gift Cards Transactions", icon: FaGift, link: "gift-card-transactions" },

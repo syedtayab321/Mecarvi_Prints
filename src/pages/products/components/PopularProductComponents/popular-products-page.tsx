@@ -1,51 +1,55 @@
-// app/quotations/page.tsx
+// app/popular-products/page.tsx
 "use client";
 
 import React from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import { Quotation } from "../types/quotationType";
 
-const mockData: Quotation[] = [
+interface PopularProduct {
+  id: number;
+  product: {
+    name: string;
+    image: string;
+  };
+  category: string;
+  type: string;
+  clicks: number;
+}
+
+const mockData: PopularProduct[] = [
   {
     id: 1,
-    name: "Harriett E. Penix",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-103452",
-    date: "Apr 19, 2025",
-    price: "$532.75",
-    status: "Active",
+    product: {
+      name: "Wireless Headphones",
+      image: "/images/products/headphones.jpg",
+    },
+    category: "Electronics",
+    type: "Best Seller",
+    clicks: 1245,
   },
   {
     id: 2,
-    name: "Carol L. Simon",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-984321",
-    date: "Nov 30, 2024",
-    price: "$689.50",
-    status: "Block",
+    product: {
+      name: "Yoga Mat",
+      image: "/images/products/yoga-mat.jpg",
+    },
+    category: "Fitness",
+    type: "Trending",
+    clicks: 892,
   },
   {
     id: 3,
-    name: "John D. Smith",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-456789",
-    date: "Mar 15, 2025",
-    price: "$1,250.00",
-    status: "Pending",
-  },
-  {
-    id: 4,
-    name: "Emily R. Johnson",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-789123",
-    date: "Jan 5, 2025",
-    price: "$845.25",
-    status: "Completed",
+    product: {
+      name: "Organic Coffee",
+      image: "/images/products/coffee.jpg",
+    },
+    category: "Food & Beverage",
+    type: "New Arrival",
+    clicks: 756,
   },
 ];
 
-const QuotationsPage = () => {
+const PopularProductsPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -54,83 +58,76 @@ const QuotationsPage = () => {
     totalPages,
     setCurrentPage,
     setSearchQuery,
-    setStatusFilter,
     isLoading,
     error,
     reload,
-  } = useTableData<Quotation>(
+  } = useTableData<PopularProduct>(
     fetchData,
-    ["name", "quoteNo", "date", "price"],
-    "status"
+    ["product.name", "category", "type"]
   );
 
   const columns = [
     {
-      key: "id",
-      header: "ID",
-      width: "80px",
-    },
-    {
-      key: "name",
-      header: "Customer",
-      width: "270px",
-      render: (item: Quotation) => (
+      key: "product",
+      header: "Product",
+      width: "250px",
+      render: (item: PopularProduct) => (
         <div className="flex items-center gap-3">
           <img 
-            src={item.avatar} 
-            alt={item.name}
-            className="w-8 h-8 rounded-full object-cover"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/images/default-avatar.jpg';
-            }}
+            src={item.product.image} 
+            alt={item.product.name}
+            className="w-10 h-10 rounded-md object-cover"
           />
-          <span>{item.name}</span>
+          <span className="font-medium">{item.product.name}</span>
         </div>
       ),
     },
     {
-      key: "quoteNo",
-      header: "Quote No",
-      width: "180px",
+      key: "category",
+      header: "Category",
+      width: "150px",
     },
     {
-      key: "date",
-      header: "Date",
-      width: "190px",
-    },
-    {
-      key: "price",
-      header: "Price",
-      width: "190px",
-      render: (item: Quotation) => (
-        <span className="font-semibold">{item.price}</span>
+      key: "type",
+      header: "Type",
+      width: "200px",
+      render: (item: PopularProduct) => (
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+            item.type === "Best Seller"
+              ? "bg-purple-100 text-purple-600"
+              : item.type === "Trending"
+              ? "bg-blue-100 text-blue-600"
+              : "bg-green-100 text-green-600"
+          }`}
+        >
+          {item.type}
+        </span>
       ),
     },
     {
-      key: "status",
-      header: "Status",
-      width: "190px",
-      render: (item: Quotation) => (
-        <span
-          className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            item.status === "Active"
-              ? "bg-green-100 text-green-600"
-              : item.status === "Block"
-              ? "bg-red-100 text-red-600"
-              : item.status === "Pending"
-              ? "bg-yellow-100 text-yellow-600"
-              : "bg-blue-100 text-blue-600"
-          }`}
-        >
-          {item.status}
-        </span>
+      key: "clicks",
+      header: "Clicks",
+      width: "180px",
+      render: (item: PopularProduct) => (
+        <div className="flex items-center gap-2">
+          <span className="font-semibold">{item.clicks.toLocaleString()}</span>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-4 w-4 text-green-500" 
+            viewBox="0 0 20 20" 
+            fill="currentColor"
+          >
+            <path fillRule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clipRule="evenodd" />
+          </svg>
+        </div>
       ),
     },
     // {
     //   key: "actions",
     //   header: "Actions",
     //   width: "120px",
-    //   render: (item: Quotation) => (
+    //   render: () => (
     //     <div className="flex gap-2">
     //       <button 
     //         className="text-blue-600 hover:text-blue-800"
@@ -143,30 +140,15 @@ const QuotationsPage = () => {
     //       </button>
     //       <button 
     //         className="text-green-600 hover:text-green-800"
-    //         title="Edit"
+    //         title="View Analytics"
     //       >
     //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //           <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-    //         </svg>
-    //       </button>
-    //       <button 
-    //         className="text-red-600 hover:text-red-800"
-    //         title="Delete"
-    //       >
-    //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //           <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+    //           <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
     //         </svg>
     //       </button>
     //     </div>
     //   ),
     // },
-  ];
-
-  const filterOptions = [
-    { value: "Active", label: "Active" },
-    { value: "Block", label: "Block" },
-    { value: "Pending", label: "Pending" },
-    { value: "Completed", label: "Completed" },
   ];
 
   if (error) {
@@ -191,7 +173,7 @@ const QuotationsPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Quotation Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Popular Products</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -204,7 +186,7 @@ const QuotationsPage = () => {
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
           <button 
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
             disabled={isLoading}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -214,20 +196,17 @@ const QuotationsPage = () => {
           </button>
         </div>
       </div>
-      <CommonCustomTable<Quotation>
+      <CommonCustomTable<PopularProduct>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
         onSearch={setSearchQuery}
-        onFilter={setStatusFilter}
-        filterOptions={filterOptions}
-        title="Quotations"
-        // isLoading={isLoading}
+        title="Popular Products"
       />
     </div>
   );
 };
 
-export default QuotationsPage;
+export default PopularProductsPage;
