@@ -84,7 +84,7 @@ const CommonCustomTable = <T,>({
                 {column.header}
               </th>
             ))}
-            <th className="p-3">Options</th>
+            {/* <th className="p-3">Options</th> */}
           </tr>
         </thead>
         <tbody>
@@ -98,7 +98,7 @@ const CommonCustomTable = <T,>({
                   {column.render ? column.render(item) : (item as any)[column.key]}
                 </td>
               ))}
-              <td className="p-3 flex items-center gap-3">
+              {/* <td className="p-3 flex items-center gap-3">
                 <button className="text-blue-600 hover:text-blue-800">
                   <FaEye size={14} />
                 </button>
@@ -108,7 +108,7 @@ const CommonCustomTable = <T,>({
                 <button className="text-red-600 hover:text-red-800">
                   <FaTrash size={14} />
                 </button>
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>
@@ -131,7 +131,7 @@ const CommonCustomTable = <T,>({
               key={page}
               className={`px-3 py-1 border rounded ${
                 currentPage === page
-                  ? "bg-violet-600 text-white"
+                  ? "bg-blue-600 hover:bg-blue-700 text-white"
                   : "hover:bg-gray-100 text-black"
               }`}
               onClick={() => onPageChange(page)}

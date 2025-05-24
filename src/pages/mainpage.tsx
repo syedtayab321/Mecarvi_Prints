@@ -4,12 +4,6 @@ import React, { useState } from "react";
 import Sidebar from '@/pages/sidebar/components/sidebar';
 import { SidebarType } from '@/pages/sidebar/types/sidebar';
 import QuotationsPage from "./quotation/pages/quotation";
-import BusinessAdvantagePage from "./Financing/pages/business-advantage-page";
-import BusinessAdvantageVerificationPage from "./Financing/pages/business-advantage-verification-page";
-import BusinessPreferredPage from "./Financing/pages/business-preferred-page";
-import BusinessPreferredVerificationPage from "./Financing/pages/business-preferred-verification";
-import BusinessStorePage from "./Financing/pages/business-store-page";
-import BusinessStoreVerificationPage from "./Financing/pages/business-store-verification";
 import PointsManagementPage from "./loyalitypoints/pages/points-management";
 import GiftCardsPage from "./gift_cards/pages/gift-cards-page";
 import GiftCardTransactionsPage from "./gift_cards/pages/gift-card-transactions";
@@ -26,9 +20,12 @@ import GeneralSettingsPage from "./settings/generalsettings/pages/main-general-s
 import AllOrdersPage from "@/pages/orders/pages/allorderspage";
 import PaymentSettingsPage from "./settings/paymentsettings/pages/main-payment-page";
 import MainHomeSettingsPage from "./settings/homepagesettings/pages/main-home-setting-page";
-import OrderDetailsPage from "@/pages/dashboard/pages/dashboard";
+import OrderDetailsPage from "@/pages/orders/pages/orderdetailspage";
 import CustomerSettingsPage from "./customers/pages/customer-main-page";
 import MainProductPage from "./products/pages/main-product-page";
+import ProductCategoriesPage from "./products/pages/product-categories-page";
+import MainFinancePage from "./Financing/pages/main-finance-page";
+import OrderVerificationPage from "./orders/pages/orderverificationpage";
 
 const SidebarPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
@@ -60,14 +57,10 @@ const SidebarPage: React.FC = () => {
           {selectedSection === "all-orders" && <AllOrdersPage/>}
           {selectedSection === "refund-order" && <RefundOrdersPage />}
           {selectedSection === "order-proof" && <OrderProofsPage />}
+          {selectedSection === "order-verification" && <OrderVerificationPage />}
           {selectedSection === "customers" && <CustomerSettingsPage />}
           {selectedSection === "quotation" && <QuotationsPage />}
-          {selectedSection === "business-advantage" && <BusinessAdvantagePage />}
-          {selectedSection === "business-advantage-verification" && <BusinessAdvantageVerificationPage />}
-          {selectedSection === "business-preferred" && <BusinessPreferredPage />}
-          {selectedSection === "business-preferred-verification" && <BusinessPreferredVerificationPage />}
-          {selectedSection === "business-store" && <BusinessStorePage />}
-          {selectedSection === "business-store-verification" && <BusinessStoreVerificationPage />}
+          {selectedSection === "finance" && <MainFinancePage />}
           {selectedSection === "loyality" && <PointsManagementPage />}
           {selectedSection === "gift-cards" && <GiftCardsPage />}
           {selectedSection === "gift-card-transactions" && <GiftCardTransactionsPage />}
@@ -82,6 +75,7 @@ const SidebarPage: React.FC = () => {
           {selectedSection === "payment-settings" && <PaymentSettingsPage />}
           { selectedSection === "home-page-settings" && <MainHomeSettingsPage/>}
           { selectedSection === "product-management" && <MainProductPage/>}
+          { selectedSection === "product-category" && <ProductCategoriesPage/>}
         </div>
       </div>
     </div>

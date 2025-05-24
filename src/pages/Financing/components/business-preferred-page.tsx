@@ -8,7 +8,6 @@ import { Business } from '../types/businessType';
 
 const mockData: Business[] = [
   {
-    id: 1,
     businessName: "Tech Solutions Inc.",
     name: "John Doe",
     email: "john@techsolutions.com",
@@ -19,7 +18,6 @@ const mockData: Business[] = [
     status: "Active",
   },
   {
-    id: 2,
     businessName: "Global Consulting",
     name: "Jane Smith",
     email: "jane@globalconsult.com",
@@ -30,7 +28,7 @@ const mockData: Business[] = [
     status: "Block",
   },
   {
-    id: 3,
+
     businessName: "Innovate Corp",
     name: "Robert Johnson",
     email: "robert@innovate.com",
@@ -39,17 +37,6 @@ const mockData: Business[] = [
     allowedBalance: "$8,000",
     usedBalance: "$3,200",
     status: "Pending",
-  },
-  {
-    id: 4,
-    businessName: "Digital Ventures",
-    name: "Emily Davis",
-    email: "emily@digitalventures.com",
-    phone: "+1 (555) 789-0123",
-    percentage: "25%",
-    allowedBalance: "$20,000",
-    usedBalance: "$18,750",
-    status: "Completed",
   },
 ];
 
@@ -73,11 +60,6 @@ const BusinessPreferredPage = () => {
   );
 
   const columns = [
-    {
-      key: "id",
-      header: "ID",
-      width: "80px",
-    },
     {
       key: "businessName",
       header: "Business Name",

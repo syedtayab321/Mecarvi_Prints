@@ -144,55 +144,55 @@ const GiftCardsPage = () => {
         </span>
       ),
     },
-    // {
-    //   key: "actions",
-    //   header: "Actions",
-    //   width: "120px",
-    //   render: (item: GiftCard) => (
-    //     <div className="flex gap-2">
-    //       <button 
-    //         className="text-blue-600 hover:text-blue-800"
-    //         title="View Details"
-    //       >
-    //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //           <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-    //           <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-    //         </svg>
-    //       </button>
-    //       {item.status === "Pending" && (
-    //         <button 
-    //           className="text-green-600 hover:text-green-800"
-    //           title="Process Order"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //       {item.status === "Processed" && (
-    //         <button 
-    //           className="text-purple-600 hover:text-purple-800"
-    //           title="Mark as Shipped"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-    //             <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-2a1 1 0 00-.293-.707l-3-3A1 1 0 0016 7h-1V5a1 1 0 00-1-1H3z" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //       {item.status === "Shipped" && (
-    //         <button 
-    //           className="text-green-600 hover:text-green-800"
-    //           title="Mark as Delivered"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //     </div>
-    //   ),
-    // },
+    {
+      key: "actions",
+      header: "Actions",
+      width: "120px",
+      render: (item: GiftCard) => (
+        <div className="flex gap-2">
+          <button 
+            className="text-blue-600 hover:text-blue-800"
+            title="View Details"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+            </svg>
+          </button>
+          {item.status === "Pending" && (
+            <button 
+              className="text-green-600 hover:text-green-800"
+              title="Process Order"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
+          {item.status === "Processed" && (
+            <button 
+              className="text-purple-600 hover:text-purple-800"
+              title="Mark as Shipped"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-2a1 1 0 00-.293-.707l-3-3A1 1 0 0016 7h-1V5a1 1 0 00-1-1H3z" />
+              </svg>
+            </button>
+          )}
+          {item.status === "Shipped" && (
+            <button 
+              className="text-green-600 hover:text-green-800"
+              title="Mark as Delivered"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
+        </div>
+      ),
+    },
   ];
 
   const filterOptions = [

@@ -1,55 +1,45 @@
-// app/popular-products/page.tsx
+// app/businessAdvantageVerification/page.tsx
 "use client";
 
 import React from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
+import { BusinessVerification } from "../types/businessType";
 
-interface PopularProduct {
-  id: number;
-  product: {
-    name: string;
-    image: string;
-  };
-  category: string;
-  type: string;
-  clicks: number;
-}
-
-const mockData: PopularProduct[] = [
+const mockData: BusinessVerification[] = [
   {
-    id: 1,
-    product: {
-      name: "Wireless Headphones",
-      image: "/images/products/headphones.jpg",
-    },
-    category: "Electronics",
-    type: "Best Seller",
-    clicks: 1245,
+    businessName: "Tech Solutions Inc.",
+    businessEmail: "info@techsolutions.com",
+    description: "Provider of innovative tech solutions for modern businesses",
+    status: "Verified",
   },
   {
-    id: 2,
-    product: {
-      name: "Yoga Mat",
-      image: "/images/products/yoga-mat.jpg",
-    },
-    category: "Fitness",
-    type: "Trending",
-    clicks: 892,
+    businessName: "Global Consulting",
+    businessEmail: "contact@globalconsult.com",
+    description: "International business consulting services",
+    status: "Pending",
   },
   {
-    id: 3,
-    product: {
-      name: "Organic Coffee",
-      image: "/images/products/coffee.jpg",
-    },
-    category: "Food & Beverage",
-    type: "New Arrival",
-    clicks: 756,
+    businessName: "Green Earth Organics",
+    businessEmail: "support@greenearth.com",
+    description: "Organic food products and sustainable goods",
+    status: "Rejected",
+  },
+  {
+    businessName: "Urban Fashion Outlet",
+    businessEmail: "hello@urbanfashion.com",
+    description: "Trendy urban clothing and accessories",
+    status: "In Review",
+  },
+  {
+    businessName: "Digital Marketing Pros",
+    businessEmail: "team@digitalmarketingpros.com",
+    description: "Comprehensive digital marketing services",
+    status: "Verified",
   },
 ];
 
-const PopularProductsPage = () => {
+const BusinessStoreVerificationPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -58,76 +48,66 @@ const PopularProductsPage = () => {
     totalPages,
     setCurrentPage,
     setSearchQuery,
+    setStatusFilter,
     isLoading,
     error,
     reload,
-  } = useTableData<PopularProduct>(
+  } = useTableData<BusinessVerification>(
     fetchData,
-    ["product.name", "category", "type"]
+    ["businessName", "businessEmail", "description"],
+    "status"
   );
 
   const columns = [
     {
-      key: "product",
-      header: "Product",
-      width: "250px",
-      render: (item: PopularProduct) => (
-        <div className="flex items-center gap-3">
-          <img 
-            src={item.product.image} 
-            alt={item.product.name}
-            className="w-10 h-10 rounded-md object-cover"
-          />
-          <span className="font-medium">{item.product.name}</span>
-        </div>
+      key: "businessName",
+      header: "Business Name",
+      width: "160px",
+      render: (item: BusinessVerification) => (
+        <span className="font-medium">{item.businessName}</span>
       ),
     },
     {
-      key: "category",
-      header: "Category",
-      width: "150px",
+      key: "businessEmail",
+      header: "Business Email",
+      width: "160px",
+      render: (item: BusinessVerification) => (
+        <span className="text-gray-600">{item.businessEmail}</span>
+      ),
     },
     {
-      key: "type",
-      header: "Type",
+      key: "description",
+      header: "Description",
       width: "200px",
-      render: (item: PopularProduct) => (
+      render: (item: BusinessVerification) => (
+        <span className="text-gray-600 max-w-xs line-clamp-2">{item.description}</span>
+      ),
+    },
+    {
+      key: "status",
+      header: "Status",
+      width: "120px",
+      render: (item: BusinessVerification) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            item.type === "Best Seller"
-              ? "bg-purple-100 text-purple-600"
-              : item.type === "Trending"
-              ? "bg-blue-100 text-blue-600"
-              : "bg-green-100 text-green-600"
+            item.status === "Verified"
+              ? "bg-green-100 text-green-600"
+              : item.status === "Pending"
+              ? "bg-yellow-100 text-yellow-600"
+              : item.status === "Rejected"
+              ? "bg-red-100 text-red-600"
+              : "bg-blue-100 text-blue-600"
           }`}
         >
-          {item.type}
+          {item.status}
         </span>
-      ),
-    },
-    {
-      key: "clicks",
-      header: "Clicks",
-      width: "180px",
-      render: (item: PopularProduct) => (
-        <div className="flex items-center gap-2">
-          <span className="font-semibold">{item.clicks.toLocaleString()}</span>
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="h-4 w-4 text-green-500" 
-            viewBox="0 0 20 20" 
-            fill="currentColor"
-          >
-            <path fillRule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clipRule="evenodd" />
-          </svg>
-        </div>
       ),
     },
     {
       key: "actions",
       header: "Actions",
-      width: "120px",
-      render: () => (
+      width: "150px",
+      render: (item: BusinessVerification) => (
         <div className="flex gap-2">
           <button 
             className="text-blue-600 hover:text-blue-800"
@@ -140,15 +120,32 @@ const PopularProductsPage = () => {
           </button>
           <button 
             className="text-green-600 hover:text-green-800"
-            title="View Analytics"
+            title="Approve"
+            disabled={item.status === "Verified"}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+          </button>
+          <button 
+            className="text-red-600 hover:text-red-800"
+            title="Reject"
+            disabled={item.status === "Rejected"}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </button>
         </div>
       ),
     },
+  ];
+
+  const filterOptions = [
+    { value: "Verified", label: "Verified" },
+    { value: "Pending", label: "Pending" },
+    { value: "Rejected", label: "Rejected" },
+    { value: "In Review", label: "In Review" },
   ];
 
   if (error) {
@@ -173,7 +170,7 @@ const PopularProductsPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Popular Products</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Business Verification</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -190,23 +187,25 @@ const PopularProductsPage = () => {
             disabled={isLoading}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
             </svg>
-            Export
+            New Verification
           </button>
         </div>
       </div>
-      <CommonCustomTable<PopularProduct>
+      <CommonCustomTable<BusinessVerification>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
         onSearch={setSearchQuery}
-        title="Popular Products"
+        onFilter={setStatusFilter}
+        filterOptions={filterOptions}
+        title="Verification Requests"
       />
     </div>
   );
 };
 
-export default PopularProductsPage;
+export default BusinessStoreVerificationPage;

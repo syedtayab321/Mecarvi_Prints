@@ -60,7 +60,7 @@ export const CustomerSettingsPage = () => {
     <div style={{ height: 'calc(100vh - 64px)' }}>
       <LeftSideTabs 
         tabs={tabs}
-        defaultActiveTab="subscription-plans"
+        defaultActiveTab="all-customers"
         tabWidth="260px"
         tabStyle={{
           fontSize: '14px',

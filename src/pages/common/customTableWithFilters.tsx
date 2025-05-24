@@ -138,7 +138,7 @@ export default function CustomTable({
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3"><input type="checkbox" /></th>
+              {/* <th className="px-6 py-3"><input type="checkbox" /></th> */}
               {columns.map((col, idx) => (
                 <th key={idx} className="px-6 py-3 text-left text-sm font-medium text-gray-700">
                   {col.header}
@@ -151,7 +151,7 @@ export default function CustomTable({
             {paginatedData.length > 0 ? (
               paginatedData.map((row, i) => (
                 <tr key={i} className="hover:bg-gray-50">
-                  <td className="px-6 py-4"><input type="checkbox" /></td>
+                  {/* <td className="px-6 py-4"><input type="checkbox" /></td> */}
                   {columns.map((col, idx) => {
                     const value = row[col.field];
                     return (

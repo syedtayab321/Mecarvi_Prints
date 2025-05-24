@@ -9,5 +9,4 @@ export const filters: FilterOption[] = [
   { label: 'Declined', value: 'declined' },
   { label: 'Return Requests', value: 'return' },
   { label: 'Order Replacement', value: 'replacement' },
-  // { label: 'Order Verification', value: 'verification' },
 ];

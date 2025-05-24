@@ -1,51 +1,55 @@
-// app/quotations/page.tsx
+// app/businessAdvantage/page.tsx
 "use client";
 
 import React from "react";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
+import GenericTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import { Quotation } from "../types/quotationType";
+import { Business } from '../types/businessType';
 
-const mockData: Quotation[] = [
+const mockData: Business[] = [
   {
-    id: 1,
-    name: "Harriett E. Penix",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-103452",
-    date: "Apr 19, 2025",
-    price: "$532.75",
+    businessName: "Tech Solutions Inc.",
+    name: "John Doe",
+    email: "john@techsolutions.com",
+    phone: "+1 (555) 123-4567",
+    percentage: "15%",
+    allowedBalance: "$10,000",
+    usedBalance: "$5,250",
     status: "Active",
   },
   {
-    id: 2,
-    name: "Carol L. Simon",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-984321",
-    date: "Nov 30, 2024",
-    price: "$689.50",
+    businessName: "Global Consulting",
+    name: "Jane Smith",
+    email: "jane@globalconsult.com",
+    phone: "+1 (555) 987-6543",
+    percentage: "20%",
+    allowedBalance: "$15,000",
+    usedBalance: "$12,300",
     status: "Block",
   },
   {
-    id: 3,
-    name: "John D. Smith",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-456789",
-    date: "Mar 15, 2025",
-    price: "$1,250.00",
+    businessName: "Innovate Corp",
+    name: "Robert Johnson",
+    email: "robert@innovate.com",
+    phone: "+1 (555) 456-7890",
+    percentage: "10%",
+    allowedBalance: "$8,000",
+    usedBalance: "$3,200",
     status: "Pending",
   },
   {
-    id: 4,
-    name: "Emily R. Johnson",
-    avatar: "/images/chair1.jpg",
-    quoteNo: "QUO-789123",
-    date: "Jan 5, 2025",
-    price: "$845.25",
+    businessName: "Digital Ventures",
+    name: "Emily Davis",
+    email: "emily@digitalventures.com",
+    phone: "+1 (555) 789-0123",
+    percentage: "25%",
+    allowedBalance: "$20,000",
+    usedBalance: "$18,750",
     status: "Completed",
   },
 ];
 
-const QuotationsPage = () => {
+const BusinessStorePage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -58,59 +62,67 @@ const QuotationsPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<Quotation>(
+  } = useTableData<Business>(
     fetchData,
-    ["name", "quoteNo", "date", "price"],
+    ["businessName", "name", "email", "phone"],
     "status"
   );
 
   const columns = [
     {
-      key: "id",
-      header: "ID",
-      width: "80px",
+      key: "businessName",
+      header: "Business Name",
+      width: "200px",
     },
     {
       key: "name",
-      header: "Customer",
-      width: "270px",
-      render: (item: Quotation) => (
-        <div className="flex items-center gap-3">
-          <img 
-            src={item.avatar} 
-            alt={item.name}
-            className="w-8 h-8 rounded-full object-cover"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/images/default-avatar.jpg';
-            }}
-          />
-          <span>{item.name}</span>
-        </div>
+      header: "Name",
+      width: "150px",
+    },
+    {
+      key: "email",
+      header: "Email",
+      width: "200px",
+      render: (item: Business) => (
+        <a href={`mailto:${item.email}`} className="text-blue-600 hover:underline">
+          {item.email}
+        </a>
       ),
     },
     {
-      key: "quoteNo",
-      header: "Quote No",
-      width: "180px",
+      key: "phone",
+      header: "Phone #",
+      width: "150px",
     },
     {
-      key: "date",
-      header: "Date",
-      width: "190px",
+      key: "percentage",
+      header: "Percentage",
+      width: "100px",
+      render: (item: Business) => (
+        <span className="font-semibold">{item.percentage}</span>
+      ),
     },
     {
-      key: "price",
-      header: "Price",
-      width: "190px",
-      render: (item: Quotation) => (
-        <span className="font-semibold">{item.price}</span>
+      key: "allowedBalance",
+      header: "Allowed Balance",
+      width: "150px",
+      render: (item: Business) => (
+        <span className="font-semibold text-green-600">{item.allowedBalance}</span>
+      ),
+    },
+    {
+      key: "usedBalance",
+      header: "Used Balance",
+      width: "150px",
+      render: (item: Business) => (
+        <span className="font-semibold text-blue-600">{item.usedBalance}</span>
       ),
     },
     {
       key: "status",
       header: "Status",
-      width: "190px",
-      render: (item: Quotation) => (
+      width: "150px",
+      render: (item: Business) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
             item.status === "Active"
@@ -130,7 +142,7 @@ const QuotationsPage = () => {
       key: "actions",
       header: "Actions",
       width: "120px",
-      render: (item: Quotation) => (
+      render: (item: Business) => (
         <div className="flex gap-2">
           <button 
             className="text-blue-600 hover:text-blue-800"
@@ -149,14 +161,26 @@ const QuotationsPage = () => {
               <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
             </svg>
           </button>
-          <button 
-            className="text-red-600 hover:text-red-800"
-            title="Delete"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-            </svg>
-          </button>
+          {item.status === "Active" && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              title="Block"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
+          {item.status === "Block" && (
+            <button 
+              className="text-green-600 hover:text-green-800"
+              title="Activate"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
         </div>
       ),
     },
@@ -191,7 +215,7 @@ const QuotationsPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Quotation Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Business Store</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -214,7 +238,7 @@ const QuotationsPage = () => {
           </button>
         </div>
       </div>
-      <CommonCustomTable<Quotation>
+      <GenericTable<Business>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
@@ -223,11 +247,11 @@ const QuotationsPage = () => {
         onSearch={setSearchQuery}
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
-        title="Quotations"
+        title="Business Store"
         // isLoading={isLoading}
       />
     </div>
   );
 };
 
-export default QuotationsPage;
+export default BusinessStorePage;

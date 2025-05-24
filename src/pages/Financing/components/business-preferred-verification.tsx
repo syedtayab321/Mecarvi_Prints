@@ -1,59 +1,39 @@
-// app/businessAdvantage/page.tsx
+// app/businessAdvantageVerification/page.tsx
 "use client";
 
 import React from "react";
 import GenericTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import { Business } from '../types/businessType';
+import { BusinessPreferredVerification } from "../types/businessType";
 
-const mockData: Business[] = [
+const mockData: BusinessPreferredVerification[] = [
   {
-    id: 1,
     businessName: "Tech Solutions Inc.",
-    name: "John Doe",
-    email: "john@techsolutions.com",
-    phone: "+1 (555) 123-4567",
-    percentage: "15%",
-    allowedBalance: "$10,000",
-    usedBalance: "$5,250",
-    status: "Active",
+    businessEmail: "info@techsolutions.com",
+    description: "Provider of innovative tech solutions for modern businesses",
+    status: "Verified",
   },
   {
-    id: 2,
     businessName: "Global Consulting",
-    name: "Jane Smith",
-    email: "jane@globalconsult.com",
-    phone: "+1 (555) 987-6543",
-    percentage: "20%",
-    allowedBalance: "$15,000",
-    usedBalance: "$12,300",
-    status: "Block",
-  },
-  {
-    id: 3,
-    businessName: "Innovate Corp",
-    name: "Robert Johnson",
-    email: "robert@innovate.com",
-    phone: "+1 (555) 456-7890",
-    percentage: "10%",
-    allowedBalance: "$8,000",
-    usedBalance: "$3,200",
+    businessEmail: "contact@globalconsult.com",
+    description: "International business consulting services",
     status: "Pending",
   },
   {
-    id: 4,
-    businessName: "Digital Ventures",
-    name: "Emily Davis",
-    email: "emily@digitalventures.com",
-    phone: "+1 (555) 789-0123",
-    percentage: "25%",
-    allowedBalance: "$20,000",
-    usedBalance: "$18,750",
-    status: "Completed",
+    businessName: "Digital Innovations",
+    businessEmail: "hello@digitalinnov.com",
+    description: "Cutting-edge digital transformation services",
+    status: "Rejected",
+  },
+  {
+    businessName: "Eco Solutions",
+    businessEmail: "support@ecosolutions.com",
+    description: "Sustainable business practices and consulting",
+    status: "In Review",
   },
 ];
 
-const BusinessStorePage = () => {
+const BusinessPreferredVerificationPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -66,80 +46,50 @@ const BusinessStorePage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<Business>(
+  } = useTableData<BusinessPreferredVerification>(
     fetchData,
-    ["businessName", "name", "email", "phone"],
+    ["businessName", "businessEmail", "description"],
     "status"
   );
 
   const columns = [
-    {
-      key: "id",
-      header: "ID",
-      width: "80px",
-    },
     {
       key: "businessName",
       header: "Business Name",
       width: "200px",
     },
     {
-      key: "name",
-      header: "Name",
-      width: "150px",
-    },
-    {
-      key: "email",
-      header: "Email",
+      key: "businessEmail",
+      header: "Business Email",
       width: "200px",
-      render: (item: Business) => (
-        <a href={`mailto:${item.email}`} className="text-blue-600 hover:underline">
-          {item.email}
+      render: (item: BusinessPreferredVerification) => (
+        <a href={`mailto:${item.businessEmail}`} className="text-blue-600 hover:underline">
+          {item.businessEmail}
         </a>
       ),
     },
     {
-      key: "phone",
-      header: "Phone #",
-      width: "150px",
-    },
-    {
-      key: "percentage",
-      header: "Percentage",
-      width: "100px",
-      render: (item: Business) => (
-        <span className="font-semibold">{item.percentage}</span>
-      ),
-    },
-    {
-      key: "allowedBalance",
-      header: "Allowed Balance",
-      width: "150px",
-      render: (item: Business) => (
-        <span className="font-semibold text-green-600">{item.allowedBalance}</span>
-      ),
-    },
-    {
-      key: "usedBalance",
-      header: "Used Balance",
-      width: "150px",
-      render: (item: Business) => (
-        <span className="font-semibold text-blue-600">{item.usedBalance}</span>
+      key: "description",
+      header: "Description",
+      render: (item: BusinessPreferredVerification) => (
+        <span className="max-w-xs truncate hover:max-w-none hover:whitespace-normal">
+          {item.description}
+        </span>
       ),
     },
     {
       key: "status",
       header: "Status",
       width: "120px",
-      render: (item: Business) => (
+      render: (item: BusinessPreferredVerification) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            item.status === "Active"
+            item.status === "Verified"
               ? "bg-green-100 text-green-600"
-              : item.status === "Block"
-              ? "bg-red-100 text-red-600"
               : item.status === "Pending"
               ? "bg-yellow-100 text-yellow-600"
+              : item.status === "Rejected"
+              ? "bg-red-100 text-red-600"
               : "bg-blue-100 text-blue-600"
           }`}
         >
@@ -150,8 +100,8 @@ const BusinessStorePage = () => {
     {
       key: "actions",
       header: "Actions",
-      width: "120px",
-      render: (item: Business) => (
+      width: "150px",
+      render: (item: BusinessPreferredVerification) => (
         <div className="flex gap-2">
           <button 
             className="text-blue-600 hover:text-blue-800"
@@ -162,31 +112,33 @@ const BusinessStorePage = () => {
               <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
             </svg>
           </button>
-          <button 
-            className="text-green-600 hover:text-green-800"
-            title="Edit"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-            </svg>
-          </button>
-          {item.status === "Active" && (
-            <button 
-              className="text-red-600 hover:text-red-800"
-              title="Block"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clipRule="evenodd" />
-              </svg>
-            </button>
+          {item.status === "Pending" && (
+            <>
+              <button 
+                className="text-green-600 hover:text-green-800"
+                title="Verify"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </button>
+              <button 
+                className="text-red-600 hover:text-red-800"
+                title="Reject"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </>
           )}
-          {item.status === "Block" && (
+          {item.status === "In Review" && (
             <button 
-              className="text-green-600 hover:text-green-800"
-              title="Activate"
+              className="text-purple-600 hover:text-purple-800"
+              title="Mark as Verified"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
             </button>
           )}
@@ -196,10 +148,10 @@ const BusinessStorePage = () => {
   ];
 
   const filterOptions = [
-    { value: "Active", label: "Active" },
-    { value: "Block", label: "Block" },
+    { value: "Verified", label: "Verified" },
     { value: "Pending", label: "Pending" },
-    { value: "Completed", label: "Completed" },
+    { value: "Rejected", label: "Rejected" },
+    { value: "In Review", label: "In Review" },
   ];
 
   if (error) {
@@ -224,7 +176,7 @@ const BusinessStorePage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Business Store</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Business Preferred Verification</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -247,7 +199,7 @@ const BusinessStorePage = () => {
           </button>
         </div>
       </div>
-      <GenericTable<Business>
+      <GenericTable<BusinessPreferredVerification>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
@@ -256,11 +208,11 @@ const BusinessStorePage = () => {
         onSearch={setSearchQuery}
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
-        title="Business Store"
+        title="Preferred Verification Requests"
         // isLoading={isLoading}
       />
     </div>
   );
 };
 
-export default BusinessStorePage;
+export default BusinessPreferredVerificationPage;

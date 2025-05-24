@@ -151,44 +151,44 @@ const GiftCardTransactionsPage = () => {
         </span>
       ),
     },
-    // {
-    //   key: "actions",
-    //   header: "Actions",
-    //   width: "120px",
-    //   render: (item: GiftCardTransaction) => (
-    //     <div className="flex gap-2">
-    //       <button 
-    //         className="text-blue-600 hover:text-blue-800"
-    //         title="View Details"
-    //       >
-    //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //           <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-    //           <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-    //         </svg>
-    //       </button>
-    //       {item.status === "Pending" && (
-    //         <button 
-    //           className="text-green-600 hover:text-green-800"
-    //           title="Approve"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //       {item.status === "Completed" && (
-    //         <button 
-    //           className="text-purple-600 hover:text-purple-800"
-    //           title="Refund"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //     </div>
-    //   ),
-    // },
+    {
+      key: "actions",
+      header: "Actions",
+      width: "120px",
+      render: (item: GiftCardTransaction) => (
+        <div className="flex gap-2">
+          <button 
+            className="text-blue-600 hover:text-blue-800"
+            title="View Details"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+            </svg>
+          </button>
+          {item.status === "Pending" && (
+            <button 
+              className="text-green-600 hover:text-green-800"
+              title="Approve"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
+          {item.status === "Completed" && (
+            <button 
+              className="text-purple-600 hover:text-purple-800"
+              title="Refund"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
+        </div>
+      ),
+    },
   ];
 
   const filterOptions = [

@@ -204,54 +204,54 @@ const RefundOrdersPage = () => {
         </span>
       ),
     },
-    // {
-    //   key: "actions",
-    //   header: "Options",
-    //   width: "120px",
-    //   render: (item: RefundOrder) => (
-    //     <div className="flex gap-2">
-    //       <button 
-    //         className="text-blue-600 hover:text-blue-800"
-    //         title="View Details"
-    //       >
-    //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //           <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-    //           <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-    //         </svg>
-    //       </button>
-    //       {item.status === "Pending" && (
-    //         <>
-    //           <button 
-    //             className="text-green-600 hover:text-green-800"
-    //             title="Approve"
-    //           >
-    //             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-    //             </svg>
-    //           </button>
-    //           <button 
-    //             className="text-red-600 hover:text-red-800"
-    //             title="Reject"
-    //           >
-    //             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-    //             </svg>
-    //           </button>
-    //         </>
-    //       )}
-    //       {item.status === "Approved" && (
-    //         <button 
-    //           className="text-purple-600 hover:text-purple-800"
-    //           title="Process Refund"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //     </div>
-    //   ),
-    // },
+    {
+      key: "actions",
+      header: "Options",
+      width: "120px",
+      render: (item: RefundOrder) => (
+        <div className="flex gap-2">
+          <button 
+            className="text-blue-600 hover:text-blue-800"
+            title="View Details"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+            </svg>
+          </button>
+          {item.status === "Pending" && (
+            <>
+              <button 
+                className="text-green-600 hover:text-green-800"
+                title="Approve"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </button>
+              <button 
+                className="text-red-600 hover:text-red-800"
+                title="Reject"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </>
+          )}
+          {item.status === "Approved" && (
+            <button 
+              className="text-purple-600 hover:text-purple-800"
+              title="Process Refund"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
+        </div>
+      ),
+    },
   ];
 
   const filterOptions = [

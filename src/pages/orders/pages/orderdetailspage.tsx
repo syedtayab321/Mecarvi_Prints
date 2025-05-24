@@ -1,17 +1,17 @@
-import ArrivalCard from "@/pages/dashboard/components/arrivalcard";
-import DeliveryStatusCard from "@/pages/dashboard/components/deliverystatuscard";
-import MapCard from "@/pages/dashboard/components/mapcard";
-import OrderDetailCard from "@/pages/dashboard/components/orderdetailscard";
-import OrderItems from "@/pages/dashboard/components/orderitems";
-import PaymentCard from "@/pages/dashboard/components/paymentcard";
-import PurchaseSummary from "@/pages/dashboard/components/purchasesummary";
-import ShipmentDetailsCard from "@/pages/dashboard/components/shipmentdetailscard";
-import TimelineCard from "@/pages/dashboard/components/timelinecard";
-import Topbar from "@/pages/dashboard/components/topbar";
+import ArrivalCard from "@/pages/orders/components/orderDetailsComponents/arrivalcard";
+import DeliveryStatusCard from "@/pages/orders/components/orderDetailsComponents/deliverystatuscard";
+import MapCard from "@/pages/orders/components/orderDetailsComponents/mapcard";
+import OrderDetailCard from "@/pages/orders/components/orderDetailsComponents/orderdetailscard";
+import OrderItems from "@/pages/orders/components/orderDetailsComponents/orderitems";
+import PaymentCard from "@/pages/orders/components/orderDetailsComponents/paymentcard";
+import PurchaseSummary from "@/pages/orders/components/orderDetailsComponents/purchasesummary";
+import ShipmentDetailsCard from "@/pages/orders/components/orderDetailsComponents/shipmentdetailscard";
+import TimelineCard from "@/pages/orders/components/orderDetailsComponents/timelinecard";
+import Topbar from "@/pages/orders/components/orderDetailsComponents/topbar";
 import React from "react";
-import CustomerCard from "../components/customerCard";
-import OrderProgress from "../components/orderProgress";
-import RecentActivity from "../components/recentActivity";
+import CustomerCard from "../components/orderDetailsComponents/customerCard";
+import OrderProgress from "../components/orderDetailsComponents/orderProgress";
+import RecentActivity from "../components/orderDetailsComponents/recentActivity";
 
 const OrderDetailsPage = () => {
   return (

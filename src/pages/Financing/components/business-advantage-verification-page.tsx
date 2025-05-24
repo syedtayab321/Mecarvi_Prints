@@ -4,39 +4,28 @@
 import React from "react";
 import GenericTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
+import { BusinessVerification } from "../types/businessType";
 
-interface BusinessPreferredVerification {
-  id: number;
-  businessName: string;
-  businessEmail: string;
-  description: string;
-  status: "Verified" | "Pending" | "Rejected" | "In Review";
-}
-
-const mockData: BusinessPreferredVerification[] = [
+const mockData: BusinessVerification[] = [
   {
-    id: 1,
     businessName: "Tech Solutions Inc.",
     businessEmail: "info@techsolutions.com",
     description: "Provider of innovative tech solutions for modern businesses",
     status: "Verified",
   },
   {
-    id: 2,
     businessName: "Global Consulting",
     businessEmail: "contact@globalconsult.com",
     description: "International business consulting services",
     status: "Pending",
   },
   {
-    id: 3,
     businessName: "Digital Innovations",
     businessEmail: "hello@digitalinnov.com",
     description: "Cutting-edge digital transformation services",
     status: "Rejected",
   },
   {
-    id: 4,
     businessName: "Eco Solutions",
     businessEmail: "support@ecosolutions.com",
     description: "Sustainable business practices and consulting",
@@ -44,7 +33,7 @@ const mockData: BusinessPreferredVerification[] = [
   },
 ];
 
-const BusinessPreferredVerificationPage = () => {
+const BusinessAdvantageVerificationPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -57,18 +46,13 @@ const BusinessPreferredVerificationPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<BusinessPreferredVerification>(
+  } = useTableData<BusinessVerification>(
     fetchData,
     ["businessName", "businessEmail", "description"],
     "status"
   );
 
   const columns = [
-    {
-      key: "id",
-      header: "ID",
-      width: "80px",
-    },
     {
       key: "businessName",
       header: "Business Name",
@@ -78,7 +62,7 @@ const BusinessPreferredVerificationPage = () => {
       key: "businessEmail",
       header: "Business Email",
       width: "200px",
-      render: (item: BusinessPreferredVerification) => (
+      render: (item: BusinessVerification) => (
         <a href={`mailto:${item.businessEmail}`} className="text-blue-600 hover:underline">
           {item.businessEmail}
         </a>
@@ -87,7 +71,7 @@ const BusinessPreferredVerificationPage = () => {
     {
       key: "description",
       header: "Description",
-      render: (item: BusinessPreferredVerification) => (
+      render: (item: BusinessVerification) => (
         <span className="max-w-xs truncate hover:max-w-none hover:whitespace-normal">
           {item.description}
         </span>
@@ -97,7 +81,7 @@ const BusinessPreferredVerificationPage = () => {
       key: "status",
       header: "Status",
       width: "120px",
-      render: (item: BusinessPreferredVerification) => (
+      render: (item: BusinessVerification) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
             item.status === "Verified"
@@ -117,7 +101,7 @@ const BusinessPreferredVerificationPage = () => {
       key: "actions",
       header: "Actions",
       width: "150px",
-      render: (item: BusinessPreferredVerification) => (
+      render: (item: BusinessVerification) => (
         <div className="flex gap-2">
           <button 
             className="text-blue-600 hover:text-blue-800"
@@ -192,7 +176,7 @@ const BusinessPreferredVerificationPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Business Preferred Verification</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Business Advantage Verification</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -215,7 +199,7 @@ const BusinessPreferredVerificationPage = () => {
           </button>
         </div>
       </div>
-      <GenericTable<BusinessPreferredVerification>
+      <GenericTable<BusinessVerification>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
@@ -224,11 +208,11 @@ const BusinessPreferredVerificationPage = () => {
         onSearch={setSearchQuery}
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
-        title="Preferred Verification Requests"
+        title="Verification Requests"
         // isLoading={isLoading}
       />
     </div>
   );
 };
 
-export default BusinessPreferredVerificationPage;
+export default BusinessAdvantageVerificationPage;

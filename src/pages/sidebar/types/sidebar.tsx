@@ -60,3 +60,5 @@ export type SidebarType =
   | "customers"
   | "loyality-points"
   | "product-management"
+  | "product-category"
+  | "finance"

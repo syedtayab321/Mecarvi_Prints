@@ -8,7 +8,6 @@ import {
   FaStar,
   FaShoppingBasket,
   FaUsers,
-  FaUserTie,
   FaBoxes,
   FaChartBar,
   FaChevronDown,
@@ -50,9 +49,6 @@ const navItems: NavItem[] = [
        { text: "Order Details", icon: FaListAlt, link: "order-details" },
       { text: "All Orders", icon: FaListAlt, link: "all-orders" },
       { text: "Order Verification", icon: FaListAlt, link: "order-verification" },
-      // { text: "Order Replacement", icon: FaListAlt, link: "order-replacement" },
-      // { text: "Return Requests", icon: FaListAlt, link: "return-requests" },
-      // { text: "Refund Order", icon: FaListAlt, link: "refund-order" },
       { text: "Order Dispute", icon: FaListAlt, link: "order-dispute" },
       { text: "Order Proof", icon: FaListAlt, link: "order-proof" },
     ]
@@ -65,29 +61,14 @@ const navItems: NavItem[] = [
   { 
     text: "Customers", 
     icon: FaUsers, 
-    link: "all-customers",
-    subItems: [
-      { text: "Customers", icon: FaUsers, link: "customers" },
-      // { text: "Customer Verification", icon: FaUserTie, link: "customer-verification" },
-      // { text: "Subscription Plan", icon: FaUsers, link: "subscription-plan" },
-      // { text: "Affilate Withdral", icon: FaUserTie, link: "affilate-withdrawl" },
-      // { text: "Customer Transaction", icon: FaUsers, link: "customer-transaction" },
-    ]
+    link: "customers",
   },
 
   // Financing
   { 
     text: "Financing", 
     icon: FaChartBar, 
-    link: "business-advantage",
-    subItems: [
-      { text: "Business Advantage", icon: FaChartBar, link: "business-advantage" },
-      { text: 'Business Advantage Verification', icon: FaChartBar, link: "business-advantage-verification"},
-      { text: "Business Preferred", icon: FaChartBar, link: "business-preferred" },
-      { text: 'Business Preferred Verification', icon: FaChartBar, link: "business-preferred-verification"},
-      { text: "Business Store", icon: FaChartBar, link: "business-store" },
-      { text: 'Business Store Verification', icon: FaChartBar, link: "business-store-verification"}
-    ]
+    link: "finance",
   },
 
   // Products
@@ -97,6 +78,7 @@ const navItems: NavItem[] = [
     link: "products",
     subItems: [
       { text: "Product Management", icon: FaBoxes, link: "product-management" },
+       { text: "Product Category", icon: FaBoxes, link: "product-category" },
     ]
   },
 
@@ -104,10 +86,7 @@ const navItems: NavItem[] = [
   { 
     text: "Loyalty", 
     icon: FaStar, 
-    link: "loyality-points",
-    subItems: [
-      { text: "Loyalty Points", icon: FaStar, link: "loyality" },
-    ]
+    link: "loyality",
   },
 
   // Gift Cards
@@ -184,9 +163,6 @@ const navItems: NavItem[] = [
         text: "General Settings", 
         icon: FaCog, 
         link: "general-settings",
-        // subItems: [
-        //   { text: "Main", icon: FaCog, link: "main" },
-        // ]
       },
       { 
         text: "Menu Settings", 
@@ -202,9 +178,6 @@ const navItems: NavItem[] = [
         text: "Payment Settings", 
         icon: FaCog, 
         link: "payment-settings",
-        // subItems: [
-        //   { text: "Payment Gateway", icon: FaCog, link: "payment-gateway" },
-        // ]
       },
       { 
         text: "Email Settings", 
@@ -220,11 +193,6 @@ const navItems: NavItem[] = [
         text: "HomePage Settings", 
         icon: FaCog, 
         link: "home-page-settings",
-        // subItems: [
-        //   { text: "Header Menu", icon: FaCog, link: "header-menu-settings" },
-        //   { text: "Footer Menu", icon: FaCog, link: "footer-menu-settings" },
-        //   { text: "Sidebar Menu", icon: FaCog, link: "sidebar-menu-settings" },
-        // ]
       },
     ]
   },

@@ -9,6 +9,8 @@ import ShippingMethodsPage from "./../components/shippingComponents/shipping-met
 import CustomFooterPage from "./../components/shippingComponents/shipping-methods-page";
 import HeaderMessagesPage from "../components/HeaderComponents/header-message-page";
 import ConfirmationMessagePage from "./../components/ConfirmationComponents/confirmation-page";
+import MaintenanceTextsPage from "../components/other/website-maintaince-page";
+import DefaultImagePage from "../components/other/default-image-page";
 
 export const GeneralSettingsPage = () => {
   const tabs = [
@@ -52,13 +54,13 @@ export const GeneralSettingsPage = () => {
       id: "website-maintenance",
       label: "Website Maintenance",
       icon: <FiAlertCircle size={18} />,
-      content: <LogoPage />,
+      content: <MaintenanceTextsPage />,
     },
     {
       id: "default-images",
       label: "Default Images",
       icon: <FiImage size={18} />,
-      content: <LogoPage />,
+      content: <DefaultImagePage />,
     },
   ];
 

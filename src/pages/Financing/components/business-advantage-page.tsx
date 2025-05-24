@@ -8,7 +8,6 @@ import { Business } from '../types/businessType';
 
 const mockData: Business[] = [
   {
-    id: 1,
     businessName: "Tech Solutions Inc.",
     name: "John Doe",
     email: "john@techsolutions.com",
@@ -19,7 +18,6 @@ const mockData: Business[] = [
     status: "Active",
   },
   {
-    id: 2,
     businessName: "Global Consulting",
     name: "Jane Smith",
     email: "jane@globalconsult.com",
@@ -30,7 +28,6 @@ const mockData: Business[] = [
     status: "Block",
   },
   {
-    id: 3,
     businessName: "Innovate Corp",
     name: "Robert Johnson",
     email: "robert@innovate.com",
@@ -39,17 +36,6 @@ const mockData: Business[] = [
     allowedBalance: "$8,000",
     usedBalance: "$3,200",
     status: "Pending",
-  },
-  {
-    id: 4,
-    businessName: "Digital Ventures",
-    name: "Emily Davis",
-    email: "emily@digitalventures.com",
-    phone: "+1 (555) 789-0123",
-    percentage: "25%",
-    allowedBalance: "$20,000",
-    usedBalance: "$18,750",
-    status: "Completed",
   },
 ];
 
@@ -73,11 +59,6 @@ const BusinessAdvantagePage = () => {
   );
 
   const columns = [
-    {
-      key: "id",
-      header: "ID",
-      width: "80px",
-    },
     {
       key: "businessName",
       header: "Business Name",
@@ -114,7 +95,7 @@ const BusinessAdvantagePage = () => {
     {
       key: "allowedBalance",
       header: "Allowed Balance",
-      width: "150px",
+      width: "120px",
       render: (item: Business) => (
         <span className="font-semibold text-green-600">{item.allowedBalance}</span>
       ),
@@ -122,7 +103,7 @@ const BusinessAdvantagePage = () => {
     {
       key: "usedBalance",
       header: "Used Balance",
-      width: "150px",
+      width: "120px",
       render: (item: Business) => (
         <span className="font-semibold text-blue-600">{item.usedBalance}</span>
       ),
@@ -147,52 +128,52 @@ const BusinessAdvantagePage = () => {
         </span>
       ),
     },
-    // {
-    //   key: "actions",
-    //   header: "Actions",
-    //   width: "120px",
-    //   render: (item: Business) => (
-    //     <div className="flex gap-2">
-    //       <button 
-    //         className="text-blue-600 hover:text-blue-800"
-    //         title="View Details"
-    //       >
-    //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //           <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-    //           <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-    //         </svg>
-    //       </button>
-    //       <button 
-    //         className="text-green-600 hover:text-green-800"
-    //         title="Edit"
-    //       >
-    //         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //           <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-    //         </svg>
-    //       </button>
-    //       {item.status === "Active" && (
-    //         <button 
-    //           className="text-red-600 hover:text-red-800"
-    //           title="Block"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clipRule="evenodd" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //       {item.status === "Block" && (
-    //         <button 
-    //           className="text-green-600 hover:text-green-800"
-    //           title="Activate"
-    //         >
-    //           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    //             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-    //           </svg>
-    //         </button>
-    //       )}
-    //     </div>
-    //   ),
-    // },
+    {
+      key: "actions",
+      header: "Actions",
+      width: "120px",
+      render: (item: Business) => (
+        <div className="flex gap-2">
+          <button 
+            className="text-blue-600 hover:text-blue-800"
+            title="View Details"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+            </svg>
+          </button>
+          <button 
+            className="text-green-600 hover:text-green-800"
+            title="Edit"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+            </svg>
+          </button>
+          {item.status === "Active" && (
+            <button 
+              className="text-red-600 hover:text-red-800"
+              title="Block"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
+          {item.status === "Block" && (
+            <button 
+              className="text-green-600 hover:text-green-800"
+              title="Activate"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          )}
+        </div>
+      ),
+    },
   ];
 
   const filterOptions = [

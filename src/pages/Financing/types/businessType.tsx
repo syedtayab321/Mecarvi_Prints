@@ -1,5 +1,4 @@
 export interface Business {
-  id: number;
   businessName: string;
   name: string;
   email: string;
@@ -11,7 +10,13 @@ export interface Business {
 }
 
 export interface BusinessVerification {
-  id: number;
+  businessName: string;
+  businessEmail: string;
+  description: string;
+  status: "Verified" | "Pending" | "Rejected" | "In Review";
+}
+
+export interface BusinessPreferredVerification {
   businessName: string;
   businessEmail: string;
   description: string;

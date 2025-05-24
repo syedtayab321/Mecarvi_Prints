@@ -1,43 +1,63 @@
-// app/businessAdvantageVerification/page.tsx
+// app/order-verification/page.tsx
 "use client";
 
 import React from "react";
-import GenericTable from "@/pages/common/commonCustomTable";
+import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import { BusinessVerification } from "../types/businessType";
 
-const mockData: BusinessVerification[] = [
+interface OrderVerification {
+  id: number;
+  customer: {
+    name: string;
+    avatar: string;
+  };
+  orderNumber: string;
+  email: string;
+  orderDate: string;
+  description: string;
+  status: "Pending" | "Verified" | "Rejected" | "Completed";
+}
+
+const mockData: OrderVerification[] = [
   {
     id: 1,
-    businessName: "Tech Solutions Inc.",
-    businessEmail: "info@techsolutions.com",
-    description: "Provider of innovative tech solutions for modern businesses",
-    status: "Verified",
-  },
-  {
-    id: 2,
-    businessName: "Global Consulting",
-    businessEmail: "contact@globalconsult.com",
-    description: "International business consulting services",
+    customer: {
+      name: "John Smith",
+      avatar: "/images/avatars/1.jpg",
+    },
+    orderNumber: "ORD-2023-001",
+    email: "john.smith@example.com",
+    orderDate: "2023-06-15",
+    description: "Website design services",
     status: "Pending",
   },
   {
-    id: 3,
-    businessName: "Digital Innovations",
-    businessEmail: "hello@digitalinnov.com",
-    description: "Cutting-edge digital transformation services",
-    status: "Rejected",
+    id: 2,
+    customer: {
+      name: "Sarah Johnson",
+      avatar: "/images/avatars/2.jpg",
+    },
+    orderNumber: "ORD-2023-002",
+    email: "sarah.j@example.com",
+    orderDate: "2023-06-14",
+    description: "Marketing materials printing",
+    status: "Verified",
   },
   {
-    id: 4,
-    businessName: "Eco Solutions",
-    businessEmail: "support@ecosolutions.com",
-    description: "Sustainable business practices and consulting",
-    status: "In Review",
+    id: 3,
+    customer: {
+      name: "Michael Brown",
+      avatar: "/images/avatars/3.jpg",
+    },
+    orderNumber: "ORD-2023-003",
+    email: "michael.b@example.com",
+    orderDate: "2023-06-12",
+    description: "Software license purchase",
+    status: "Rejected",
   },
 ];
 
-const BusinessAdvantageVerificationPage = () => {
+const OrderVerificationPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -50,56 +70,81 @@ const BusinessAdvantageVerificationPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<BusinessVerification>(
+  } = useTableData<OrderVerification>(
     fetchData,
-    ["businessName", "businessEmail", "description"],
+    ["customer.name", "orderNumber", "email", "description"],
     "status"
   );
 
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
+
   const columns = [
     {
-      key: "id",
-      header: "ID",
-      width: "80px",
+      key: "customer",
+      header: "Customer",
+      width: "180px",
+      render: (item: OrderVerification) => (
+        <div className="flex items-center gap-3">
+          <img 
+            src={item.customer.avatar} 
+            alt={item.customer.name}
+            className="w-8 h-8 rounded-full object-cover"
+          />
+          <span className="font-medium">{item.customer.name}</span>
+        </div>
+      ),
     },
     {
-      key: "businessName",
-      header: "Business Name",
-      width: "200px",
+      key: "orderNumber",
+      header: "Order Number",
+      width: "150px",
+      render: (item: OrderVerification) => (
+        <span className="font-mono font-medium bg-gray-100 px-2 py-1 rounded">
+          {item.orderNumber}
+        </span>
+      ),
     },
     {
-      key: "businessEmail",
-      header: "Business Email",
+      key: "email",
+      header: "Email",
       width: "200px",
-      render: (item: BusinessVerification) => (
-        <a href={`mailto:${item.businessEmail}`} className="text-blue-600 hover:underline">
-          {item.businessEmail}
+      render: (item: OrderVerification) => (
+        <a href={`mailto:${item.email}`} className="text-blue-600 hover:underline">
+          {item.email}
         </a>
       ),
     },
     {
+      key: "orderDate",
+      header: "Order Date",
+      width: "120px",
+      render: (item: OrderVerification) => formatDate(item.orderDate),
+    },
+    {
       key: "description",
       header: "Description",
-      render: (item: BusinessVerification) => (
-        <span className="max-w-xs truncate hover:max-w-none hover:whitespace-normal">
-          {item.description}
-        </span>
+      width: "250px",
+      render: (item: OrderVerification) => (
+        <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
       ),
     },
     {
       key: "status",
       header: "Status",
       width: "120px",
-      render: (item: BusinessVerification) => (
+      render: (item: OrderVerification) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            item.status === "Verified"
-              ? "bg-green-100 text-green-600"
-              : item.status === "Pending"
+            item.status === "Pending"
               ? "bg-yellow-100 text-yellow-600"
+              : item.status === "Verified"
+              ? "bg-blue-100 text-blue-600"
               : item.status === "Rejected"
               ? "bg-red-100 text-red-600"
-              : "bg-blue-100 text-blue-600"
+              : "bg-green-100 text-green-600"
           }`}
         >
           {item.status}
@@ -109,8 +154,8 @@ const BusinessAdvantageVerificationPage = () => {
     {
       key: "actions",
       header: "Actions",
-      width: "150px",
-      render: (item: BusinessVerification) => (
+      width: "180px",
+      render: (item: OrderVerification) => (
         <div className="flex gap-2">
           <button 
             className="text-blue-600 hover:text-blue-800"
@@ -125,7 +170,7 @@ const BusinessAdvantageVerificationPage = () => {
             <>
               <button 
                 className="text-green-600 hover:text-green-800"
-                title="Verify"
+                title="Verify Order"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -133,7 +178,7 @@ const BusinessAdvantageVerificationPage = () => {
               </button>
               <button 
                 className="text-red-600 hover:text-red-800"
-                title="Reject"
+                title="Reject Order"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -141,26 +186,16 @@ const BusinessAdvantageVerificationPage = () => {
               </button>
             </>
           )}
-          {item.status === "In Review" && (
-            <button 
-              className="text-purple-600 hover:text-purple-800"
-              title="Mark as Verified"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-            </button>
-          )}
         </div>
       ),
     },
   ];
 
   const filterOptions = [
-    { value: "Verified", label: "Verified" },
     { value: "Pending", label: "Pending" },
+    { value: "Verified", label: "Verified" },
     { value: "Rejected", label: "Rejected" },
-    { value: "In Review", label: "In Review" },
+    { value: "Completed", label: "Completed" },
   ];
 
   if (error) {
@@ -185,7 +220,7 @@ const BusinessAdvantageVerificationPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Business Advantage Verification</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Order Verification</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -197,18 +232,9 @@ const BusinessAdvantageVerificationPage = () => {
             </svg>
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
-          <button 
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
-            disabled={isLoading}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-            Export
-          </button>
         </div>
       </div>
-      <GenericTable<BusinessVerification>
+      <CommonCustomTable<OrderVerification>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
@@ -217,11 +243,10 @@ const BusinessAdvantageVerificationPage = () => {
         onSearch={setSearchQuery}
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
-        title="Verification Requests"
-        // isLoading={isLoading}
+        title="Order Verification List"
       />
     </div>
   );
 };
 
-export default BusinessAdvantageVerificationPage;
+export default OrderVerificationPage;

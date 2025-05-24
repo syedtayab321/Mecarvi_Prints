@@ -60,12 +60,4 @@ export const tableConfigurations: TableColumnConfig = {
     { header: 'Status', field: 'status', type: 'badge' },
     { header: 'Request Date', field: 'date', type: 'date' },
   ],
-  // verification: [
-  //   { header: 'Verification ID', field: 'verificationId' },
-  //   { header: 'Order ID', field: 'id' },
-  //   { header: 'Customer', field: 'customer' },
-  //   { header: 'Documents', field: 'documents' },
-  //   { header: 'Status', field: 'status', type: 'badge' },
-  //   { header: 'Request Date', field: 'date', type: 'date' },
-  // ],
 };

@@ -21,6 +21,8 @@ import AffiliateProductsPage from "../components/AffilateProductComponents/affil
 import PopularProductsPage from "../components/PopularProductComponents/popular-products-page";
 import ProductReviewsPage from "../components/ProductReviewsComponents/product-reviews-page";
 import ProductQuestionsPage from "../components/ProductQuestionComponents/product-question-page";
+import ReportedProductsPage from "../components/ReportedProductsComponents/reported-products-page";
+import DeactivatedProductsPage from "../components/DeactivatedProductsComponents/deactivated-products-page";
 
 export const MainProductPage = () => {
   const tabs = [
@@ -76,8 +78,14 @@ export const MainProductPage = () => {
       id: "reported-products",
       label: "Reported Products",
       icon: <FiAlertCircle size={18} />,
-      content: <AllProductsPage />,
+      content: <ReportedProductsPage />,
     },
+    {
+      id : "deactivated-products",
+      label : "Deactivated Products",
+      icon: <FiAlertCircle size={18}/>,
+      content: <DeactivatedProductsPage/>
+    }
   ];
 
   return (
