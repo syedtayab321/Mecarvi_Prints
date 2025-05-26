@@ -5,9 +5,7 @@ import LeftSideTabs from "@/pages/tabbar/customlefttabbar";
 import { 
   FiBox, 
   FiLayers,
-  FiPlus,
   FiFileText,
-  FiUsers,
   FiStar,
   FiMessageSquare,
   FiHelpCircle,
@@ -15,14 +13,14 @@ import {
 } from "react-icons/fi";
 import AllProductsPage from "../components/AllProductComponents/all-prodcuts-page";
 import DigitalProductsPage from "../components/DigitalProductComponents/digital-product-page";
-import PlusProductPage from "../components/PlusProductComponents/plus-product-page";
 import QuotationProductsPage from "../components/QuotationProductComponents/quotation-product-page";
-import AffiliateProductsPage from "../components/AffilateProductComponents/affilate-product-page";
 import PopularProductsPage from "../components/PopularProductComponents/popular-products-page";
 import ProductReviewsPage from "../components/ProductReviewsComponents/product-reviews-page";
 import ProductQuestionsPage from "../components/ProductQuestionComponents/product-question-page";
 import ReportedProductsPage from "../components/ReportedProductsComponents/reported-products-page";
 import DeactivatedProductsPage from "../components/DeactivatedProductsComponents/deactivated-products-page";
+import BrandsPage from "../components/BrandComponents/main-brand-page";
+import PrintAttributesPage from "../components/other/print-attributes-page";
 
 export const MainProductPage = () => {
   const tabs = [
@@ -39,22 +37,10 @@ export const MainProductPage = () => {
       content: <DigitalProductsPage />,
     },
     {
-      id: "plus-products",
-      label: "Plus Products",
-      icon: <FiPlus size={18} />,
-      content: <PlusProductPage />,
-    },
-    {
       id: "quotation-products",
       label: "Quotation Products",
       icon: <FiFileText size={18} />,
       content: <QuotationProductsPage />,
-    },
-    {
-      id: "affiliate-products",
-      label: "Affiliate Products",
-      icon: <FiUsers size={18} />,
-      content: <AffiliateProductsPage />,
     },
     {
       id: "popular-products",
@@ -85,6 +71,18 @@ export const MainProductPage = () => {
       label : "Deactivated Products",
       icon: <FiAlertCircle size={18}/>,
       content: <DeactivatedProductsPage/>
+    },
+    {
+      id : "print-brand",
+      label : "Print Brands",
+      icon: <FiAlertCircle size={18}/>,
+      content: <BrandsPage/>
+    },
+    {
+      id : "print-attribute",
+      label : "Print Attributes",
+      icon: <FiAlertCircle size={18}/>,
+      content: <PrintAttributesPage/>
     }
   ];
 
