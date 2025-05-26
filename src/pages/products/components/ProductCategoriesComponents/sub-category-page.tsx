@@ -1,9 +1,10 @@
 // app/sub-categories/page.tsx
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
+import AddProductSubCategoryModal from "./AddSubCategoryModal";
 
 interface SubCategory {
   id: number;
@@ -39,6 +40,15 @@ const mockData: SubCategory[] = [
 
 const SubCategoryPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    // You would typically:
+    // 1. Refresh your subcategories list
+    // 2. Show a success notification
+    console.log("Subcategory added successfully!");
+  };
   
   const {
     paginatedData,
@@ -167,6 +177,7 @@ const SubCategoryPage = () => {
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
           <button 
+           onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
             disabled={isLoading}
           >
@@ -187,6 +198,12 @@ const SubCategoryPage = () => {
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
         title="Sub Categories"
+      />
+
+       <AddProductSubCategoryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleSuccess}
       />
     </div>
   );
