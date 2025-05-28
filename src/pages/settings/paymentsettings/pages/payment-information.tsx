@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FiCreditCard, FiDollarSign, FiLock, FiSettings, FiUser, FiTruck } from 'react-icons/fi';
+import { CustomInput } from '@/pages/common/customInputField';
 
 type PaymentMethod = {
   id: string;
@@ -118,8 +119,8 @@ export default function PaymentInformation() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-6">
-      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+    <div className="max-w-6xl mx-auto p-4 md:p-6 h-full flex flex-col">
+      <div className="bg-white rounded-xl shadow-md overflow-hidden flex-1 flex flex-col">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-4">
           <h2 className="text-2xl font-bold text-white flex items-center">
@@ -129,7 +130,7 @@ export default function PaymentInformation() {
           <p className="text-blue-100">Configure your payment gateways and checkout options</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-8">
+        <form onSubmit={handleSubmit} className="p-6 space-y-8 flex-1 overflow-y-auto">
           {/* Payment Methods */}
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-800 flex items-center">
@@ -168,19 +169,19 @@ export default function PaymentInformation() {
                 {method.enabled && (
                   <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     {method.fields.map(field => (
-                      <div key={`${method.id}-${field.id}`} className="space-y-1">
-                        <label className="block text-sm font-medium text-gray-700">
-                          {field.label} {field.required && <span className="text-red-500">*</span>}
-                        </label>
-                        <input
-                          type={field.type}
-                          value={field.value}
-                          onChange={(e) => updatePaymentField(method.id, field.id, e.target.value)}
-                          placeholder={field.placeholder}
-                          required={field.required}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                      </div>
+                      <CustomInput
+                        key={`${method.id}-${field.id}`}
+                        label={field.label}
+                        name={`${method.id}.${field.id}`}
+                        register={{ 
+                          onChange: (e: React.ChangeEvent<HTMLInputElement>) => 
+                            updatePaymentField(method.id, field.id, e.target.value) 
+                        }}
+                        required={field.required}
+                        placeholder={field.placeholder}
+                        type={field.type}
+                        errors={{}}
+                      />
                     ))}
                   </div>
                 )}
@@ -222,16 +223,16 @@ export default function PaymentInformation() {
                   <label className="font-medium text-gray-700">Cash on Delivery</label>
                 </div>
                 {settings.codEnabled && (
-                  <div className="space-y-1">
-                    <label className="block text-sm font-medium text-gray-700">Display Text</label>
-                    <input
-                      type="text"
-                      value={settings.codText}
-                      onChange={(e) => updateSetting('codText', e.target.value)}
-                      placeholder="Pay with cash on delivery"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
+                  <CustomInput
+                    label="Display Text"
+                    name="codText"
+                    register={{ 
+                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => 
+                        updateSetting('codText', e.target.value) 
+                    }}
+                    placeholder="Pay with cash on delivery"
+                    errors={{}}
+                  />
                 )}
               </div>
             </div>
@@ -245,27 +246,33 @@ export default function PaymentInformation() {
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Currency Format</label>
-                <input
-                  type="text"
-                  value={settings.currencyFormat}
-                  onChange={(e) => updateSetting('currencyFormat', e.target.value)}
-                  placeholder="$0.00"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
+              <CustomInput
+                label="Currency Format"
+                name="currencyFormat"
+                register={{ 
+                  onChange: (e: React.ChangeEvent<HTMLInputElement>) => 
+                    updateSetting('currencyFormat', e.target.value) 
+                }}
+                placeholder="$0.00"
+                value={settings.currencyFormat}
+                errors={{}}
+              />
 
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-700">Withdrawal Fee</label>
                 <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-500">$</span>
-                  <input
-                    type="text"
-                    value={settings.withdrawFee}
-                    onChange={(e) => updateSetting('withdrawFee', e.target.value)}
+                  <span className="absolute left-3 top-3 text-gray-500">$</span>
+                  <CustomInput
+                    name="withdrawFee"
+                    label=""
+                    register={{ 
+                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => 
+                        updateSetting('withdrawFee', e.target.value) 
+                    }}
                     placeholder="0.00"
-                    className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    value={settings.withdrawFee}
+                    errors={{}}
+                    className="pl-8"
                   />
                 </div>
               </div>
@@ -273,28 +280,36 @@ export default function PaymentInformation() {
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-700">Withdrawal Charge (%)</label>
                 <div className="relative">
-                  <input
-                    type="text"
-                    value={settings.withdrawCharge}
-                    onChange={(e) => updateSetting('withdrawCharge', e.target.value)}
+                  <CustomInput
+                    name="withdrawCharge"
+                    label=""
+                    register={{ 
+                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => 
+                        updateSetting('withdrawCharge', e.target.value) 
+                    }}
                     placeholder="0"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    value={settings.withdrawCharge}
+                    errors={{}}
                   />
-                  <span className="absolute right-3 top-2 text-gray-500">%</span>
+                  <span className="absolute right-3 top-3 text-gray-500">%</span>
                 </div>
               </div>
 
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-700">Tax (%)</label>
                 <div className="relative">
-                  <input
-                    type="text"
-                    value={settings.tax}
-                    onChange={(e) => updateSetting('tax', e.target.value)}
+                  <CustomInput
+                    name="tax"
+                    label=""
+                    register={{ 
+                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => 
+                        updateSetting('tax', e.target.value) 
+                    }}
                     placeholder="0"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    value={settings.tax}
+                    errors={{}}
                   />
-                  <span className="absolute right-3 top-2 text-gray-500">%</span>
+                  <span className="absolute right-3 top-3 text-gray-500">%</span>
                 </div>
               </div>
             </div>

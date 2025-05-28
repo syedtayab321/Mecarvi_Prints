@@ -26,6 +26,11 @@ import MainProductPage from "./products/pages/main-product-page";
 import ProductCategoriesPage from "./products/pages/product-categories-page";
 import MainFinancePage from "./Financing/pages/main-finance-page";
 import OrderVerificationPage from "./orders/pages/orderverificationpage";
+import MenuSettingsMainpage from "./settings/menusettings/pages/main-menu-settings-page";
+import MainReportPage from "./reports/pages/main-report-page";
+import MainBlogsPage from "./blogs/pages/main-blog-page";
+import MainEmailSettingsPage from "./settings/emailsettings/pages/main-email-settings-page";
+import SocialLinksForm from "./settings/socialsettings/pages/social-links-page";
 
 const SidebarPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
@@ -76,6 +81,11 @@ const SidebarPage: React.FC = () => {
           { selectedSection === "home-page-settings" && <MainHomeSettingsPage/>}
           { selectedSection === "product-management" && <MainProductPage/>}
           { selectedSection === "product-category" && <ProductCategoriesPage/>}
+          { selectedSection === "menu-settings" && <MenuSettingsMainpage/>}
+          { selectedSection === "reports" && <MainReportPage/>}
+          { selectedSection === "blog" && <MainBlogsPage/>}
+          { selectedSection === "email-settings" && <MainEmailSettingsPage/>}
+          { selectedSection === "social-settings" && <SocialLinksForm/>}
         </div>
       </div>
     </div>

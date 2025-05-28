@@ -27,12 +27,12 @@ export const PaymentSettingsPage = () => {
     <div className="p-4">
       <CustomTabs
         tabs={tabs}
-        variant="underline"
-        size="lg"
-        tabContainerClassName="px-2"
-        activeTabClassName="text-blue-600"
-        tabClassName="text-gray-500"
-        indicatorClassName="bg-blue-600"
+        variant="pill"
+        size="md"
+        className="mb-6 p-4"
+        tabContainerClassName="bg-gray-50 rounded-lg p-1 text-black"
+        tabClassName="hover:bg-gray-200 text-black"
+        activeTabClassName="bg-blue-600 shadow-sm text-white hover:text-black"
       />
     </div>
   );

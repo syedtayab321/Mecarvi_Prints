@@ -62,3 +62,4 @@ export type SidebarType =
   | "product-management"
   | "product-category"
   | "finance"
+  | "social-settings"

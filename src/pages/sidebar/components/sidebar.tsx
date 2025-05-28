@@ -132,28 +132,16 @@ const navItems: NavItem[] = [
       { text: "Donation", icon: FaHandHoldingHeart, link: "donations" },
     ]
   },
-
-  // Blog
   { 
     text: "Blog", 
     icon: FaBook, 
     link: "blog",
-    subItems: [
-      { text: "Blog Management", icon: FaBook, link: "blog" },
-    ]
   },
-
-  // Reports
   { 
     text: "Reports", 
     icon: FaChartBar, 
     link: "reports",
-    subItems: [
-      { text: "Analytics Reports", icon: FaChartBar, link: "reports" },
-    ]
   },
-
-  // Settings (with nested sub-items)
   { 
     text: "Settings", 
     icon: FaCog, 
@@ -168,11 +156,6 @@ const navItems: NavItem[] = [
         text: "Menu Settings", 
         icon: FaCog, 
         link: "menu-settings",
-        subItems: [
-          { text: "Header Menu", icon: FaCog, link: "header-menu-settings" },
-          { text: "Footer Menu", icon: FaCog, link: "footer-menu-settings" },
-          { text: "Sidebar Menu", icon: FaCog, link: "sidebar-menu-settings" },
-        ]
       },
       { 
         text: "Payment Settings", 
@@ -183,21 +166,20 @@ const navItems: NavItem[] = [
         text: "Email Settings", 
         icon: FaCog, 
         link: "email-settings",
-        subItems: [
-          { text: "SMTP Settings", icon: FaCog, link: "smtp-settings" },
-          { text: "Email Templates", icon: FaCog, link: "email-templates" },
-          { text: "Notification Settings", icon: FaCog, link: "notification-settings" },
-        ]
       },
      { 
         text: "HomePage Settings", 
         icon: FaCog, 
         link: "home-page-settings",
       },
+      { 
+        text: "Social Settings", 
+        icon: FaCog, 
+        link: "social-settings",
+      },
     ]
   },
-
-  // Users
+  
   { 
     text: "Users", 
     icon: FaUsers, 
