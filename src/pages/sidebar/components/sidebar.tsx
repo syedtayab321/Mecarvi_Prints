@@ -21,6 +21,7 @@ import {
 } from "react-icons/fa";
 
 import { SidebarType } from "../types/sidebar";
+import { FaMessage, FaTicket } from "react-icons/fa6";
 
 interface NavItem {
   text: string;
@@ -106,7 +107,8 @@ const navItems: NavItem[] = [
     icon: FaHandHoldingHeart, 
     link: "support",
     subItems: [
-      { text: "Customer Support", icon: FaHandHoldingHeart, link: "support" },
+      { text: "Message", icon: FaMessage, link: "message" },
+      { text: "Ticket", icon: FaTicket, link: "ticket" },
     ]
   },
 
@@ -114,12 +116,7 @@ const navItems: NavItem[] = [
   { 
     text: "Marketing", 
     icon: FaChartBar, 
-    link: "email",
-    subItems: [
-      { text: "Bulk Email", icon: FaChartBar, link: "email" },
-      { text: "Sms", icon: FaChartBar, link: "sms" },
-      { text: "Coupons", icon: FaChartBar, link: "coupons" },
-    ]
+    link: "marketing",
   },
 
   // Donations

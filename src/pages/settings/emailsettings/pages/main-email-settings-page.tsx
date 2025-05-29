@@ -4,6 +4,7 @@ import LeftSideTabs from "@/pages/tabbar/customlefttabbar";
 import { FiSettings, FiTruck,} from "react-icons/fi";
 import EmailConfigurationPage from "../components/email-configuration-page";
 import SubscribersPage from "../components/subscribers-page";
+import EmailTemplatePage from "../components/email-template-page";
 
 export const MainEmailSettingsPage = () => {
   const tabs = [
@@ -17,7 +18,7 @@ export const MainEmailSettingsPage = () => {
       id: "email-template",
       label: "Email Template",
       icon: <FiSettings size={18} />,
-      content: <EmailConfigurationPage />,
+      content: <EmailTemplatePage />,
     },
     {
       id: "subscribers",

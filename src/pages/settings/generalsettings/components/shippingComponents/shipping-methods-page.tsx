@@ -35,27 +35,6 @@ const mockData: ShippingMethod[] = [
     price: "$24.99",
     options: "Guaranteed delivery, tracking included",
   },
-  {
-    id: 4,
-    title: "International Standard",
-    duration: "7-14 business days",
-    price: "$19.99",
-    options: "Customs handling included",
-  },
-  {
-    id: 5,
-    title: "International Express",
-    duration: "3-5 business days",
-    price: "$39.99",
-    options: "Priority customs clearance, tracking",
-  },
-  {
-    id: 6,
-    title: "Free Shipping",
-    duration: "5-7 business days",
-    price: "$0.00",
-    options: "Order over $50, tracking available",
-  },
 ];
 
 const ShippingMethodsPage = () => {

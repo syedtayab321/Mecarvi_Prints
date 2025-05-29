@@ -7,9 +7,6 @@ import QuotationsPage from "./quotation/pages/quotation";
 import PointsManagementPage from "./loyalitypoints/pages/points-management";
 import GiftCardsPage from "./gift_cards/pages/gift-cards-page";
 import GiftCardTransactionsPage from "./gift_cards/pages/gift-card-transactions";
-import BulkEmailForm from "./marketing/pages/bulk-email-page";
-import SmsForm from "./marketing/pages/sms-form-page";
-import CouponsPage from "./marketing/pages/coupons-page";
 import CharitiesPage from "./donations/pages/charity-page";
 import DonationsTable from "./donations/pages/donation-page";
 import StaffTable from "./users/pages/staff-page";
@@ -31,6 +28,8 @@ import MainReportPage from "./reports/pages/main-report-page";
 import MainBlogsPage from "./blogs/pages/main-blog-page";
 import MainEmailSettingsPage from "./settings/emailsettings/pages/main-email-settings-page";
 import SocialLinksForm from "./settings/socialsettings/pages/social-links-page";
+import MessagesPage from "./support/pages/message-page";
+import MainMarketingPage from "./marketing/pages/main-marketing-page";
 
 const SidebarPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
@@ -69,9 +68,7 @@ const SidebarPage: React.FC = () => {
           {selectedSection === "loyality" && <PointsManagementPage />}
           {selectedSection === "gift-cards" && <GiftCardsPage />}
           {selectedSection === "gift-card-transactions" && <GiftCardTransactionsPage />}
-          {selectedSection === "email" && <BulkEmailForm />}
-          {selectedSection === "sms" && <SmsForm />}
-          {selectedSection === "coupons" && <CouponsPage />}
+          {selectedSection === "marketing" && <MainMarketingPage />}
           {selectedSection === "charity" && <CharitiesPage />}\
           {selectedSection === "donations" && <DonationsTable />}
           {selectedSection === "staff" && <StaffTable />}
@@ -86,6 +83,7 @@ const SidebarPage: React.FC = () => {
           { selectedSection === "blog" && <MainBlogsPage/>}
           { selectedSection === "email-settings" && <MainEmailSettingsPage/>}
           { selectedSection === "social-settings" && <SocialLinksForm/>}
+          { selectedSection === "message" && <MessagesPage/>}
         </div>
       </div>
     </div>

@@ -20,6 +20,11 @@ import {
 } from "react-icons/fi";
 import FaqsSectionEditor from "../components/faqs-page";
 import MainPricingPlansPage from "../components/pricing-plan-page";
+import { ContactUsForm } from "../components/contact-us/contact-us-form";
+import OtherPagesPage from "../components/otherPages/other-page";
+import AboutUsForm from "../components/about-us-customization/about-us-form-page";
+import AboutUsCustomizationForm from "../components/about-us-customization/about-us-customization-form";
+import { AboutUsMiddleBanner } from "../components/about-us-customization/about-middle-banner-page";
 
 export const MenuSettingsMainpage = () => {
   const tabs = [
@@ -27,7 +32,7 @@ export const MenuSettingsMainpage = () => {
       id: "contact-us",
       label: "Contact Us Page",
       icon: <FiMail size={18} />,
-      content: <FaqsSectionEditor />,
+      content: <ContactUsForm />,
     },
     {
       id: "faq",
@@ -45,7 +50,13 @@ export const MenuSettingsMainpage = () => {
       id: "other-pages",
       label: "Other Pages",
       icon: <FiFileText size={18} />,
-      content: <FaqsSectionEditor />,
+      content: <OtherPagesPage />,
+    },
+    {
+      id: "about-us-customization",
+      label: "About us Customization",
+      icon: <FiUsers size={18} />,
+      content: <AboutUsMiddleBanner/>,
     },
     {
       id: "partner-with-us",
