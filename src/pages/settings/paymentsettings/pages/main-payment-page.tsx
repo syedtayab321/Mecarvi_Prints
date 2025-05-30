@@ -1,10 +1,9 @@
-// app/settings/payment-settings/page.tsx
 "use client";
 
 import CustomTabs from "@/pages/tabbar/customtabbar";
 import { FiCreditCard, FiDollarSign, FiShield, FiGlobe, FiPieChart, FiGift } from "react-icons/fi";
-import PaymentGatewaysPage from "./payment-gateway";
-import PaymentInformation from "./payment-information";
+import PaymentGatewaysPage from "./../components/payment-gateway";
+import PaymentInformation from "../components/payment-information";
 
 
 export const PaymentSettingsPage = () => {

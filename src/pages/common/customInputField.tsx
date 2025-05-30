@@ -16,6 +16,7 @@ interface CustomInputProps {
   icon?: React.ReactNode;
   disabled?: boolean;
   autoComplete?: string;
+  validation?: Record<string, any>; // New validation prop
 }
 
 export const CustomInput = ({
@@ -33,6 +34,7 @@ export const CustomInput = ({
   icon,
   disabled = false,
   autoComplete = "off",
+  validation = {}, // Default empty object
 }: CustomInputProps) => {
   // Helper function to get nested error
   const getError = (obj: any, path: string) => {
@@ -41,6 +43,14 @@ export const CustomInput = ({
 
   const error = getError(errors, name);
   const hasError = Boolean(error);
+
+  // Combine required with other validation rules if register exists
+  const registerProps = register 
+    ? register(name, { 
+        required: required ? "This field is required" : false,
+        ...validation 
+      })
+    : {};
 
   return (
     <div className={`space-y-2 ${containerClass}`}>
@@ -75,7 +85,7 @@ export const CustomInput = ({
               ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500'
               : 'border-gray-300 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500'
           } rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-all ${className}`}
-          {...(register ? register(name, { required }) : {})}
+          {...(register ? registerProps : {})}
         />
       </div>
     </div>

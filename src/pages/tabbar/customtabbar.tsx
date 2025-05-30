@@ -178,7 +178,7 @@ const CustomTabs: React.FC<CustomTabsProps> = ({
             <button
               key={tab.id}
               ref={(el) => { tabRefs.current[index] = el; }}
-              className={`flex items-center justify-center transition-all duration-300 ${sizeClasses[size]} ${
+              className={`flex items-center justify-center transition-all duration-300 ${sizeClasses[size]} min-w-fit ${
                 tab.id === activeTab
                   ? `${variantClasses[variant].active} ${activeTabClassName}`
                   : `text-gray-600 ${tabClassName}`

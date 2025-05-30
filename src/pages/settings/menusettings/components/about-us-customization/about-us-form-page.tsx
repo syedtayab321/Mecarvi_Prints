@@ -51,7 +51,7 @@ const AboutUsForm = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-4 py-8 overflow">
       <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
         {/* Form Header */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-6">

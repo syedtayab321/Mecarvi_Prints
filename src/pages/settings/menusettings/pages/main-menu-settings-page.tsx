@@ -20,11 +20,9 @@ import {
 } from "react-icons/fi";
 import FaqsSectionEditor from "../components/faqs-page";
 import MainPricingPlansPage from "../components/pricing-plan-page";
-import { ContactUsForm } from "../components/contact-us/contact-us-form";
+import { ContactUsForm } from "../components/contact-us-form";
 import OtherPagesPage from "../components/otherPages/other-page";
-import AboutUsForm from "../components/about-us-customization/about-us-form-page";
-import AboutUsCustomizationForm from "../components/about-us-customization/about-us-customization-form";
-import { AboutUsMiddleBanner } from "../components/about-us-customization/about-middle-banner-page";
+import MainAboutUsPage from "../components/main-about-us-page";
 
 export const MenuSettingsMainpage = () => {
   const tabs = [
@@ -56,7 +54,7 @@ export const MenuSettingsMainpage = () => {
       id: "about-us-customization",
       label: "About us Customization",
       icon: <FiUsers size={18} />,
-      content: <AboutUsMiddleBanner/>,
+      content: <MainAboutUsPage/>,
     },
     {
       id: "partner-with-us",

@@ -26,14 +26,15 @@ export const MainPricingPlansPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <CustomTabs
-        tabs={tabs}
-        variant="pill"
-        size="md"
-        className="mb-6"
-        tabContainerClassName="bg-gray-50 rounded-lg p-1 text-black"
-        tabClassName="hover:bg-gray-200"
-        activeTabClassName="bg-blue-700 shadow-sm text-white"
-      />
+          tabs={tabs}
+          variant="pill"
+          size="lg"
+          className="mb-8"
+          tabContainerClassName="bg-white rounded-xl shadow-sm p-1.5 border border-gray-200"
+          tabClassName="hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-all duration-200 flex items-center px-4 py-2.5"
+          activeTabClassName="bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md hover:text-white"
+        //   iconPosition="left"
+        />
     </div>
   );
 };
