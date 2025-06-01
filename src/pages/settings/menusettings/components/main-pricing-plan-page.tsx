@@ -2,7 +2,7 @@
 "use client";
 
 import CustomTabs from "@/pages/tabbar/customtabbar";
-import { FiCreditCard, FiDollarSign, FiShield, FiGlobe, FiPieChart, FiGift } from "react-icons/fi";
+import { FiCreditCard, FiDollarSign, FiShield, FiGlobe, FiPieChart, FiGift, FiPlusCircle, FiPrinter } from "react-icons/fi";
 import PrintPlans from "./pricing-sections/print-plans-page";
 import PrintPricingPlanNames from "./pricing-sections/print-pricing-plan-page";
 
@@ -12,13 +12,13 @@ export const MainPricingPlansPage = () => {
     {
       id: "pricing-plan-name",
       label: "Pricing Plans Names",
-      icon: <FiCreditCard />,
+      icon: <FiPlusCircle />,
       content: <PrintPricingPlanNames />,
     },
     {
       id: "print-plan",
       label: "Print Plans",
-      icon: <FiDollarSign />,
+      icon: <FiPrinter />,
       content: <PrintPlans />,
     },
   ];

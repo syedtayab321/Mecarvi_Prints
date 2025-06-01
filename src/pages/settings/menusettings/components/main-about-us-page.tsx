@@ -2,13 +2,13 @@
 
 import CustomTabs from "@/pages/tabbar/customtabbar";
 import { FiInfo, FiLayout, FiImage, FiFileText, FiAward, FiMapPin, FiUsers } from "react-icons/fi";
-import AboutUsForm from "./about-us-customization/about-us-form-page";
-import { AboutUsMiddleBanner } from "./about-us-customization/about-middle-banner-page";
-import AboutUsCustomizationForm from "./about-us-customization/about-us-customization-form";
-import { AboutUsMiddleInfoForm } from "./about-us-customization/about-middle-info-form";
-import CoreValuesPage from "./about-us-customization/about-core-values-page";
-import PrintLocationPage from "./about-us-customization/print-location-page";
-import PartnersPage from "./about-us-customization/partners-page";
+import AboutUsForm from "./about-us-sections/about-us-form-page";
+import { AboutUsMiddleBanner } from "./about-us-sections/about-middle-banner-page";
+import AboutUsCustomizationForm from "./about-us-sections/about-us-customization-form";
+import { AboutUsMiddleInfoForm } from "./about-us-sections/about-middle-info-form";
+import CoreValuesPage from "./about-us-sections/about-core-values-page";
+import PrintLocationPage from "./about-us-sections/print-location-page";
+import PartnersPage from "./about-us-sections/partners-page";
 
 export const MainAboutUsPage = () => {
   const tabs = [

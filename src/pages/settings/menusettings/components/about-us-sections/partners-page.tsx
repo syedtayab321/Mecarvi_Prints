@@ -1,9 +1,10 @@
 // app/partners/page.tsx
 "use client";
 
-import React from "react";
+import React,{useState} from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
+import AddNewPartnerModal from "../../Models/AddNewPartnerModal";
 
 type Partner = {
   id: number;
@@ -14,19 +15,26 @@ type Partner = {
 const mockData: Partner[] = [
   {
     id: 1,
-    featuredImage: "/images/partner1.jpg",
+    featuredImage: "/images/chair1.jpg",
     link: "https://example.com/partner1",
   },
   {
     id: 2,
-    featuredImage: "/images/partner2.jpg",
+    featuredImage: "/images/chair1.jpg",
     link: "https://example.com/partner2",
   },
 ];
 
 const PartnersPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
-  
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    // Add any success logic here (e.g., refresh the partners list)
+    console.log("Partner added successfully");
+  };
+
   const {
     paginatedData,
     currentPage,
@@ -151,6 +159,7 @@ const PartnersPage = () => {
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
           <button 
+             onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
             disabled={isLoading}
           >
@@ -170,6 +179,12 @@ const PartnersPage = () => {
         onSearch={setSearchQuery}
         title="Partners"
         // isLoading={isLoading}
+      />
+
+      <AddNewPartnerModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleSuccess}
       />
     </div>
   );

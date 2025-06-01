@@ -18,11 +18,14 @@ import {
   FiAward,
   FiAlertCircle
 } from "react-icons/fi";
-import FaqsSectionEditor from "../components/faqs-page";
-import MainPricingPlansPage from "../components/pricing-plan-page";
-import { ContactUsForm } from "../components/contact-us-form";
+import FaqsSectionEditor from "../components/main-faqs-page";
+import MainPricingPlansPage from "../components/main-pricing-plan-page";
+import { ContactUsForm } from "../components/main-contact-us-form";
 import OtherPagesPage from "../components/otherPages/other-page";
 import MainAboutUsPage from "../components/main-about-us-page";
+import PartnerWithUsForm from "../components/partner-with-us-form";
+import MainCareersPage from "../components/main-career-page";
+import MainAlertMessagePage from "../components/main-alert-message-page";
 
 export const MenuSettingsMainpage = () => {
   const tabs = [
@@ -60,13 +63,13 @@ export const MenuSettingsMainpage = () => {
       id: "partner-with-us",
       label: "Partner With Us Page",
       icon: <FiUsers size={18} />,
-      content: <FaqsSectionEditor />,
+      content: <PartnerWithUsForm />,
     },
     {
       id: "career-customization",
       label: "Career Customization",
       icon: <FiBriefcase size={18} />,
-      content: <FaqsSectionEditor />,
+      content: <MainCareersPage />,
     },
     {
       id: "brand-ambassador",
@@ -78,7 +81,7 @@ export const MenuSettingsMainpage = () => {
       id: "alert-message",
       label: "Alert Message",
       icon: <FiAlertCircle size={18} />,
-      content: <FaqsSectionEditor />,
+      content: <MainAlertMessagePage/>,
     },
   ];
 

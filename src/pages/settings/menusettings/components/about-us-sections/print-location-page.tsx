@@ -1,54 +1,51 @@
-// app/other-pages/page.tsx
+// app/print-locations/page.tsx
 "use client";
 
 import React,{useState} from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import AddOtherPageModal from "../../Models/AddOtherPageModal";
+import AddPrintLocationModal from "../../Models/AddPrintLocationModal";
 
-type OtherPage = {
+type PrintLocation = {
   id: number;
-  pageTitle: string;
-  header: string;
-  footer: string;
-  status: "Active" | "Inactive" | "Draft" | "Archived";
-  lastUpdated: string;
+  img: string;
+  country: string;
+  state: string;
+  address: string;
 };
 
-const mockData: OtherPage[] = [
+const mockData: PrintLocation[] = [
   {
     id: 1,
-    pageTitle: "About Us",
-    header: "Main Navigation",
-    footer: "Copyright Info",
-    status: "Active",
-    lastUpdated: "Apr 19, 2025",
+    img: "/images/chair1.jpg",
+    country: "United States",
+    state: "California",
+    address: "123 Main St, Los Angeles, CA 90001",
   },
   {
     id: 2,
-    pageTitle: "Contact",
-    header: "Simplified Menu",
-    footer: "Quick Links",
-    status: "Active",
-    lastUpdated: "Nov 30, 2024",
+    img: "/images/chair1.jpg",
+    country: "Canada",
+    state: "Ontario",
+    address: "456 Queen St, Toronto, ON M5V 1T1",
   },
   {
     id: 3,
-    pageTitle: "Services",
-    header: "Full Width",
-    footer: "Social Media",
-    status: "Draft",
-    lastUpdated: "Mar 15, 2025",
+    img: "/images/chair1.jpg",
+    country: "United Kingdom",
+    state: "England",
+    address: "789 Oxford St, London W1D 2HG",
   },
 ];
 
-const OtherPagesPage = () => {
+const PrintLocationPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
-
    const [isModalOpen, setIsModalOpen] = useState(false);
-   const handleAddSuccess = () => {
+
+  const handleSuccess = () => {
     setIsModalOpen(false);
-    reload(); // Refresh the table data
+    // Add any additional success logic here (e.g., refresh data)
+    console.log("Core value added successfully");
   };
 
   const {
@@ -61,10 +58,9 @@ const OtherPagesPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<OtherPage>(
+  } = useTableData<PrintLocation>(
     fetchData,
-    ["pageTitle", "header", "footer", "lastUpdated"],
-    "status"
+    ["country", "state", "address"]
   );
 
   const columns = [
@@ -74,53 +70,42 @@ const OtherPagesPage = () => {
       width: "80px",
     },
     {
-      key: "pageTitle",
-      header: "Page Title",
-      width: "200px",
-      render: (item: OtherPage) => (
-        <span className="font-medium text-gray-800">{item.pageTitle}</span>
-      ),
-    },
-    {
-      key: "header",
-      header: "Header",
-      width: "200px",
-    },
-    {
-      key: "footer",
-      header: "Footer",
-      width: "200px",
-    },
-    {
-      key: "status",
-      header: "Status",
+      key: "img",
+      header: "Image",
       width: "150px",
-      render: (item: OtherPage) => (
-        <span
-          className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            item.status === "Active"
-              ? "bg-green-100 text-green-600"
-              : item.status === "Inactive"
-              ? "bg-gray-100 text-gray-600"
-              : item.status === "Draft"
-              ? "bg-yellow-100 text-yellow-600"
-              : "bg-blue-100 text-blue-600"
-          }`}
-        >
-          {item.status}
-        </span>
+      render: (item: PrintLocation) => (
+        <div className="flex items-center">
+          <img 
+            src={item.img} 
+            alt={item.country}
+            className="w-12 h-12 rounded-md object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/images/default-location.jpg';
+            }}
+          />
+        </div>
       ),
     },
     {
-      key: "lastUpdated",
-      header: "Last Updated",
-      width: "180px",
+      key: "country",
+      header: "Country",
+      width: "200px",
     },
     {
-      key: "options",
+      key: "state",
+      header: "State",
+      width: "200px",
+    },
+    {
+      key: "address",
+      header: "Address",
+      width: "300px",
+    },
+    {
+      key: "actions",
       header: "Options",
       width: "150px",
-      render: (item: OtherPage) => (
+      render: (item: PrintLocation) => (
         <div className="flex gap-2">
           <button 
             className="text-blue-600 hover:text-blue-800"
@@ -152,13 +137,6 @@ const OtherPagesPage = () => {
     },
   ];
 
-  const filterOptions = [
-    { value: "Active", label: "Active" },
-    { value: "Inactive", label: "Inactive" },
-    { value: "Draft", label: "Draft" },
-    { value: "Archived", label: "Archived" },
-  ];
-
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -181,7 +159,7 @@ const OtherPagesPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Other Pages Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Print Locations</h1>
         <div className="flex gap-4">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -194,37 +172,35 @@ const OtherPagesPage = () => {
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
           <button 
-             onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
             disabled={isLoading}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
             </svg>
-            Add New Page
+            Add Location
           </button>
         </div>
       </div>
-      <CommonCustomTable<OtherPage>
+      <CommonCustomTable<PrintLocation>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
         onSearch={setSearchQuery}
-        onFilter={setStatusFilter}
-        filterOptions={filterOptions}
-        title="Other Pages"
+        title="Print Locations"
         // isLoading={isLoading}
       />
 
-      <AddOtherPageModal
+       <AddPrintLocationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSuccess={handleAddSuccess}
+        onSuccess={handleSuccess}
       />
     </div>
   );
 };
 
-export default OtherPagesPage;
+export default PrintLocationPage;

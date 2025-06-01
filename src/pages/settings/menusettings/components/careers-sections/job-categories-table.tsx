@@ -1,47 +1,30 @@
-// app/core-values/page.tsx
 "use client";
 
-import React,{useState} from "react";
+import React, { useState } from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import AddCoreValuesModal from "./AddCoreValuesModal";
+import AddJobCategoryModal from "../../Models/AddJobCategoryModal";
 
-interface CoreValue {
+interface JobCategory {
   id: number;
   title: string;
-  description: string;
-  status: "Active" | "Inactive";
 }
 
-const mockData: CoreValue[] = [
-  {
-    id: 1,
-    title: "Customer Focus",
-    description: "We prioritize our customers' needs in every decision we make",
-    status: "Active",
-  },
-  {
-    id: 2,
-    title: "Innovation",
-    description: "We embrace creativity and continuous improvement",
-    status: "Active",
-  },
-  {
-    id: 3,
-    title: "Integrity",
-    description: "We conduct business with honesty and transparency",
-    status: "Active",
-  },
+const mockData: JobCategory[] = [
+  { id: 1, title: "Engineering" },
+  { id: 2, title: "Marketing" },
+  { id: 3, title: "Human Resources" },
+  { id: 4, title: "Finance" },
+  { id: 5, title: "Operations" },
 ];
 
-const CoreValuesPage = () => {
+const JobCategoriesPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSuccess = () => {
     setIsModalOpen(false);
-    // Add any additional success logic here (e.g., refresh data)
-    console.log("Core value added successfully");
+    console.log("Job category added successfully");
   };
 
   const {
@@ -50,93 +33,52 @@ const CoreValuesPage = () => {
     totalPages,
     setCurrentPage,
     setSearchQuery,
-    setStatusFilter,
     isLoading,
     error,
     reload,
-  } = useTableData<CoreValue>(
-    fetchData,
-    ["title", "description"],
-    "status"
-  );
+  } = useTableData<JobCategory>(fetchData, ["title"]);
 
   const columns = [
     {
       key: "id",
       header: "ID",
-      width: "80px",
+      width: "120px",
     },
     {
       key: "title",
-      header: "Title",
-      width: "200px",
-      render: (item: CoreValue) => (
+      header: "Job Category",
+      width: "350px",
+      render: (item: JobCategory) => (
         <span className="font-medium">{item.title}</span>
-      ),
-    },
-    {
-      key: "description",
-      header: "Description",
-      width: "400px",
-      render: (item: CoreValue) => (
-        <p className="text-gray-600 line-clamp-2">{item.description}</p>
-      ),
-    },
-    {
-      key: "status",
-      header: "Status",
-      width: "120px",
-      render: (item: CoreValue) => (
-        <span
-          className={`px-2 py-1 rounded-full text-xs font-semibold ${
-            item.status === "Active"
-              ? "bg-green-100 text-green-600"
-              : "bg-gray-100 text-gray-600"
-          }`}
-        >
-          {item.status}
-        </span>
       ),
     },
     {
       key: "actions",
       header: "Options",
-      width: "150px",
-      render: (item: CoreValue) => (
-        <div className="flex gap-2">
+      width: "350px",
+      render: (item: JobCategory) => (
+        <div className="flex gap-4">
           <button 
-            className="text-blue-600 hover:text-blue-800"
-            title="View Details"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-            </svg>
-          </button>
-          <button 
-            className="text-green-600 hover:text-green-800"
+            className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
             title="Edit"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
             </svg>
+            <span className="text-sm">Edit</span>
           </button>
           <button 
-            className="text-red-600 hover:text-red-800"
+            className="text-red-600 hover:text-red-800 flex items-center gap-1"
             title="Delete"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
             </svg>
+            <span className="text-sm">Delete</span>
           </button>
         </div>
       ),
     },
-  ];
-
-  const filterOptions = [
-    { value: "Active", label: "Active" },
-    { value: "Inactive", label: "Inactive" },
   ];
 
   if (error) {
@@ -161,16 +103,16 @@ const CoreValuesPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Core Values Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Job Categories</h1>
         <div className="flex gap-4">
           <button 
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
-             onClick={() => setIsModalOpen(true)}
+            onClick={() => setIsModalOpen(true)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
             </svg>
-            Add New
+            Add Category
           </button>
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -184,20 +126,18 @@ const CoreValuesPage = () => {
           </button>
         </div>
       </div>
-      <CommonCustomTable<CoreValue>
+
+      <CommonCustomTable<JobCategory>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
         onSearch={setSearchQuery}
-        onFilter={setStatusFilter}
-        filterOptions={filterOptions}
-        title="Core Values"
-        // isLoading={isLoading}
+        title="Job Categories List"
       />
 
-       <AddCoreValuesModal
+      <AddJobCategoryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSuccess={handleSuccess}
@@ -206,4 +146,4 @@ const CoreValuesPage = () => {
   );
 };
 
-export default CoreValuesPage;
+export default JobCategoriesPage;

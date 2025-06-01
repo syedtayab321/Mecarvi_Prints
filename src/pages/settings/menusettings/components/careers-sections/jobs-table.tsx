@@ -1,59 +1,65 @@
-// app/print-locations/page.tsx
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
+import AddJobModal from "../../Models/AddJobModal";
 
-type PrintLocation = {
+interface Job {
   id: number;
-  img: string;
-  country: string;
-  state: string;
-  address: string;
-};
+  title: string;
+  category: string;
+  partner: string;
+  type: string;
+  location: string;
+}
 
-const mockData: PrintLocation[] = [
+const mockData: Job[] = [
   {
     id: 1,
-    img: "/images/location1.jpg",
-    country: "United States",
-    state: "California",
-    address: "123 Main St, Los Angeles, CA 90001",
+    title: "Frontend Developer",
+    category: "Engineering",
+    partner: "Tech Corp",
+    type: "Full-time",
+    location: "San Francisco, CA"
   },
   {
     id: 2,
-    img: "/images/location2.jpg",
-    country: "Canada",
-    state: "Ontario",
-    address: "456 Queen St, Toronto, ON M5V 1T1",
+    title: "Marketing Manager",
+    category: "Marketing",
+    partner: "Digital Solutions",
+    type: "Contract",
+    location: "Remote"
   },
   {
     id: 3,
-    img: "/images/location3.jpg",
-    country: "United Kingdom",
-    state: "England",
-    address: "789 Oxford St, London W1D 2HG",
+    title: "HR Specialist",
+    category: "Human Resources",
+    partner: "People First",
+    type: "Part-time",
+    location: "New York, NY"
   },
 ];
 
-const PrintLocationPage = () => {
+const JobsTable = () => {
   const fetchData = React.useCallback(() => mockData, []);
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    console.log("Job added successfully");
+  };
+
   const {
     paginatedData,
     currentPage,
     totalPages,
     setCurrentPage,
     setSearchQuery,
-    setStatusFilter,
     isLoading,
     error,
     reload,
-  } = useTableData<PrintLocation>(
-    fetchData,
-    ["country", "state", "address"]
-  );
+  } = useTableData<Job>(fetchData, ["title", "category", "partner", "type", "location"]);
 
   const columns = [
     {
@@ -62,54 +68,59 @@ const PrintLocationPage = () => {
       width: "80px",
     },
     {
-      key: "img",
-      header: "Image",
-      width: "150px",
-      render: (item: PrintLocation) => (
-        <div className="flex items-center">
-          <img 
-            src={item.img} 
-            alt={item.country}
-            className="w-12 h-12 rounded-md object-cover"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/images/default-location.jpg';
-            }}
-          />
-        </div>
+      key: "title",
+      header: "Title",
+      width: "200px",
+      render: (item: Job) => (
+        <span className="font-medium">{item.title}</span>
       ),
     },
     {
-      key: "country",
-      header: "Country",
-      width: "200px",
+      key: "category",
+      header: "Category",
+      width: "150px",
+      render: (item: Job) => (
+        <span className="text-gray-600">{item.category}</span>
+      ),
     },
     {
-      key: "state",
-      header: "State",
-      width: "200px",
+      key: "partner",
+      header: "Partner",
+      width: "150px",
+      render: (item: Job) => (
+        <span className="text-gray-600">{item.partner}</span>
+      ),
     },
     {
-      key: "address",
-      header: "Address",
-      width: "300px",
+      key: "type",
+      header: "Type",
+      width: "120px",
+      render: (item: Job) => (
+        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+          item.type === "Full-time" ? "bg-blue-100 text-blue-600" :
+          item.type === "Part-time" ? "bg-purple-100 text-purple-600" :
+          "bg-gray-100 text-gray-600"
+        }`}>
+          {item.type}
+        </span>
+      ),
+    },
+    {
+      key: "location",
+      header: "Location",
+      width: "150px",
+      render: (item: Job) => (
+        <span className="text-gray-600">{item.location}</span>
+      ),
     },
     {
       key: "actions",
       header: "Options",
       width: "150px",
-      render: (item: PrintLocation) => (
+      render: (item: Job) => (
         <div className="flex gap-2">
           <button 
             className="text-blue-600 hover:text-blue-800"
-            title="View Details"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-            </svg>
-          </button>
-          <button 
-            className="text-green-600 hover:text-green-800"
             title="Edit"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -151,8 +162,17 @@ const PrintLocationPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Print Locations</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Jobs</h1>
         <div className="flex gap-4">
+          <button 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
+            onClick={() => setIsModalOpen(true)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+            </svg>
+            Add Job
+          </button>
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
             onClick={reload}
@@ -163,29 +183,26 @@ const PrintLocationPage = () => {
             </svg>
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
-          <button 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
-            disabled={isLoading}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
-            Add Location
-          </button>
         </div>
       </div>
-      <CommonCustomTable<PrintLocation>
+
+      <CommonCustomTable<Job>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
         onSearch={setSearchQuery}
-        title="Print Locations"
-        // isLoading={isLoading}
+        title="Jobs List"
+      />
+
+      <AddJobModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleSuccess}
       />
     </div>
   );
 };
 
-export default PrintLocationPage;
+export default JobsTable;
