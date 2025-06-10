@@ -11,8 +11,6 @@ import {
   FiHelpCircle,
   FiAlertCircle
 } from "react-icons/fi";
-import AllProductsPage from "../components/AllProductComponents/all-prodcuts-page";
-import DigitalProductsPage from "../components/DigitalProductComponents/digital-product-page";
 import QuotationProductsPage from "../components/QuotationProductComponents/quotation-product-page";
 import PopularProductsPage from "../components/PopularProductComponents/popular-products-page";
 import ProductReviewsPage from "../components/ProductReviewsComponents/product-reviews-page";
@@ -22,6 +20,8 @@ import DeactivatedProductsPage from "../components/DeactivatedProductsComponents
 import BrandsPage from "../components/BrandComponents/main-brand-page";
 import PrintAttributesPage from "../components/other/print-attributes-page";
 import ProductDeliveryTimeTable from "../components/ProductDeliveryComponents/product-delivery-time-page";
+import AllProductsTable from "../components/all-prodcuts-table";
+import DigitalProductsPage from "../components/DigitalProductComponents/digital-product-page";
 
 export const MainProductPage = () => {
   const tabs = [
@@ -29,7 +29,7 @@ export const MainProductPage = () => {
       id: "all-products",
       label: "All Products",
       icon: <FiBox size={18} />,
-      content: <AllProductsPage />,
+      content: <AllProductsTable />,
     },
     {
       id: "digital-products",

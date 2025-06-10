@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import { LogoGrid } from '@/pages/settings/generalsettings/components/logoComponents/logoGrid';
+import { LogoGrid } from './logoGrid';
 import { LogoFormModal } from './logoFormModal';
 import { Logo } from './../../types/logoType';
 

@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React,{useState} from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
+import { AddDigitalProductModal } from "../../Models/AddDigitalProductModal";
 
 interface DigitalProduct {
   id: number;
@@ -62,7 +63,13 @@ const mockData: DigitalProduct[] = [
 
 const DigitalProductsPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
-  
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    // Add any success handling logic here
+  };
+
   const {
     paginatedData,
     currentPage,
@@ -239,6 +246,7 @@ const DigitalProductsPage = () => {
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
           <button 
+            onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
             disabled={isLoading}
           >
@@ -259,6 +267,12 @@ const DigitalProductsPage = () => {
         onFilter={setStatusFilter}
         filterOptions={filterOptions}
         title="Digital Products List"
+      />
+
+      <AddDigitalProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleSuccess}
       />
     </div>
   );

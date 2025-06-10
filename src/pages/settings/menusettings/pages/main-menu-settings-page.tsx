@@ -26,6 +26,7 @@ import MainAboutUsPage from "../components/main-about-us-page";
 import PartnerWithUsForm from "../components/partner-with-us-form";
 import MainCareersPage from "../components/main-career-page";
 import MainAlertMessagePage from "../components/main-alert-message-page";
+import MainBrandAmbasdorPage from "../components/main-brand-ambasdor-page";
 
 export const MenuSettingsMainpage = () => {
   const tabs = [
@@ -75,7 +76,7 @@ export const MenuSettingsMainpage = () => {
       id: "brand-ambassador",
       label: "Brand Ambassador",
       icon: <FiAward size={18} />,
-      content: <FaqsSectionEditor />,
+      content: <MainBrandAmbasdorPage />,
     },
     {
       id: "alert-message",

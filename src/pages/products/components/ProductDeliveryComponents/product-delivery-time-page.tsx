@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import AddProductDeliveryTimeModal from "./AddProductDeliveryModal";
+import AddProductDeliveryTimeModal from "../../Models/AddProductDeliveryModal";
 import { useForm } from "react-hook-form";
 
 interface ProductDeliveryTime {

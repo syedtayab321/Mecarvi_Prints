@@ -1,9 +1,10 @@
 // app/settings/products/components/all-products-page.tsx
 "use client";
 
-import React from "react";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
+import React,{useState} from "react";
+import { AddProductModal } from "../Models/AddProductModal";
 import { useTableData } from "@/pages/common/useTableData";
+import CommonCustomTable from "@/pages/common/commonCustomTable";
 
 interface Product {
   id: number;
@@ -61,9 +62,15 @@ const mockData: Product[] = [
   },
 ];
 
-const AllProductsPage = () => {
+const AllProductsTable = () => {
   const fetchData = React.useCallback(() => mockData, []);
-  
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    // Add any success handling logic here
+  };
+
   const {
     paginatedData,
     currentPage,
@@ -256,6 +263,7 @@ const AllProductsPage = () => {
             {isLoading ? 'Loading...' : 'Refresh'}
           </button>
           <button 
+             onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -276,8 +284,14 @@ const AllProductsPage = () => {
         filterOptions={filterOptions}
         title="Product List"
       />
+
+       <AddProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleSuccess}
+      />
     </div>
   );
 };
 
-export default AllProductsPage;
+export default AllProductsTable;

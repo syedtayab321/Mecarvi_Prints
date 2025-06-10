@@ -1,46 +1,33 @@
 "use client";
 
-import React,{useState} from "react";
-
-import AddShippingMethodModal from "./addShippingMethods";
-import { useTableData } from "@/pages/common/useTableData";
+import React, { useState } from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
+import { useTableData } from "@/pages/common/useTableData";
+import AddBenefitsModal from "../../Models/AddBenefitsModal";
 
-interface ShippingMethod {
+interface Benefit {
   id: number;
   title: string;
-  duration: string;
-  price: string;
-  options: string;
+  description: string;
 }
 
-const mockData: ShippingMethod[] = [
-  {
-    id: 1,
-    title: "Standard Shipping",
-    duration: "3-5 business days",
-    price: "$5.99",
-    options: "Tracking available",
-  },
-  {
-    id: 2,
-    title: "Express Shipping",
-    duration: "1-2 business days",
-    price: "$12.99",
-    options: "Priority handling, tracking included",
-  },
-  {
-    id: 3,
-    title: "Overnight Shipping",
-    duration: "Next business day",
-    price: "$24.99",
-    options: "Guaranteed delivery, tracking included",
-  },
+const mockData: Benefit[] = [
+  { id: 1, title: "Health Insurance", description: "Comprehensive medical, dental, and vision coverage" },
+  { id: 2, title: "Flexible Hours", description: "Ability to adjust work schedule as needed" },
+  { id: 3, title: "Remote Work", description: "Option to work from anywhere" },
+  { id: 4, title: "Paid Time Off", description: "Generous vacation and sick leave policy" },
+  { id: 5, title: "Retirement Plan", description: "401(k) with company matching" },
 ];
 
-const ShippingMethodsPage = () => {
+const BenefitsPage = () => {
   const fetchData = React.useCallback(() => mockData, []);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    console.log("Benefit added successfully");
+  };
+
   const {
     paginatedData,
     currentPage,
@@ -50,66 +37,53 @@ const ShippingMethodsPage = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<ShippingMethod>(
-    fetchData,
-    ["title", "duration", "price", "options"]
-  );
-
-  const handleAddSuccess = () => {
-    setIsModalOpen(false);
-    reload(); // Refresh the table data
-  };
+  } = useTableData<Benefit>(fetchData, ["title", "description"]);
 
   const columns = [
     {
       key: "id",
       header: "ID",
-      width: "10%",
+      width: "100px",
     },
     {
       key: "title",
       header: "Title",
-      width: "20%",
-      render: (item: ShippingMethod) => (
-        <span className="font-medium text-gray-800">{item.title}</span>
+      width: "250px",
+      render: (item: Benefit) => (
+        <span className="font-medium">{item.title}</span>
       ),
     },
     {
-      key: "duration",
-      header: "Duration",
-      width: "25%",
-    },
-    {
-      key: "price",
-      header: "Price",
-      width: "15%",
-      render: (item: ShippingMethod) => (
-        <span className="font-mono font-medium">
-          {item.price}
-        </span>
+      key: "description",
+      header: "Description",
+      width: "500px",
+      render: (item: Benefit) => (
+        <span className="text-gray-600">{item.description}</span>
       ),
     },
     {
       key: "actions",
-      header: "Actions",
-      width: "120px",
-      render: (item: ShippingMethod) => (
-        <div className="flex gap-2">
+      header: "Options",
+      width: "250px",
+      render: (item: Benefit) => (
+        <div className="flex gap-4">
           <button 
-            className="text-blue-600 hover:text-blue-800"
-            title="Edit Plan"
+            className="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+            title="Edit"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
             </svg>
+            <span className="text-sm">Edit</span>
           </button>
           <button 
-            className="text-red-600 hover:text-red-800"
-            title="Delete Plan"
+            className="text-red-600 hover:text-red-800 flex items-center gap-1"
+            title="Delete"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
             </svg>
+            <span className="text-sm">Delete</span>
           </button>
         </div>
       ),
@@ -138,16 +112,16 @@ const ShippingMethodsPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Shipping Methods</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Benefits</h1>
         <div className="flex gap-4">
           <button 
-            onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center"
+            onClick={() => setIsModalOpen(true)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
             </svg>
-            Add Shipping Method
+            Add Benefit
           </button>
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -161,23 +135,24 @@ const ShippingMethodsPage = () => {
           </button>
         </div>
       </div>
-      <CommonCustomTable<ShippingMethod>
+
+      <CommonCustomTable<Benefit>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
         onSearch={setSearchQuery}
-        title="Shipping Methods"
+        title="Benefits List"
       />
 
-      <AddShippingMethodModal 
+      <AddBenefitsModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSuccess={handleAddSuccess}
+        onSuccess={handleSuccess}
       />
     </div>
   );
 };
 
-export default ShippingMethodsPage;
+export default BenefitsPage;

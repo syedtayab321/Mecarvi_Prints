@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import AddProductCategoryModal from "./AddProductCatgeoryModal";
+import AddProductCategoryModal from "../../Models/AddProductCatgeoryModal";
 
 interface MainCategory {
   id: number;

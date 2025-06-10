@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import AddChildCategoryModal from "./AddChildCategoryModal";
+import AddChildCategoryModal from "../../Models/AddChildCategoryModal";
 
 interface ChildCategory {
   id: number;

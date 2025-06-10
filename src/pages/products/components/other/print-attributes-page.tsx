@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
-import CreateAttributesModal from "./addattributeModal";
+import CreateAttributesModal from "../../Models/addattributeModal";
 
 interface PrintAttribute {
   id: number;

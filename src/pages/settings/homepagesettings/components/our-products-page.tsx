@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
 import CommonCustomTable from "@/pages/common/commonCustomTable";
 import { useTableData } from "@/pages/common/useTableData";
+import React from "react";
+
 
 interface Product {
   id: number;

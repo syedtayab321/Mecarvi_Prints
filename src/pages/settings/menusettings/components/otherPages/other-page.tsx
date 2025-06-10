@@ -1,4 +1,4 @@
-// app/other-pages/page.tsx
+// app/other-views/page.tsx
 "use client";
 
 import React,{useState} from "react";
