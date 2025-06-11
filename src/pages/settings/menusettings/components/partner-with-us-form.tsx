@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiAlertCircle, FiImage, FiUser, FiBriefcase, FiMessageSquare } from "react-icons/fi";
-import { CustomInput } from "@/pages/common/customInputField";// Adjust the import path as needed
+import { CustomInput } from "@/components/common/customInputField";// Adjust the import path as needed
 
 const PartnerWithUsForm: React.FC = () => {
   const [formData, setFormData] = useState({

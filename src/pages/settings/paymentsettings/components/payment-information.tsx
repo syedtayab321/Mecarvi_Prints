@@ -1,6 +1,6 @@
 'use client';
 
-import { CustomInput } from '@/pages/common/customInputField';
+import { CustomInput } from '@/components/common/customInputField';
 import React, { useState } from 'react';
 import { FiCreditCard, FiDollarSign, FiLock, FiSettings, FiUser, FiTruck } from 'react-icons/fi';
 

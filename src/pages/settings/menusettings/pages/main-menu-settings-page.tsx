@@ -1,7 +1,7 @@
 // app/settings/homepage/page.tsx
 "use client";
 
-import LeftSideTabs from "@/pages/tabbar/customlefttabbar";
+import LeftSideTabs from "@/components/common/customlefttabbar";
 import { 
   FiHome, 
   FiPrinter, 

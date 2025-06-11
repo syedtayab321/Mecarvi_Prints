@@ -1,7 +1,7 @@
 // app/settings/product-categories/page.tsx
 "use client";
 
-import LeftSideTabs from "@/pages/tabbar/customlefttabbar";
+import LeftSideTabs from "@/components/common/customlefttabbar";
 import { FiLayers,FiFolder,FiFolderPlus,FiGrid,FiSettings } from "react-icons/fi";
 import MainCategoryPage from "../components/ProductCategoriesComponents/main-category-page";
 import SubCategoryPage from "../components/ProductCategoriesComponents/sub-category-page";

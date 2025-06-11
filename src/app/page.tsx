@@ -1,4 +1,5 @@
-import SidebarPage from "@/pages/mainpage";
+import SidebarPage from "./main/page";
+
 
 export default function Home() {
   return (

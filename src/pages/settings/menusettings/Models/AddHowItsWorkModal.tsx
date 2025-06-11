@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { FiUpload, FiTrash2 } from "react-icons/fi";
-import { CustomInput } from "@/pages/common/customInputField";
+import { CustomInput } from "@/components/common/customInputField";
 
 interface HowItWorksModalProps {
   isOpen: boolean;

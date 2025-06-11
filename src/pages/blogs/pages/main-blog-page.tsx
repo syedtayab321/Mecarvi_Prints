@@ -1,9 +1,9 @@
 "use client";
 
-import CustomTabs from "@/pages/tabbar/customtabbar";
+import CustomTabs from "@/components/common/customtabbar";
 import { FiDollarSign, FiUsers } from "react-icons/fi";
-import BlogCategoriesTable from "../components/blog-category-page";
-import BlogPostsTable from "../components/blog-post-page";
+import BlogCategoriesTable from "../components/blog-category-table";
+import BlogPostsTable from "../components/blog-post-table";
 
 export const MainBlogsPage = () => {
   const tabs = [

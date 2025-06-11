@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from "react";
 import Image from "next/image";
-import { CustomInput } from "@/pages/common/customInputField";
+import { CustomInput } from "@/components/common/customInputField";
 
 interface AddNewBlogCategoryModalProps {
   isOpen: boolean;

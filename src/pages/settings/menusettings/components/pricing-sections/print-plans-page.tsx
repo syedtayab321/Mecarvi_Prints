@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { CustomInput } from "@/pages/common/customInputField";
+import { CustomInput } from "@/components/common/customInputField";
 
 interface PlanRow {
   id: string;

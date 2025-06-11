@@ -1,6 +1,6 @@
 "use client";
 
-import LeftSideTabs from "@/pages/tabbar/customlefttabbar";
+import LeftSideTabs from "@/components/common/customlefttabbar";
 import { FiSettings, FiTruck,} from "react-icons/fi";
 import EmailConfigurationPage from "../components/email-configuration-page";
 import SubscribersPage from "../components/subscribers-page";

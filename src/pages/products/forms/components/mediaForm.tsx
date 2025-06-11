@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { FiUpload, FiTrash2, FiImage, FiLink } from "react-icons/fi";
-import { CustomInput } from "@/pages/common/customInputField";
+import { CustomInput } from "@/components/common/customInputField";
 import { FiPlus } from "react-icons/fi";
 interface MediaFormProps {
   register: any;

@@ -2,8 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { useTableData } from "@/pages/common/useTableData";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
+import CommonCustomTable from "@/components/common/commonCustomTable";
 interface Brand {
   id: number;
   name: string;

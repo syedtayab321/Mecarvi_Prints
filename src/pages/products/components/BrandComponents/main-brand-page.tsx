@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import BrandForm from "./brandForm";
 import BrandTable from "./brandTable";
-import CustomTabs from "@/pages/tabbar/customtabbar";
+import CustomTabs from "@/components/common/customtabbar";
 
 interface Brand {
   id: number;

@@ -1,6 +1,6 @@
 "use client";
 
-import CustomTabs from "@/pages/tabbar/customtabbar";
+import CustomTabs from "@/components/common/customtabbar";
 import { 
   FiBell, 
   FiMessageSquare, 

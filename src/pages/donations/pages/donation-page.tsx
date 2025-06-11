@@ -2,8 +2,8 @@
 "use client";
 
 import React from "react";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
-import { useTableData } from "@/pages/common/useTableData";
+import CommonCustomTable from "@/components/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
 
 interface Donation {
   id: number;
@@ -84,7 +84,7 @@ const mockData: Donation[] = [
   },
 ];
 
-const DonationsPage = () => {
+const DonationsTable = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -284,4 +284,4 @@ const DonationsPage = () => {
   );
 };
 
-export default DonationsPage;
+export default DonationsTable;

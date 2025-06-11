@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CustomInput } from "@/pages/common/customInputField";
+import { CustomInput } from "@/components/common/customInputField";
 
 const SocialLinksForm = () => {
   const [socialLinks, setSocialLinks] = useState({

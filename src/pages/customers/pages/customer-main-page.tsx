@@ -1,7 +1,7 @@
 // app/settings/page.tsx
 "use client";
 
-import LeftSideTabs from "@/pages/tabbar/customlefttabbar";
+import LeftSideTabs from "@/components/common/customlefttabbar";
 import { FiCreditCard, FiDollarSign, FiShield } from "react-icons/fi";
 import CustomersPage from "./customerpage";
 import SubscriptionPlanPage from "./subscription-plans-page";

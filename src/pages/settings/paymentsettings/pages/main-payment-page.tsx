@@ -1,6 +1,6 @@
 "use client";
 
-import CustomTabs from "@/pages/tabbar/customtabbar";
+import CustomTabs from "@/components/common/customtabbar";
 import { FiCreditCard, FiDollarSign, FiShield, FiGlobe, FiPieChart, FiGift } from "react-icons/fi";
 import PaymentGatewaysPage from "./../components/payment-gateway";
 import PaymentInformation from "../components/payment-information";

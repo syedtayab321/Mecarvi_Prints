@@ -1,6 +1,6 @@
 "use client";
 
-import CustomTabs from "@/pages/tabbar/customtabbar";
+import CustomTabs from "@/components/common/customtabbar";
 import {FiImage, FiFileText, FiUsers, FiHelpCircle } from "react-icons/fi";
 import CareerPageForm from "./careers-sections/careers-form";
 import JobCategoriesPage from "./careers-sections/job-categories-table";

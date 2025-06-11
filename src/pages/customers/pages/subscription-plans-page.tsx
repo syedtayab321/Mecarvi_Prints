@@ -2,9 +2,9 @@
 "use client";
 
 import React,{useState} from "react";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
-import { useTableData } from "@/pages/common/useTableData";
-import SubscriptionAddPlanModal from "../components/addSubscriptionPlanModal";
+import CommonCustomTable from "@/components/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
+import SubscriptionAddPlanModal from "../models/addSubscriptionPlanModal";
 
 interface SubscriptionPlan {
   id: number;

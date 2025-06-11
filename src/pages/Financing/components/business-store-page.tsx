@@ -2,8 +2,8 @@
 "use client";
 
 import React from "react";
-import GenericTable from "@/pages/common/commonCustomTable";
-import { useTableData } from "@/pages/common/useTableData";
+import GenericTable from "@/components/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
 import { Business } from '../types/businessType';
 
 const mockData: Business[] = [

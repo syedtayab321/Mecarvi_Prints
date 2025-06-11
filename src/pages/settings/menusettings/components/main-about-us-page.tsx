@@ -1,6 +1,6 @@
 "use client";
 
-import CustomTabs from "@/pages/tabbar/customtabbar";
+import CustomTabs from "@/components/common/customtabbar";
 import { FiInfo, FiLayout, FiImage, FiFileText, FiAward, FiMapPin, FiUsers } from "react-icons/fi";
 import AboutUsForm from "./about-us-sections/about-us-form-page";
 import { AboutUsMiddleBanner } from "./about-us-sections/about-middle-banner-page";

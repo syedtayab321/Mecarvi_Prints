@@ -3,8 +3,8 @@
 import React,{useState} from "react";
 
 import AddShippingMethodModal from "./addShippingMethods";
-import { useTableData } from "@/pages/common/useTableData";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
+import CommonCustomTable from "@/components/common/commonCustomTable";
 
 interface ShippingMethod {
   id: number;

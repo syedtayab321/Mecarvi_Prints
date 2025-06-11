@@ -1,7 +1,7 @@
 // app/settings/page.tsx
 "use client";
 
-import LeftSideTabs from "@/pages/tabbar/customlefttabbar";
+import LeftSideTabs from "@/components/common/customlefttabbar";
 import { FiSettings, FiTruck, FiPackage, FiMessageSquare, FiAlertCircle, FiImage } from "react-icons/fi";
 import LogoPage from "./../components/logoComponents/logo";
 import LoaderPage from "./../components/loaderComponents/loader-page";

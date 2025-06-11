@@ -3,10 +3,10 @@
 import React,{useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
-import { useTableData } from "@/pages/common/useTableData";
+import CommonCustomTable from "@/components/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
 import { useForm } from "react-hook-form";
-import AddBlogPostModal from "./AddBlogPostModal";
+import AddBlogPostModal from "../models/AddBlogPostModal";
 
 interface BlogPost {
   id: number;

@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomTable from '@/pages/common/customTableWithFilters';
+import CustomTable from '@/components/common/customTableWithFilters';
 import { Customer, CustomerStatus } from '@/pages/customers/types/customerTypes';
 import { tableConfigurations } from '@/pages/customers/configs/TableConfigs';
 

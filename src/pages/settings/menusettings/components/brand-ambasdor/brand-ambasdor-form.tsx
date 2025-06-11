@@ -1,4 +1,4 @@
-import { CustomInput } from '@/pages/common/customInputField';
+import { CustomInput } from '@/components/common/customInputField';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FiAlertCircle, FiUpload, FiImage } from 'react-icons/fi';

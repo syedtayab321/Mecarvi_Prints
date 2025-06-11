@@ -1,4 +1,4 @@
-import { CustomInput } from "@/pages/common/customInputField";
+import { CustomInput } from "@/components/common/customInputField";
 
 interface ShippingFormProps {
   register: any;

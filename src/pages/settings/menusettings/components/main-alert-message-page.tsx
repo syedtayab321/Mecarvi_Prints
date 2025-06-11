@@ -1,6 +1,6 @@
 "use client";
 
-import CustomTabs from "@/pages/tabbar/customtabbar";
+import CustomTabs from "@/components/common/customtabbar";
 import { FiBell, FiMessageSquare, FiAlertCircle } from "react-icons/fi";
 import NotificationPage from "./alert-message-page/notification-page";
 import SmsMessagePage from "./alert-message-page/sms-page";

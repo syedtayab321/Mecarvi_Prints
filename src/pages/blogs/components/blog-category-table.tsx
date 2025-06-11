@@ -1,9 +1,9 @@
 "use client";
 
 import React,{useState} from "react";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
-import { useTableData } from "@/pages/common/useTableData";
-import AddNewBlogCategoryModal from "./AddBlogCategoryModal";
+import CommonCustomTable from "@/components/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
+import AddNewBlogCategoryModal from "../models/AddBlogCategoryModal";
 import { useForm } from "react-hook-form";
 
 interface BlogCategory {

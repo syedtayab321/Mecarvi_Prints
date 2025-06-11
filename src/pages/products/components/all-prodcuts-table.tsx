@@ -3,8 +3,8 @@
 
 import React,{useState} from "react";
 import { AddProductModal } from "../Models/AddProductModal";
-import { useTableData } from "@/pages/common/useTableData";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
+import CommonCustomTable from "@/components/common/commonCustomTable";
 
 interface Product {
   id: number;

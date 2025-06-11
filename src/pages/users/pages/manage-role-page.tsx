@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
-import { useTableData } from "@/pages/common/useTableData";
-import AddRoleModal from "./../components/addRoleModal";
+import CommonCustomTable from "@/components/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
+import AddRoleModal from "../models/addRoleModal";
 
 interface Role {
   id: number;

@@ -1,7 +1,7 @@
 // app/marketing/main-marketing-page.tsx
 "use client";
 
-import LeftSideTabs from "@/pages/tabbar/customlefttabbar";
+import LeftSideTabs from "@/components/common/customlefttabbar";
 import { FiMail, FiMessageSquare, FiTag, FiSettings } from "react-icons/fi";
 import BulkEmailForm from "../components/bulk-email-page";
 import SmsForm from "../components/sms-form-page";

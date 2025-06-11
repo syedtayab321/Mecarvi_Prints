@@ -1,7 +1,7 @@
 // app/settings/payment-settings/page.tsx
 "use client";
 
-import CustomTabs from "@/pages/tabbar/customtabbar";
+import CustomTabs from "@/components/common/customtabbar";
 import { FiCreditCard, FiDollarSign, FiUsers, FiPrinter } from "react-icons/fi";
 import AdminSalesReportTable from "../components/admin-sales-page";
 import ReferralPage from "../components/referral-report-page";

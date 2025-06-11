@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import CommonCustomTable from "@/pages/common/commonCustomTable";
-import { useTableData } from "@/pages/common/useTableData";
+import CommonCustomTable from "@/components/common/commonCustomTable";
+import { useTableData } from "@/components/common/useTableData";
 import { Coupon } from "../types/couponsTypes";
-import AddCouponModal from "./../components/addCouponModal"; // Import the modal component
+import AddCouponModal from "../models/addCouponModal"; // Import the modal component
 
 const mockData: Coupon[] = [
   {
