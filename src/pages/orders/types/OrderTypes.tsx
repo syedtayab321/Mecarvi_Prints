@@ -1,43 +1,27 @@
-export type OrderStatus = 
-  | 'all' 
-  | 'pending' 
-  | 'processing' 
-  | 'completed' 
-  | 'cancelled' 
-  | 'declined' 
-  | 'return' 
-  | 'replacement' 
-  // | 'verification';
-
-export type Order = {
-  id: number;
+export interface Order {
+  id: string;
+  orderNumber: string;
   customer: string;
   date: string;
+  total: number;
+  paymentMethod: string;
   status: string;
-  amount: number;
-  daysPending?: number;
-  urgency?: string;
-  stage?: string;
-  progress?: number;
-  rating?: string;
-  reason?: string;
-  refundStatus?: string;
-  refundId?: string;
-  returnId?: string;
-  replacementId?: string;
-  verificationId?: string;
-  items?: string;
-  documents?: string;
-};
+  paymentStatus?: string;
+  type?: string;
+  trackingNumber?: string;
+  seller?: string;
+  cancelReason?: string;
+  returnReason?: string;
+  returnTotal?: number;
+  returnTracking?: string;
+  returnStatus?: string;
+  refundReason?: string;
+  refundTotal?: number;
+  refundMethod?: string;
+  approvedBy?: string;
+  deliveryDate?: string;
+}
 
-export type FilterOption = {
-  label: string;
-  value: OrderStatus;
-};
-
-export type TableColumnConfig = {
-  [key in OrderStatus]: TableColumn[];
-};
 
 export type TableColumn = {
   header: string;

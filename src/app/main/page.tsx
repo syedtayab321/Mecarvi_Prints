@@ -7,8 +7,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import clsx from "clsx";
 import OrderDetailsPage from "@/pages/orders/pages/orderdetailspage";
-import AllOrdersPage from "@/pages/orders/pages/allorderspage";
-import RefundOrdersPage from "@/pages/orders/pages/refundorderspage";
 import OrderProofsPage from "@/pages/orders/pages/orderproof";
 import OrderVerificationPage from "@/pages/orders/pages/orderverificationpage";
 import CustomerSettingsPage from "@/pages/customers/pages/customer-main-page";
@@ -33,6 +31,7 @@ import SocialLinksForm from "@/pages/settings/socialsettings/pages/social-links-
 import MessagesPage from "@/pages/support/pages/message-page";
 import HomepageSettings from "@/pages/settings/homepagesettings/pages/main-home-setting-page";
 import DonationsTable from "@/pages/donations/pages/donation-table";
+import OrdersMainPage from "@/pages/orders/pages/orders-main-page";
 
 const MainPage: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState<SidebarType>("dashboard");
@@ -89,8 +88,7 @@ const MainPage: React.FC = () => {
           
           {/* Render the selected section */}
           {selectedSection === "order-details" && <OrderDetailsPage />}
-          {selectedSection === "all-orders" && <AllOrdersPage />}
-          {selectedSection === "refund-order" && <RefundOrdersPage />}
+          {selectedSection === "all-orders" && <OrdersMainPage />}
           {selectedSection === "order-proof" && <OrderProofsPage />}
           {selectedSection === "order-verification" && <OrderVerificationPage />}
           {selectedSection === "customers" && <CustomerSettingsPage />}

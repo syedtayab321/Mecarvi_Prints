@@ -59,48 +59,9 @@ const mockData: RefundOrder[] = [
     approvedBy: "",
     status: "Pending",
   },
-  {
-    id: 4,
-    customer: "Emily Davis",
-    orderNumber: "ORD-1004",
-    orderDate: "2023-05-10",
-    orderTotal: "$230.00",
-    seller: "ElectroHub",
-    refundReason: "Changed mind",
-    refundTotal: "$230.00",
-    refundMethod: "Credit Card",
-    approvedBy: "Admin Sarah",
-    status: "Rejected",
-  },
-  {
-    id: 5,
-    customer: "Michael Brown",
-    orderNumber: "ORD-1005",
-    orderDate: "2023-05-08",
-    orderTotal: "$67.30",
-    seller: "HomeGoods",
-    refundReason: "Late delivery",
-    refundTotal: "$67.30",
-    refundMethod: "Store Credit",
-    approvedBy: "Admin Mike",
-    status: "Approved",
-  },
-  {
-    id: 6,
-    customer: "Sarah Wilson",
-    orderNumber: "ORD-1006",
-    orderDate: "2023-05-05",
-    orderTotal: "$154.20",
-    seller: "Fashion",
-    refundReason: "Defective product",
-    refundTotal: "$154.20",
-    refundMethod: "Original Payment",
-    approvedBy: "Admin Sarah",
-    status: "Processed",
-  },
 ];
 
-const RefundOrdersPage = () => {
+const RefundOrdersTable = () => {
   const fetchData = React.useCallback(() => mockData, []);
   
   const {
@@ -321,4 +282,4 @@ const RefundOrdersPage = () => {
   );
 };
 
-export default RefundOrdersPage;
+export default RefundOrdersTable;
