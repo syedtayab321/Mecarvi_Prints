@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import clsx from "clsx";
 import {
   FaHome,
   FaBars,
@@ -10,25 +12,103 @@ import {
   FaUsers,
   FaBoxes,
   FaChartBar,
-  FaChevronDown,
-  FaChevronRight,
   FaSignOutAlt,
   FaHandHoldingHeart,
   FaBook,
   FaListAlt,
   FaGift,
-  FaCog,
+  FaCog
 } from "react-icons/fa";
-
-import { SidebarType } from "../types/sidebar";
 import { FaMessage, FaTicket } from "react-icons/fa6";
+import { SidebarType } from "../types/sidebar";
 
 interface NavItem {
   text: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ReactNode;
   link: SidebarType;
   subItems?: NavItem[];
 }
+
+const navItems: NavItem[] = [
+  { text: "Dashboard", icon: <FaHome />, link: "dashboard" },
+  { 
+    text: "Orders", 
+    icon: <FaShoppingBasket />, 
+    link: "orders",
+    subItems: [
+      { text: "Order Details", icon: <FaListAlt />, link: "order-details" },
+      { text: "All Orders", icon: <FaListAlt />, link: "all-orders" },
+      { text: "Order Verification", icon: <FaListAlt />, link: "order-verification" },
+      { text: "Order Dispute", icon: <FaListAlt />, link: "order-dispute" },
+      { text: "Order Proof", icon: <FaListAlt />, link: "order-proof" },
+    ]
+  },
+  { text: "Quotation", icon: <FaHome />, link: "quotation" },
+  { text: "Customers", icon: <FaUsers />, link: "customers" },
+  { text: "Financing", icon: <FaChartBar />, link: "finance" },
+  { 
+    text: "Products", 
+    icon: <FaBoxes />, 
+    link: "products",
+    subItems: [
+      { text: "Product Management", icon: <FaBoxes />, link: "product-management" },
+      { text: "Product Category", icon: <FaBoxes />, link: "product-category" },
+    ]
+  },
+  { text: "Loyalty", icon: <FaStar />, link: "loyality" },
+  { 
+    text: "Gift Cards", 
+    icon: <FaGift />, 
+    link: "gift-card-transactions",
+    subItems: [
+      { text: "Gift Cards", icon: <FaGift />, link: "gift-cards" },
+      { text: "Gift Cards Transactions", icon: <FaGift />, link: "gift-card-transactions" },
+    ]
+  },
+  { 
+    text: "Support", 
+    icon: <FaHandHoldingHeart />, 
+    link: "support",
+    subItems: [
+      { text: "Message", icon: <FaMessage />, link: "message" },
+      { text: "Ticket", icon: <FaTicket />, link: "ticket" },
+    ]
+  },
+  { text: "Marketing", icon: <FaChartBar />, link: "marketing" },
+  { 
+    text: "Donations", 
+    icon: <FaHandHoldingHeart />, 
+    link: "charity",
+    subItems: [
+      { text: "Charity", icon: <FaHandHoldingHeart />, link: "charity" },
+      { text: "Donation", icon: <FaHandHoldingHeart />, link: "donations" },
+    ]
+  },
+  { text: "Blog", icon: <FaBook />, link: "blog" },
+  { text: "Reports", icon: <FaChartBar />, link: "reports" },
+  { 
+    text: "Settings", 
+    icon: <FaCog />, 
+    link: "settings",
+    subItems: [
+      { text: "General Settings", icon: <FaCog />, link: "general-settings" },
+      { text: "Menu Settings", icon: <FaCog />, link: "menu-settings" },
+      { text: "Payment Settings", icon: <FaCog />, link: "payment-settings" },
+      { text: "Email Settings", icon: <FaCog />, link: "email-settings" },
+      { text: "HomePage Settings", icon: <FaCog />, link: "home-page-settings" },
+      { text: "Social Settings", icon: <FaCog />, link: "social-settings" },
+    ]
+  },
+  { 
+    text: "Users", 
+    icon: <FaUsers />, 
+    link: "roles",
+    subItems: [
+      { text: "Staff", icon: <FaUsers />, link: "staff" },
+      { text: "Manage Roles", icon: <FaUsers />, link: "roles" },
+    ]
+  },
+];
 
 interface SidebarProps {
   onSelect: (link: SidebarType) => void;
@@ -37,157 +117,6 @@ interface SidebarProps {
   activeSection?: SidebarType;
 }
 
-const navItems: NavItem[] = [
-  // Dashboard
-  { text: "Dashboard", icon: FaHome, link: "dashboard" },
-
-  // Orders
-  { 
-    text: "Orders", 
-    icon: FaShoppingBasket, 
-    link: "orders",
-    subItems: [
-       { text: "Order Details", icon: FaListAlt, link: "order-details" },
-      { text: "All Orders", icon: FaListAlt, link: "all-orders" },
-      { text: "Order Verification", icon: FaListAlt, link: "order-verification" },
-      { text: "Order Dispute", icon: FaListAlt, link: "order-dispute" },
-      { text: "Order Proof", icon: FaListAlt, link: "order-proof" },
-    ]
-  },
-
-  // Quotation
-  { text: "Quotation", icon: FaHome, link: "quotation" },
-
-  // Customers
-  { 
-    text: "Customers", 
-    icon: FaUsers, 
-    link: "customers",
-  },
-
-  // Financing
-  { 
-    text: "Financing", 
-    icon: FaChartBar, 
-    link: "finance",
-  },
-
-  // Products
-  { 
-    text: "Products", 
-    icon: FaBoxes, 
-    link: "products",
-    subItems: [
-      { text: "Product Management", icon: FaBoxes, link: "product-management" },
-       { text: "Product Category", icon: FaBoxes, link: "product-category" },
-    ]
-  },
-
-  // Loyalty
-  { 
-    text: "Loyalty", 
-    icon: FaStar, 
-    link: "loyality",
-  },
-
-  // Gift Cards
-  { 
-    text: "Gift Cards", 
-    icon: FaGift, 
-    link: "gift-card-transactions",
-    subItems: [
-      { text: "Gift Cards", icon: FaGift, link: "gift-cards" },
-      { text: "Gift Cards Transactions", icon: FaGift, link: "gift-card-transactions" },
-    ]
-  },
-
-  // Support
-  { 
-    text: "Support", 
-    icon: FaHandHoldingHeart, 
-    link: "support",
-    subItems: [
-      { text: "Message", icon: FaMessage, link: "message" },
-      { text: "Ticket", icon: FaTicket, link: "ticket" },
-    ]
-  },
-
-  // Marketing
-  { 
-    text: "Marketing", 
-    icon: FaChartBar, 
-    link: "marketing",
-  },
-
-  // Donations
-  { 
-    text: "Donations", 
-    icon: FaHandHoldingHeart, 
-    link: "charity",
-    subItems: [
-      { text: "Charity", icon: FaHandHoldingHeart, link: "charity" },
-      { text: "Donation", icon: FaHandHoldingHeart, link: "donations" },
-    ]
-  },
-  { 
-    text: "Blog", 
-    icon: FaBook, 
-    link: "blog",
-  },
-  { 
-    text: "Reports", 
-    icon: FaChartBar, 
-    link: "reports",
-  },
-  { 
-    text: "Settings", 
-    icon: FaCog, 
-    link: "settings",
-    subItems: [
-      { 
-        text: "General Settings", 
-        icon: FaCog, 
-        link: "general-settings",
-      },
-      { 
-        text: "Menu Settings", 
-        icon: FaCog, 
-        link: "menu-settings",
-      },
-      { 
-        text: "Payment Settings", 
-        icon: FaCog, 
-        link: "payment-settings",
-      },
-      { 
-        text: "Email Settings", 
-        icon: FaCog, 
-        link: "email-settings",
-      },
-     { 
-        text: "HomePage Settings", 
-        icon: FaCog, 
-        link: "home-page-settings",
-      },
-      { 
-        text: "Social Settings", 
-        icon: FaCog, 
-        link: "social-settings",
-      },
-    ]
-  },
-  
-  { 
-    text: "Users", 
-    icon: FaUsers, 
-    link: "roles",
-    subItems: [
-      { text: "Staff", icon: FaUsers, link: "staff" },
-      { text: "Manage Roles", icon: FaUsers, link: "roles" },
-    ]
-  },
-];
-
 const Sidebar: React.FC<SidebarProps> = ({ 
   onSelect, 
   isOpen, 
@@ -195,10 +124,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   activeSection = "dashboard" 
 }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
-
-  const handleClick = (link: SidebarType) => {
-    onSelect(link);
-  };
+  const router = useRouter();
+  const pathname = usePathname() || '';
 
   const toggleExpand = (text: string) => {
     setExpandedItems(prev => ({
@@ -208,82 +135,99 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const renderNavItems = (items: NavItem[], level = 0) => {
-    return items.map((item) => (
-      <li key={`${item.text}-${level}`}>
-        <div className="flex flex-col">
-          <button
-            onClick={() => item.subItems ? toggleExpand(item.text) : handleClick(item.link)}
-            className={`flex cursor-pointer w-full items-center gap-3 rounded-lg p-2 transition-all duration-200 ${
-              activeSection === item.link
-                ? "bg-blue-600 text-white shadow-md"
-                : "text-gray-200 hover:bg-gray-700"
-            }`}
-            style={{ paddingLeft: `${level * 12 + 8}px` }}
-          >
-            <item.icon className={`h-5 w-5 flex-shrink-0 ${activeSection === item.link ? 'text-white' : 'text-blue-300'}`} />
-            {isOpen && (
-              <div className="flex flex-1 items-center justify-between overflow-hidden">
-                <span className="text-sm font-medium truncate">{item.text}</span>
-                {item.subItems && isOpen && (
-                  expandedItems[item.text.toLowerCase()] ? 
-                    <FaChevronDown size={12} className="ml-2" /> : 
-                    <FaChevronRight size={12} className="ml-2" />
-                )}
-              </div>
+    return items.map((item) => {
+      const isActive = activeSection === item.link || pathname.includes(item.link);
+      
+      return (
+        <div key={`${item.text}-${level}`} className="flex flex-col">
+          <div
+            onClick={() => item.subItems ? toggleExpand(item.text) : onSelect(item.link)}
+            className={clsx(
+              "relative rounded-tl-full rounded-bl-full flex items-center justify-start px-2 py-3 cursor-pointer hover:bg-[#e1e4e8d4] transition-transform gap-2",
+              isActive ? "bg-[#e1e4e8d4] text-pink-500" : "text-gray-700",
+              !isOpen && "justify-center"
             )}
-          </button>
+            style={{ paddingLeft: isOpen ? `${level * 12 + 8}px` : '0' }}
+          >
+            <span className={clsx(
+              "p-1.5 text-xl rounded-full",
+              isActive ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white",
+              !isOpen && "mx-1"
+            )}>
+              {item.icon}
+            </span>
+            
+            {isOpen && (
+              <>
+                <span className="text-sm truncate transition-all duration-300">
+                  {item.text}
+                </span>
+                {item.subItems && (
+                  <span className="ml-auto text-xs">
+                    {expandedItems[item.text.toLowerCase()] ? '▼' : '▶'}
+                  </span>
+                )}
+              </>
+            )}
+          </div>
 
-          {item.subItems && isOpen && expandedItems[item.text.toLowerCase()] && (
-            <ul className="space-y-1">
+          {item.subItems && expandedItems[item.text.toLowerCase()] && isOpen && (
+            <div className="ml-4">
               {renderNavItems(item.subItems, level + 1)}
-            </ul>
+            </div>
           )}
         </div>
-      </li>
-    ));
+      );
+    });
   };
 
   return (
-    <div
-      className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-[#1e293b] text-white transition-all duration-300 ease-in-out ${
-        isOpen ? "w-64" : "w-20"
-      }`}
-    >
-      {/* Toggle Button */}
-      <div className="flex justify-end p-4">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-white hover:text-blue-300 focus:outline-none transition-transform hover:scale-110 cursor-pointer"
-        >
-          {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-        </button>
-      </div>
-
-      {/* Sidebar Title */}
-      {isOpen && (
-        <div className="flex items-center justify-center p-4 mb-2">
-          <h1 className="text-xl font-bold text-white tracking-tight cursor-default">
-            Mecarvi Prints
-          </h1>
+    <div className="flex flex-col h-screen">
+      <header className="h-16 bg-white shadow-md flex items-center px-4 justify-between border-b-[1px] border-gray-300">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-xl cursor-pointer text-gray-700 hover:text-pink-500"
+          >
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </button>
+          {isOpen && (
+            <h1 className="text-lg font-semibold text-pink-500">
+              Mecarvi Prints
+            </h1>
+          )}
         </div>
-      )}
+      </header>
 
-      {/* Sidebar Menu */}
-      <nav className="flex-1 overflow-y-auto">
-        <ul className="space-y-1 px-2">
-          {renderNavItems(navItems)}
-        </ul>
-      </nav>
-
-      {/* Logout Button */}
-      <div className="p-3 mt-auto">
-        <button
-          onClick={() => console.log("Logout clicked")}
-          className="flex w-full items-center gap-3 rounded-lg bg-gray-700 p-2 text-white transition-all duration-200 hover:bg-gray-600 cursor-pointer"
+      <div className="flex flex-1 overflow-hidden ">
+        <aside
+          className={clsx(
+            "bg-white shadow-md h-full transition-all duration-500 border-r-[1px] border-gray-300 flex flex-col ",
+            isOpen ? "w-64" : "w-16"
+          )}
         >
-          <FaSignOutAlt className="h-5 w-5 flex-shrink-0" />
-          {isOpen && <span className="text-sm font-medium">Logout</span>}
-        </button>
+          <nav className="py-4 flex flex-col gap-1 overflow-y-auto flex-1 scrollbar-hide">
+            {renderNavItems(navItems)}
+          </nav>
+
+          {/* Logout Button at bottom */}
+          <div
+            onClick={() => console.log("Logout clicked")}
+            className={clsx(
+              "relative rounded-tl-full rounded-bl-full flex items-center justify-start px-2 py-3 cursor-pointer hover:bg-[#e1e4e8d4] transition-transform gap-2 mb-4",
+              !isOpen && "justify-center"
+            )}
+          >
+            <span className="p-1.5 text-xl rounded-full hover:bg-pink-500 hover:text-white">
+              <FaSignOutAlt />
+            </span>
+            {isOpen && (
+              <span className="text-sm truncate transition-all duration-300">
+                Logout
+              </span>
+            )}
+          </div>
+        </aside>
       </div>
     </div>
   );

@@ -105,9 +105,9 @@ const LeftSideTabs: React.FC<LeftSideTabsProps> = ({
   };
 
   return (
-    <div className={`flex flex-col md:flex-row h-full w-full bg-white ${containerClassName}`}>
+    <div className={`flex flex-col md:flex-row h-full w-full bg-white scrollbar-hide ${containerClassName}`}>
       {/* Tab Bar - Scrollable if many tabs */}
-      <div style={tabBarContainerStyle} className="custom-scrollbar">
+      <div style={tabBarContainerStyle} className="custom-scrollbar scrollbar-hide">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -135,9 +135,10 @@ const LeftSideTabs: React.FC<LeftSideTabsProps> = ({
           flex: 1,
           overflow: 'auto',
           backgroundColor: '#f9fafb',
+          
           ...contentStyle
         }}
-        className="p-4 md:p-6 lg:p-8"
+        className="p-4 md:p-6 lg:p-8 scrollbar-hide"
       >
         {tabs.find(tab => tab.id === activeTab)?.content || (
           <div className="text-gray-500">No content available</div>

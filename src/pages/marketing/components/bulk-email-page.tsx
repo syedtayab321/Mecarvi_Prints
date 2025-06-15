@@ -26,7 +26,7 @@ const BulkEmailForm = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-2rem)] max-h-[900px] min-h-[600px] mx-auto p-4 w-full max-w-4xl">
+    <div className="flex flex-col h-[calc(100vh-2rem)] max-h-[900px] min-h-[600px] mx-auto p-4 w-full max-w-4xl scrollbar-hide">
       {/* Header */}
       <div className="text-center mb-6">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-full mb-4">
@@ -39,10 +39,10 @@ const BulkEmailForm = () => {
       </div>
 
       {/* Form Container */}
-      <div className="flex-1 flex flex-col bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+      <div className="flex-1 flex flex-col bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 scrollbar-hide">
         {/* Form Content */}
-        <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-hidden ">
+          <div className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide">
             {/* User Type */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
