@@ -6,14 +6,6 @@ import { useTableData } from "@/components/common/useTableData";
 import AddNewBlogCategoryModal from "../models/AddBlogCategoryModal";
 import { useForm } from "react-hook-form";
 
-interface BlogCategory {
-  id: number;
-  name: string;
-  slug: string;
-  postCount: number;
-  status: "Active" | "Draft" | "Archived";
-}
-
 const mockData: BlogCategory[] = [
   {
     id: 1,

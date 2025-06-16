@@ -4,19 +4,7 @@
 import React from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-interface GiftCard {
-  id: number;
-  customer: {
-    name: string;
-    avatar: string;
-    email: string;
-  };
-  receiverName: string;
-  orderDate: string;
-  orderTotal: string;
-  status: "Pending" | "Processed" | "Shipped" | "Delivered" | "Cancelled";
-}
+import { GiftCard } from "@/types/giftCardsTypes";
 
 const GiftCardsPage = () => {
   const mockData: GiftCard[] = [

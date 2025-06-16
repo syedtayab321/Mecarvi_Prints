@@ -3,13 +3,7 @@
 import React from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-interface Subscriber {
-  id: number;
-  name: string;
-  email: string;
-  birthday: string;
-}
+import { Subscriber } from '@/types/emailSettingTypes';
 
 const mockData: Subscriber[] = [
   {

@@ -4,18 +4,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CustomInput } from "@/components/common/customInputField";
 
-interface EmailConfigFormData {
-  mailEngine: string;
-  mailHost: string;
-  mailPort: number;
-  mailEncryption: string;
-  mailUsername: string;
-  mailPassword: string;
-  fromMail: string;
-  fromName: string;
-  useSmtp: boolean;
-}
-
 const EmailConfigurationPage = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm<EmailConfigFormData>({
     defaultValues: {

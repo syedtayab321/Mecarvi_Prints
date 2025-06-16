@@ -4,20 +4,7 @@
 import React from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-interface RefundOrder {
-  id: number;
-  customer: string;
-  orderNumber: string;
-  orderDate: string;
-  orderTotal: string;
-  seller: string;
-  refundReason: string;
-  refundTotal: string;
-  refundMethod: string;
-  approvedBy: string;
-  status: "Pending" | "Approved" | "Rejected" | "Processed";
-}
+import { RefundOrder } from "@/types/orderType";
 
 const mockData: RefundOrder[] = [
   {

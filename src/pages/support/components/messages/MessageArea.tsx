@@ -1,4 +1,4 @@
-import { Message } from './../../types/messageType';
+import { Message } from '../../../../types/messageType';
 import MessageBubble from './MessageBubble';
 import { useState } from 'react';
 import MessageInput from './MessageInput';

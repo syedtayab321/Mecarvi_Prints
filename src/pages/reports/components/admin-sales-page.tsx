@@ -4,16 +4,7 @@ import React from "react";
 import Image from "next/image";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-interface SalesReport {
-  id: number;
-  productName: string;
-  productImage: string;
-  totalEarning: number;
-  refunds: number;
-  createDate: string;
-  status: "Completed" | "Pending" | "Refunded";
-}
+import { SalesReport } from "@/types/reportTypes";
 
 const mockData: SalesReport[] = [
   {

@@ -2,7 +2,7 @@
 "use client";
 
 import CustomTabs from "@/components/common/customtabbar";
-import { FiCreditCard, FiDollarSign, FiUsers, FiPrinter } from "react-icons/fi";
+import { FiDollarSign, FiUsers } from "react-icons/fi";
 import AdminSalesReportTable from "../components/admin-sales-page";
 import ReferralPage from "../components/referral-report-page";
 

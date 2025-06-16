@@ -1,5 +1,5 @@
 import { useState, useRef, ChangeEvent, DragEvent } from 'react';
-import { CharityFormProps, Charity } from './../types/charityTypes';
+import { CharityFormProps, Charity } from '@/types/charityTypes';
 
 export default function CharityForm({
   onSubmit,

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import CharityForm from './../components/charityForm';
 import CharityTable from '../components/charityTable';
-import { Charity } from './../types/charityTypes';
+import { Charity } from '@/types/charityTypes';
 
 export default function CharitiesPage() {
   const [charities, setCharities] = useState<Charity[]>([]);

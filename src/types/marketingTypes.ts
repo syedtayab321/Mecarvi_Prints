@@ -7,3 +7,10 @@ export interface Coupon {
   used: string;
   status: "Active" | "Inactive" | "Expired";
 }
+
+export type FormData = {
+  userType: 'number' | 'customer';
+  subject: string;
+  phoneNumber: string;
+  message: string;
+};

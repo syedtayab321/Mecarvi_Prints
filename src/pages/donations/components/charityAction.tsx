@@ -1,10 +1,4 @@
-import { Charity } from './../types/charityTypes';
-
-interface CharityActionsProps {
-  charity: Charity;
-  onEdit: (charity: Charity) => void;
-  onDelete: (id: string) => void;
-}
+import { CharityActionsProps } from "@/types/charityTypes";
 
 export default function CharityActions({ charity, onEdit, onDelete }: CharityActionsProps) {
   return (

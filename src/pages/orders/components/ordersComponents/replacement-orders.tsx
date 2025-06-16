@@ -3,23 +3,7 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-type ReplacementOrder = {
-  id: number;
-  customer: {
-    name: string;
-    avatar: string;
-  };
-  orderNumber: string;
-  orderDate: string;
-  orderTotal: string;
-  seller: string;
-  refundReason: string;
-  refundTotal: string;
-  refundMethod: string;
-  approvedBy: string;
-  status: "Pending" | "Approved" | "Rejected" | "Completed";
-};
+import { ReplacementOrder } from "@/types/orderType";
 
 const mockData: ReplacementOrder[] = [
   {

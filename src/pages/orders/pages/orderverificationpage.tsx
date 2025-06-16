@@ -4,19 +4,7 @@
 import React from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-interface OrderVerification {
-  id: number;
-  customer: {
-    name: string;
-    avatar: string;
-  };
-  orderNumber: string;
-  email: string;
-  orderDate: string;
-  description: string;
-  status: "Pending" | "Verified" | "Rejected" | "Completed";
-}
+import { OrderVerification } from "@/types/orderType";
 
 const mockData: OrderVerification[] = [
   {

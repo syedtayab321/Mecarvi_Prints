@@ -78,7 +78,7 @@ export const OrdersMainPage = () => {
       <LeftSideTabs 
         tabs={tabs}
         defaultActiveTab="all"
-        tabWidth="200px"
+        tabWidth="280px"
         tabStyle={{
           fontSize: '14px',
           padding: '12px 20px',

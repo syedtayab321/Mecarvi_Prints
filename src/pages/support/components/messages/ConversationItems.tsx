@@ -1,4 +1,4 @@
-import { Conversation } from './../../types/messageType';
+import { Conversation } from '../../../../types/messageType';
 import { formatRelative } from 'date-fns';
 
 type ConversationItemProps = {

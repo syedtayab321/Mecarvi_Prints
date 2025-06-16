@@ -4,15 +4,7 @@ import React, { useCallback, useState } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
 import StaffModal, { StaffFormData } from "@/pages/users/models/AddStaffModal";
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  role: "Admin" | "Manager" | "Editor" | "Viewer";
-  avatar: string;
-}
+import { User } from "@/types/userTypes";
 
 const StaffTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

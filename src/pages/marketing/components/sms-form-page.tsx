@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-
-type FormData = {
-  userType: 'number' | 'customer';
-  subject: string;
-  phoneNumber: string;
-  message: string;
-};
+import { FormData } from '@/types/marketingTypes';
 
 export default function SmsForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);

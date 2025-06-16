@@ -4,22 +4,10 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
+import { AllOrder } from "@/types/orderType";
 
-type Order = {
-  id: number;
-  customer: {
-    name: string;
-    avatar: string;
-  };
-  orderNumber: string;
-  orderDate: string;
-  orderTotal: string;
-  paymentMethod: string;
-  paymentStatus: "Paid" | "Pending" | "Failed" | "Refunded";
-  orderStatus: "Processing" | "Shipped" | "Delivered" | "Cancelled";
-};
 
-const mockData: Order[] = [
+const mockData: AllOrder[] = [
   {
     id: 1,
     customer: {
@@ -78,14 +66,14 @@ const AllOrdersTable = () => {
   const fetchData = React.useCallback(() => mockData, []);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<AllOrder | null>(null);
 
-  const handleViewDetails = (order: Order) => {
+  const handleViewDetails = (order: AllOrder) => {
     setSelectedOrder(order);
     setIsDetailsModalOpen(true);
   };
 
-  const handleTrackOrder = (order: Order) => {
+  const handleTrackOrder = (order: AllOrder) => {
     setSelectedOrder(order);
     setIsTrackModalOpen(true);
   };
@@ -110,7 +98,7 @@ const AllOrdersTable = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<Order>(
+  } = useTableData<AllOrder>(
     fetchData,
     ["customer.name", "orderNumber", "orderDate", "orderTotal"],
     "orderStatus"
@@ -126,7 +114,7 @@ const AllOrdersTable = () => {
       key: "customer",
       header: "Customer",
       width: "200px",
-      render: (item: Order) => (
+      render: (item: AllOrder) => (
         <div className="flex items-center gap-3">
           <img
             src={item.customer.avatar}
@@ -142,19 +130,19 @@ const AllOrdersTable = () => {
     },
     {
       key: "orderNumber",
-      header: "Order Number",
+      header: "AllOrder Number",
       width: "150px",
     },
     {
       key: "orderDate",
-      header: "Order Date",
+      header: "AllOrder Date",
       width: "150px",
     },
     {
       key: "orderTotal",
-      header: "Order Total",
+      header: "AllOrder Total",
       width: "150px",
-      render: (item: Order) => (
+      render: (item: AllOrder) => (
         <span className="font-semibold">{item.orderTotal}</span>
       ),
     },
@@ -167,7 +155,7 @@ const AllOrdersTable = () => {
       key: "paymentStatus",
       header: "Payment Status",
       width: "150px",
-      render: (item: Order) => (
+      render: (item: AllOrder) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
             item.paymentStatus === "Paid"
@@ -185,9 +173,9 @@ const AllOrdersTable = () => {
     },
     {
       key: "orderStatus",
-      header: "Order Status",
+      header: "AllOrder Status",
       width: "150px",
-      render: (item: Order) => (
+      render: (item: AllOrder) => (
         <span
           className={`px-2 py-1 rounded-full text-xs font-semibold ${
             item.orderStatus === "Processing"
@@ -207,7 +195,7 @@ const AllOrdersTable = () => {
       key: "actions",
       header: "Actions",
       width: "200px",
-      render: (item: Order) => (
+      render: (item: AllOrder) => (
         <div className="flex gap-2">
           {/* View Details Button */}
           <button
@@ -246,11 +234,11 @@ const AllOrdersTable = () => {
             </svg>
           </button>
 
-          {/* Track Order Button - only for shipped orders */}
+          {/* Track AllOrder Button - only for shipped orders */}
           {item.orderStatus === "Shipped" && (
             <button
               className="text-purple-600 hover:text-purple-800 p-1 rounded-full hover:bg-purple-50"
-              title="Track Order"
+              title="Track AllOrder"
               onClick={() => handleTrackOrder(item)}
             >
               <svg
@@ -311,7 +299,7 @@ const AllOrdersTable = () => {
                   onClick={() => handleUpdateStatus(item.id, "Cancelled")}
                   className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
-                  Cancel Order
+                  Cancel AllOrder
                 </button>
               </div>
             </div>
@@ -354,7 +342,7 @@ const AllOrdersTable = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Order Management</h1>
+        <h1 className="text-2xl font-bold text-gray-800">AllOrder Management</h1>
         <div className="flex gap-4">
           <button
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -395,7 +383,7 @@ const AllOrdersTable = () => {
           </button>
         </div>
       </div>
-      <CommonCustomTable<Order>
+      <CommonCustomTable<AllOrder>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}

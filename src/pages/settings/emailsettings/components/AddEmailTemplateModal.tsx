@@ -2,12 +2,8 @@
 
 import React, { useState } from "react";
 import { CustomInput } from "@/components/common/customInputField";
+import { EmailTemplateModalProps } from "@/types/emailSettingTypes";
 
-interface EmailTemplateModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSuccess: () => void;
-}
 
 const EmailTemplateModal: React.FC<EmailTemplateModalProps> = ({
   isOpen,

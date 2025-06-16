@@ -3,70 +3,62 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-type ProcessingOrder = {
-  id: number;
-  customer: {
-    name: string;
-    avatar: string;
-  };
-  orderNumber: string;
-  orderDate: string;
-  orderType: string;
-  orderTotal: string;
-  paymentMethod: string;
-  trackingNumber?: string;
-};
+import { CompletedOrder } from "@/types/orderType";
 
-const mockData: ProcessingOrder[] = [
+const mockData: CompletedOrder[] = [
   {
     id: 1,
     customer: {
-      name: "Michael Brown",
-      avatar: "/images/avatar4.jpg"
+      name: "Emily Davis",
+      avatar: "/images/avatar7.jpg"
     },
-    orderNumber: "ORD-2001",
-    orderDate: "May 18, 2023",
-    orderType: "Express",
-    orderTotal: "$175.25",
+    orderNumber: "ORD-3001",
+    orderDate: "May 10, 2023",
+    orderType: "Standard",
+    orderTotal: "$145.99",
     paymentMethod: "Credit Card",
-    trackingNumber: "TRK-123456"
+    seller: "ABC Store",
+    trackingNumber: "TRK-901234"
   },
   {
     id: 2,
     customer: {
-      name: "Sarah Johnson",
-      avatar: "/images/avatar5.jpg"
+      name: "James Miller",
+      avatar: "/images/avatar8.jpg"
     },
-    orderNumber: "ORD-2002",
-    orderDate: "May 19, 2023",
-    orderType: "Standard",
-    orderTotal: "$89.99",
+    orderNumber: "ORD-3002",
+    orderDate: "May 12, 2023",
+    orderType: "Express",
+    orderTotal: "$210.50",
     paymentMethod: "PayPal",
-    trackingNumber: "TRK-789012"
+    seller: "XYZ Shop",
+    trackingNumber: "TRK-567890"
   },
   {
     id: 3,
     customer: {
-      name: "David Wilson",
-      avatar: "/images/avatar6.jpg"
+      name: "Olivia Wilson",
+      avatar: "/images/avatar9.jpg"
     },
-    orderNumber: "ORD-2003",
-    orderDate: "May 20, 2023",
-    orderType: "Express",
-    orderTotal: "$225.50",
+    orderNumber: "ORD-3003",
+    orderDate: "May 14, 2023",
+    orderType: "Standard",
+    orderTotal: "$89.75",
     paymentMethod: "Bank Transfer",
-    trackingNumber: "TRK-345678"
+    seller: "Best Deals",
+    trackingNumber: "TRK-123890"
   }
 ];
 
-const ProcessingOrdersTable = () => {
+const CompletedOrdersTable = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<ProcessingOrder | null>(null);
+  const [isProofModalOpen, setIsProofModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<CompletedOrder | null>(null);
 
   const fetchData = React.useCallback(() => mockData, []);
   
-  const handleViewDetails = (order: ProcessingOrder) => {
+  const handleViewDetails = (order: CompletedOrder) => {
     setSelectedOrder(order);
     setIsDetailsModalOpen(true);
   };
@@ -76,15 +68,38 @@ const ProcessingOrdersTable = () => {
     alert(`Notification sent for order #${orderId}`);
   };
 
-  const handleTrackOrder = (order: ProcessingOrder) => {
+  const handleTrackOrder = (order: CompletedOrder) => {
     setSelectedOrder(order);
     setIsTrackModalOpen(true);
   };
 
-  const handleStatusChange = (orderId: number, newStatus: string) => {
-    if (!newStatus) return;
-    console.log("Change status for order", orderId, "to", newStatus);
-    alert(`Order #${orderId} status changed to ${newStatus}`);
+  const handleViewProof = (orderId: number) => {
+    const order = mockData.find(o => o.id === orderId);
+    if (order) {
+      setSelectedOrder(order);
+      setIsProofModalOpen(true);
+    }
+  };
+
+  const handleVerifyOrder = (orderId: number) => {
+    console.log("Verify order", orderId);
+    alert(`Order #${orderId} verification requested`);
+  };
+
+  const handleCancelOrder = (orderId: number) => {
+    console.log("Cancel order", orderId);
+    alert(`Order #${orderId} cancellation requested`);
+  };
+
+  const handleRefund = (orderId: number) => {
+    console.log("Process refund for order", orderId);
+    alert(`Refund processed for order #${orderId}`);
+  };
+
+  const handleDeliveryStatus = (orderId: number, status: string) => {
+    if (!status) return;
+    console.log("Delivery status for order", orderId, "changed to", status);
+    alert(`Order #${orderId} delivery status changed to ${status}`);
   };
 
   const {
@@ -96,7 +111,7 @@ const ProcessingOrdersTable = () => {
     isLoading,
     error,
     reload,
-  } = useTableData<ProcessingOrder>(fetchData, ["customer.name", "orderNumber", "orderDate", "orderTotal"]);
+  } = useTableData<CompletedOrder>(fetchData, ["customer.name", "orderNumber", "orderDate", "orderTotal"]);
 
   const columns = [
     {
@@ -108,7 +123,7 @@ const ProcessingOrdersTable = () => {
       key: "customer",
       header: "Customer",
       width: "200px",
-      render: (item: ProcessingOrder) => (
+      render: (item: CompletedOrder) => (
         <div className="flex items-center gap-3">
           <img
             src={item.customer.avatar}
@@ -141,7 +156,7 @@ const ProcessingOrdersTable = () => {
       key: "orderTotal",
       header: "Order Total",
       width: "150px",
-      render: (item: ProcessingOrder) => (
+      render: (item: CompletedOrder) => (
         <span className="font-semibold">{item.orderTotal}</span>
       ),
     },
@@ -151,51 +166,80 @@ const ProcessingOrdersTable = () => {
       width: "150px",
     },
     {
+      key: "seller",
+      header: "Seller",
+      width: "150px",
+    },
+    {
       key: "actions",
       header: "Actions",
-      width: "250px",
-      render: (item: ProcessingOrder) => (
-        <div className="flex gap-2 items-center">
+      width: "350px",
+      render: (item: CompletedOrder) => (
+        <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => handleViewDetails(item)}
-            className="text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-50"
+            className="text-blue-600 hover:text-blue-800 p-1 rounded hover:bg-blue-50 text-sm"
             title="View Details"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-            </svg>
+            Details
           </button>
           
           <button
             onClick={() => handleSendNotification(item.id)}
-            className="text-green-600 hover:text-green-800 p-1 rounded-full hover:bg-green-50"
+            className="text-green-600 hover:text-green-800 p-1 rounded hover:bg-green-50 text-sm"
             title="Send Notification"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-            </svg>
+            Send
+          </button>
+          
+          <button
+            onClick={() => handleVerifyOrder(item.id)}
+            className="text-yellow-600 hover:text-yellow-800 p-1 rounded hover:bg-yellow-50 text-sm"
+            title="Verify Order"
+          >
+            Verify
+          </button>
+          
+          <button
+            onClick={() => handleViewProof(item.id)}
+            className="text-indigo-600 hover:text-indigo-800 p-1 rounded hover:bg-indigo-50 text-sm"
+            title="View Proof"
+          >
+            Proof
           </button>
           
           <button
             onClick={() => handleTrackOrder(item)}
-            className="text-purple-600 hover:text-purple-800 p-1 rounded-full hover:bg-purple-50"
+            className="text-purple-600 hover:text-purple-800 p-1 rounded hover:bg-purple-50 text-sm"
             title="Track Order"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z" clipRule="evenodd" />
-            </svg>
+            Track
+          </button>
+          
+          <button
+            onClick={() => handleCancelOrder(item.id)}
+            className="text-red-600 hover:text-red-800 p-1 rounded hover:bg-red-50 text-sm"
+            title="Cancel Order"
+          >
+            Cancel
+          </button>
+          
+          <button
+            onClick={() => handleRefund(item.id)}
+            className="text-pink-600 hover:text-pink-800 p-1 rounded hover:bg-pink-50 text-sm"
+            title="Process Refund"
+          >
+            Refund
           </button>
           
           <select
-            onChange={(e) => handleStatusChange(item.id, e.target.value)}
+            onChange={(e) => handleDeliveryStatus(item.id, e.target.value)}
             className="text-sm border rounded p-1 bg-white"
             defaultValue=""
           >
-            <option value="" disabled>Status</option>
-            <option value="Shipped">Mark as Shipped</option>
-            <option value="Completed">Complete Order</option>
-            <option value="Cancelled">Cancel Order</option>
+            <option value="" disabled>Delivery</option>
+            <option value="Delivered">Confirmed</option>
+            <option value="Returned">Return</option>
           </select>
         </div>
       ),
@@ -218,7 +262,7 @@ const ProcessingOrdersTable = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Processing Orders</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Completed Orders</h1>
         <div className="flex gap-4">
           <button
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center"
@@ -242,14 +286,14 @@ const ProcessingOrdersTable = () => {
         </div>
       </div>
 
-      <CommonCustomTable<ProcessingOrder>
+      <CommonCustomTable<CompletedOrder>
         data={paginatedData}
         columns={columns}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
         onSearch={setSearchQuery}
-        title="Processing Orders"
+        title="Completed Orders"
         // isLoading={isLoading}
       />
 
@@ -263,9 +307,15 @@ const ProcessingOrdersTable = () => {
         isOpen={isTrackModalOpen}
         onClose={() => setIsTrackModalOpen(false)}
         order={selectedOrder}
+      />
+
+      <OrderProofModal
+        isOpen={isProofModalOpen}
+        onClose={() => setIsProofModalOpen(false)}
+        order={selectedOrder}
       /> */}
     </div>
   );
 };
 
-export default ProcessingOrdersTable;
+export default CompletedOrdersTable;

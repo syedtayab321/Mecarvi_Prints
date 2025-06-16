@@ -4,7 +4,7 @@
 import React from "react";
 import GenericTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-import { BusinessPreferredVerification } from "../types/businessType";
+import { BusinessPreferredVerification } from "@/types/financingType";
 
 const mockData: BusinessPreferredVerification[] = [
   {

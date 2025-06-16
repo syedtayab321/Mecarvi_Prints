@@ -4,16 +4,7 @@ import React from "react";
 import Image from "next/image";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-interface Referral {
-  id: number;
-  username: string;
-  avatar: string;
-  referralCount: number;
-  earned: number;
-  joinDate: string;
-  status: "Active" | "Inactive" | "Suspended";
-}
+import { Referral } from "@/types/reportTypes";
 
 const mockData: Referral[] = [
   {

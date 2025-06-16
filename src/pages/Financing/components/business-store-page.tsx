@@ -4,7 +4,7 @@
 import React from "react";
 import GenericTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-import { Business } from '../types/businessType';
+import { Business } from "@/types/financingType";
 
 const mockData: Business[] = [
   {

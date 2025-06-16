@@ -3,20 +3,7 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-type ReturnOrder = {
-  id: number;
-  customer: {
-    name: string;
-    avatar: string;
-  };
-  orderNumber: string;
-  orderDate: string;
-  orderTotal: string;
-  seller: string;
-  returnReason: string;
-  returnTotal: string;
-  returnTrack: string;
-};
+import { ReturnOrder } from "@/types/orderType";
 
 const mockData: ReturnOrder[] = [
   {

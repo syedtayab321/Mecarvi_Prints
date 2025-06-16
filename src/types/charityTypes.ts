@@ -17,3 +17,9 @@ export interface CharityTableProps {
   onEdit: (charity: Charity) => void;
   onDelete: (id: string) => void;
 }
+
+export interface CharityActionsProps {
+  charity: Charity;
+  onEdit: (charity: Charity) => void;
+  onDelete: (id: string) => void;
+}

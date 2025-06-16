@@ -2,7 +2,7 @@
 "use client";
 
 import LeftSideTabs from "@/components/common/customlefttabbar";
-import { FiMail, FiMessageSquare, FiTag, FiSettings } from "react-icons/fi";
+import { FiMail, FiMessageSquare, FiTag} from "react-icons/fi";
 import BulkEmailForm from "../components/bulk-email-page";
 import SmsForm from "../components/sms-form-page";
 import CouponsPage from "../components/coupons-page";

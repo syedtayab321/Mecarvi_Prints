@@ -4,16 +4,7 @@ import React,{useState} from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
 import EmailTemplateModal from "./AddEmailTemplateModal";
-
-type EmailTemplate = {
-  id: number;
-  name: string;
-  emailType: string;
-  logo: string;
-  emailSubject: string;
-  lastUpdated: string;
-  status: "Active" | "Inactive" | "Draft";
-};
+import { EmailTemplate } from "@/types/emailSettingTypes";
 
 const mockData: EmailTemplate[] = [
   {

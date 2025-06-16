@@ -4,18 +4,7 @@
 import React from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-interface LoyalityPointsManagement {
-  id: number;
-  user: {
-    name: string;
-    avatar: string;
-    email: string;
-  };
-  totalPoints: number;
-  pointsBalance: number;
-  status: "Active" | "Inactive" | "Suspended" | "Expired";
-}
+import { LoyalityPointsManagement } from "@/types/loyalityTypes";
 
 const PointsManagementPage = () => {
   const mockData: LoyalityPointsManagement[] = [

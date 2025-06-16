@@ -1,4 +1,4 @@
-import { Message } from '@/pages/support/types/messageType';
+import { Message } from '@/types/messageType';
 import { format } from 'date-fns';
 
 type MessageBubbleProps = {

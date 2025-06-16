@@ -3,21 +3,7 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-type CompletedOrder = {
-  id: number;
-  customer: {
-    name: string;
-    avatar: string;
-  };
-  orderNumber: string;
-  orderDate: string;
-  orderType: string;
-  orderTotal: string;
-  paymentMethod: string;
-  seller: string;
-  trackingNumber?: string;
-};
+import { CompletedOrder } from "@/types/orderType";
 
 const mockData: CompletedOrder[] = [
   {

@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from "react";
-import Sidebar from '@/pages/sidebar/components/sidebar';
-import { SidebarType } from '@/pages/sidebar/types/sidebar';
+import Sidebar from '@/components/common/sidebar';
+import { SidebarType } from "@/types/sidebarType";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import clsx from "clsx";

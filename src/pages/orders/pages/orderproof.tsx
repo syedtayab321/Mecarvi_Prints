@@ -3,16 +3,7 @@
 import React from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-
-interface OrderProof {
-  id: number;
-  customer: string;
-  orderNumber: string;
-  email: string;
-  orderDate: string;
-  description: string;
-  status: "Pending" | "Approved" | "Rejected" | "Completed";
-}
+import { OrderProof } from "@/types/orderType";
 
 const mockData: OrderProof[] = [
   {

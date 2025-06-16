@@ -20,7 +20,7 @@ import {
   FaCog
 } from "react-icons/fa";
 import { FaMessage, FaTicket } from "react-icons/fa6";
-import { SidebarType } from "../types/sidebar";
+import { SidebarType } from "@/types/sidebarType";
 
 interface NavItem {
   text: string;

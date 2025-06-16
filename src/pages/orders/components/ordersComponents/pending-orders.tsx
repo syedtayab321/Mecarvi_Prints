@@ -3,19 +3,8 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
+import { PendingOrder } from "@/types/orderType";
 
-type PendingOrder = {
-  id: number;
-  customer: {
-    name: string;
-    avatar: string;
-  };
-  orderNumber: string;
-  orderDate: string;
-  orderType: string;
-  orderTotal: string;
-  paymentMethod: string;
-};
 
 const mockData: PendingOrder[] = [
   {

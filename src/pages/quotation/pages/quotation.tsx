@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
-import { Quotation } from "../types/quotationType";
+import { Quotation } from "@/types/quotation/quotationTypes";
 import RespondQuotationModal from "../models/QuotationRespondModal";
 
 const mockData: Quotation[] = [

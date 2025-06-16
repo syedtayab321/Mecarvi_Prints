@@ -1,4 +1,4 @@
-import { Conversation } from './../../types/messageType';
+import { Conversation } from '../../../../types/messageType';
 import ConversationItem from './ConversationItems';
 import { useState } from 'react';
 

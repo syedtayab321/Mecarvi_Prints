@@ -4,13 +4,6 @@ import React, { useState, useCallback } from "react";
 import Image from "next/image";
 import { CustomInput } from "@/components/common/customInputField";
 
-interface AddNewBlogCategoryModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSuccess: () => void;
-  register: any;
-  errors: any;
-}
 
 const AddNewBlogCategoryModal: React.FC<AddNewBlogCategoryModalProps> = ({
   isOpen,

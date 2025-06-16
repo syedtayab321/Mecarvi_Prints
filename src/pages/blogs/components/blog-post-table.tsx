@@ -8,16 +8,6 @@ import { useTableData } from "@/components/common/useTableData";
 import { useForm } from "react-hook-form";
 import AddBlogPostModal from "../models/AddBlogPostModal";
 
-interface BlogPost {
-  id: number;
-  featuredImage: string;
-  title: string;
-  slug: string;
-  views: number;
-  category: string;
-  status: "Published" | "Draft" | "Scheduled";
-  publishedDate: string;
-}
 
 const mockCategories = [
   { id: "1", name: "Technology" },

@@ -4,13 +4,7 @@ import React, { useState, useCallback } from "react";
 import CommonCustomTable from "@/components/common/commonCustomTable";
 import { useTableData } from "@/components/common/useTableData";
 import AddRoleModal from "../models/addRoleModal";
-
-interface Role {
-  id: number;
-  name: string;
-  permissions: string[];
-  createdAt: string;
-}
+import { Role } from "@/types/userTypes";
 
 const RolesTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
